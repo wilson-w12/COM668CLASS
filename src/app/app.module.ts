@@ -11,30 +11,34 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HeaderComponent } from '../header/header.component';
-import { LoginComponent } from '../login/login.component';
-import { FooterComponent } from '../footer/footer.component';
-import { ClassComponent } from '../class/class.component';
-import { ClassesComponent } from '../classes/classes.component';
-import { SignUpComponent } from '../sign-up/sign-up.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { FooterComponent } from './footer/footer.component';
+import { ClassComponent } from './class/class.component';
+import { ClassesComponent } from './classes/classes.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { ClassAssignmentsComponent } from '../class-assignments/class-assignments.component';
-import { ClassExamsComponent } from '../class-exams/class-exams.component';
-import { ClassAssignmentDetailsComponent } from '../class-assignment-details/class-assignment-details.component';
-import { ClassExamDetailsComponent } from '../class-exam-details/class-exam-details.component';
-import { AllStudentsComponent } from '../all-students/all-students.component';
-import { StudentComponent } from '../student/student.component';
-import { AccountComponent } from '../account/account.component';
-import { ResetPasswordComponent } from '../reset-password/reset-password.component';
-import { PopupNotificationComponent } from '../popup-notification/popup-notification.component';
+import { ClassAssignmentsComponent } from './class-assignments/class-assignments.component';
+import { ClassExamsComponent } from './class-exams/class-exams.component';
+import { ClassAssignmentDetailsComponent } from './class-assignment-details/class-assignment-details.component';
+import { ClassExamDetailsComponent } from './class-exam-details/class-exam-details.component';
+import { StudentComponent } from './student/student.component';
+import { AccountComponent } from './account/account.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PopupNotificationComponent } from './popup-notification/popup-notification.component';
 import { CommonModule } from '@angular/common';
 import Highcharts from 'highcharts';
-import { AddStudentComponent } from '../add-student/add-student.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { HomeComponent } from './home/home.component';
+import { AllStudentsComponent } from './all-students/all-students.component';
+
 
 @NgModule({
   declarations: [
+    AllStudentsComponent,
     AppComponent,
+    HomeComponent,
     AddStudentComponent,
     StudentComponent,
     HeaderComponent,
@@ -47,7 +51,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ClassExamsComponent,
     ClassAssignmentDetailsComponent,
     ClassExamDetailsComponent,
-    AllStudentsComponent,
     AccountComponent,
     ResetPasswordComponent,
     PopupNotificationComponent,
@@ -66,7 +69,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     BrowserAnimationsModule,
     HttpClientModule,
     HighchartsChartModule,
-    NgSelectModule, // Add this for ng-select
+    NgSelectModule,
   ],
   providers: [
     {
