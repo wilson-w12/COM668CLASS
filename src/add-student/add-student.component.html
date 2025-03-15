@@ -1,0 +1,38 @@
+<div class="document-details-container">
+    <div class="add-details-container">
+        <h2>Student Details</h2>
+
+        <p>First name</p>
+        <input type="text" [(ngModel)]="student.firstName" />
+
+        <p>Last name</p>
+        <input type="text" [(ngModel)]="student.lastName" />
+
+        <!-- Searchable Dropdown: Male, Female, Other -->
+        <p>Gender</p>
+        <ng-select [items]="genders" bindLabel="label" [(ngModel)]="student.gender" [searchable]="true" placeholder="Select Gender">
+        </ng-select>
+
+        <!-- Searchable Dropdown: Years 8-12 -->
+        <p>Year</p>
+        <ng-select [items]="years" bindLabel="label" [(ngModel)]="student.year" [searchable]="true" placeholder="Select Year">
+        </ng-select>
+
+        <!-- Searchable Dropdown: Sets A-J -->
+        <p>Set</p>
+        <ng-select [items]="sets" bindLabel="label" [(ngModel)]="student.set" [searchable]="true" placeholder="Select Set">
+        </ng-select>
+    </div>
+
+    <div class="subjects-container">
+        <h2>Teachers:</h2>
+
+        <!-- Searchable dropdowns for each subject, dynamically populated -->
+        <div *ngFor="let subject of subjects">
+            <p>{{ subject.name }}</p>
+            <ng-select [items]="subject.teachers" bindLabel="name" bindValue="_id" [(ngModel)]="student.teachers[subject.name]" 
+                [searchable]="true" placeholder="Select a Teacher">
+            </ng-select>
+        </div>
+    </div>
+</div>

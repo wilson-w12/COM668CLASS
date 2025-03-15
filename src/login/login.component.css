@@ -1,0 +1,88 @@
+.login-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 3.35vw;
+    margin-bottom: 0.9vw;
+}
+
+.username-container, .password-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 3vw;
+}
+
+h2{
+    color: #005477;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0.88vw;
+    border-bottom: 2px solid #005477;
+}
+
+label{
+    color: #5CB8FF;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 0.9vw;
+}
+
+input{
+    width: 16.5vw;  /* Set width to 414px */
+    height: 1vw; 
+    border-radius: 50px;  /* Apply rounded corners with 50px radius (can adjust the value) */
+    border: 1px solid #000000;  /* Optional border style */
+    padding: 10px;  /* Add padding inside the input for spacing */
+    font-size: 16px;  /* Adjust font size */
+    transition: all 0.3s ease;  /* Add transition for smooth effects on hover/focus */  
+    text-align: center;  /* Center the text horizontally */
+}
+
+.missing-error{
+    margin-top: 0.9vw;
+}
+
+/* Style for the button */
+button {
+    width: 10vw;  /* Button width */
+    font-size: 16px;  /* Font size */
+    border: none;  /* Remove border */
+    cursor: pointer;  /* Cursor on hover */
+    transition: all 0.3s ease;  /* Smooth transition */
+}
+
+/* Hover effect for the button */
+button:hover {
+    background-color: #00405d;  /* Darker shade of the original button color */
+    transform: scale(1.05);  /* Slightly enlarge the button */
+}
+
+/* Disable the button when the form is invalid */
+button:disabled {
+    background-color: #cfcfcf;  /* Disabled background color */
+    cursor: not-allowed;  /* Change cursor to indicate the button is disabled */
+}
+
+.sign-up-link{
+    font-weight: bold;
+    font-size: 16px;
+    color: #5CB8FF;
+    transition: color 0.3s ease, transform 0.3s ease;  /* Smooth transition on hover */
+  }
+  
+  .sign-up-link:hover {
+    color: #00405d;  /* Change the color on hover */
+    transform: scale(1.05);  /* Slightly enlarge the link */
+  }
+
+.error{
+    margin-bottom: 0.9vw;
+}
