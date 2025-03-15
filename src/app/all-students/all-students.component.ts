@@ -140,4 +140,8 @@ export class AllStudentsComponent implements OnInit {
   navigateToStudent(studentId: string): void {
     this.router.navigate([`/students/${studentId}`]);
   }
+
+  navigateToAddStudent(): void {
+    this.router.navigate([`/students/add-student`]);
+  }
 }
