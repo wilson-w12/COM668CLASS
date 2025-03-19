@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherService } from '../../services/teacher.service';
 import * as Highcharts from 'highcharts';
 import { PdfGenerationService } from '../../services/PdfGeneration.service';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 declare module 'jspdf' {
   interface jsPDF {
@@ -45,7 +46,9 @@ export class StudentComponent implements OnInit {
     private route: ActivatedRoute,
     private teacherService: TeacherService,
     private router: Router,
-    private pdfGenerationService: PdfGenerationService
+    private pdfGenerationService: PdfGenerationService,
+    private popupService: PopupNotificationService,
+
   ) { }
 
   studentId: string | null = null;
@@ -195,7 +198,7 @@ export class StudentComponent implements OnInit {
 
     const studentScores: ExamDataPoint[] = this.examData.student_scores.map((exam: any): ExamDataPoint => ({
       exam_id: exam.exam_id,
-      y: exam.score,
+      y: exam.score ?? 0,
       mark: exam.mark,
       grade: exam.grade,
       date: new Date(exam.due_date).toLocaleDateString(),
@@ -205,7 +208,7 @@ export class StudentComponent implements OnInit {
 
     const classAverages: ExamDataPoint[] = this.examData.class_averages.map((exam: any): ExamDataPoint => ({
       exam_id: null,
-      y: exam.class_avg,
+      y: exam.class_avg ?? 0,
       date: new Date(exam.due_date).toLocaleDateString(),
       subject: exam.subject,
       title: exam.title
@@ -213,7 +216,7 @@ export class StudentComponent implements OnInit {
 
     const yearAverages: ExamDataPoint[] = this.examData.year_averages.map((exam: any): ExamDataPoint => ({
       exam_id: null,
-      y: exam.year_avg,
+      y: exam.year_avg ?? 0,
       date: new Date(exam.due_date).toLocaleDateString(),
       subject: exam.subject,
       title: exam.title
@@ -244,7 +247,7 @@ export class StudentComponent implements OnInit {
     const studentScores: AssignmentDataPoint[] = this.assignmentData.student_scores.map((assignment: any): AssignmentDataPoint => ({
       class_id: assignment.class_id,
       assignment_id: assignment.assignment_id,
-      y: assignment.score,
+      y: assignment.score ?? 0,
       mark: assignment.mark,
       grade: assignment.grade,
       date: new Date(assignment.due_date).toLocaleDateString(),
@@ -255,7 +258,7 @@ export class StudentComponent implements OnInit {
     const classAverages: AssignmentDataPoint[] = this.assignmentData.class_averages.map((assignment: any): AssignmentDataPoint => ({
       class_id: assignment.class_id,
       assignment_id: null,
-      y: assignment.class_avg,
+      y: assignment.class_avg ?? 0,
       date: new Date(assignment.due_date).toLocaleDateString(),
       subject: assignment.subject,
       title: assignment.title
@@ -474,20 +477,61 @@ export class StudentComponent implements OnInit {
     this.isEditingStudentDetails = !this.isEditingStudentDetails;
   }
 
+  validateStudentDetails(): string | boolean {
+    // Validate basic student details
+    if (!this.student.first_name || this.student.first_name.trim() === '') {
+      return 'First name is required.';
+    }
+    if (!this.student.last_name || this.student.last_name.trim() === '') {
+      return 'Last name is required.';
+    }
+    if (!this.student.year || isNaN(this.student.year) || this.student.year < 8 || this.student.year > 12) {
+      return 'Year must be a number between 8 and 12.';
+    }
+    if (!this.student.set || this.student.set.trim() === '') {
+      return 'Set is required.';
+    }
+
+    // Validate target grades
+    for (const [subject, grade] of Object.entries(this.student.target_grades || {})) {
+      if (!grade || !this.isValidGrade(grade)) {
+        return `Grade for ${subject} is invalid.`;
+      }
+    }
+
+    return true;
+  }
+
+  isValidGrade(grade: any): boolean {
+    // Check grade is valid string grade
+    const validGrades = ['A*', 'A', 'B', 'C', 'F'];
+    return validGrades.includes(grade) || (typeof grade === 'number' && !isNaN(grade));
+  }
+
   saveEditedDetails(): void {
+    const validationResult = this.validateStudentDetails();
+    if (validationResult !== true) {
+      this.popupService.showError(validationResult as string);
+      return;
+    }
+
     if (this.studentId) {
       this.teacherService.updateStudent(this.studentId, this.student).subscribe({
         next: () => {
           console.log("Student details updated successfully");
-          this.isEditingStudentDetails = false;  // Exit editing mode
-          this.fetchStudentDetails(this.student.student_id);  // Refresh student details
+          this.isEditingStudentDetails = false;
+          this.popupService.showSuccess('Student details updated successfully!');
         },
-        error: (err) => console.error("Error updating student details:", err),
+        error: (error) => {
+          console.error('Error updating student details:', error);
+          this.popupService.showError('Error updating student details. Please try again.');
+        },
       });
     } else {
       console.error("Student ID is missing or invalid.");
     }
   }
+
 
   generatePDF(): void {
     const title = this.filters.subject

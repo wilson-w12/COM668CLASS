@@ -47,7 +47,6 @@ export class ClassExamDetailsComponent {
   ngOnInit(): void {
     // Capture the class ID from the route
     this.examId = this.route.snapshot.paramMap.get('exam_id')!;
-    this.fetchExamDetails(this.examId);
     this.loadFilters(this.examId);
     this.updateCharts();
   }
@@ -100,6 +99,7 @@ export class ClassExamDetailsComponent {
         this.uniqueSets = response.sets || [];
         this.filters.year = Number(this.route.snapshot.queryParamMap.get('year'));
         this.filters.set = this.route.snapshot.queryParamMap.get('set') || '';
+        this.fetchExamDetails(this.examId);
       },
       error: (error) => {
         console.error('Error fetching filters:', error);

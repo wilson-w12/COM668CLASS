@@ -15,3 +15,8 @@
 .document-edit-section{
     width: 30%
 }
+
+.document-field{
+    display: flex;
+    flex-direction: column;
+}

@@ -28,10 +28,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { PopupNotificationComponent } from './popup-notification/popup-notification.component';
 import { CommonModule } from '@angular/common';
 import Highcharts from 'highcharts';
-import { AddStudentComponent } from './add-student/add-student.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HomeComponent } from './home/home.component';
 import { AllStudentsComponent } from './all-students/all-students.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 
 @NgModule({

@@ -1,6 +1,6 @@
 <div class="home-container">
   <div class="my-classes-container">
-    <h2>My Classes</h2>
+    <h2 class="header">My Classes</h2>
     <div class="my-classes-content">
       <div class="class-stats-container">
         <div class="class-container">
@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <h2>Assignments Due Today</h2>
+  <h2 class="header">Assignments Due Today</h2>
   <div class="assignments-container">
     <table class="assignments-table">
       <thead>
@@ -36,19 +36,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="assignment" *ngFor="let assignment of assignmentsDueToday">
+        <tr class="assignment" *ngFor="let assignment of assignmentsDueToday" [routerLink]="['/classes', assignment.class_id, 'assignments', assignment._id]">
           <td>{{ assignment.title }}</td>
-          <td>{{ assignment.class_info.subject }}: {{ assignment.class_info.year }}: Set {{ assignment.class_info.set |
+          <td>{{ assignment.class_info.subject }}: Year {{ assignment.class_info.year }}: Set {{
+            assignment.class_info.set |
             uppercase }}</td>
           <td>{{ assignment.topics || 'N/A' }}</td>
           <td>{{ assignment.due_date | date: 'dd/MM/yy' }}</td>
           <td>{{ assignment.results.length }} / {{ assignment.class_info.student_ids.length }}</td>
-          <td>{{ assignment.class_info.student_ids.length - assignment.results.length }} / {{ assignment.class_info.student_ids.length }}</td>
+          <td>{{ assignment.class_info.student_ids.length - assignment.results.length }} / {{
+            assignment.class_info.student_ids.length }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <h2>Exams Due Today</h2>
+  <h2 class="header">Exams Due Today</h2>
   <div class="assignments-container">
     <table class="assignments-table">
       <thead>
@@ -61,12 +63,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="assignment" *ngFor="let exam of examsDueToday">
+        <tr class="assignment" *ngFor="let exam of examsDueToday" [routerLink]="['/exams', exam._id]">
           <td>{{ exam.title }}</td>
-          <td>{{ exam.class_info.subject }}: {{ exam.class_info.year }}: Set {{ exam.class_info.set | uppercase }}</td>
+          <td>{{ exam.class_info.subject }}: Year {{ exam.class_info.year }}: Set {{ exam.class_info.set | uppercase }}
+          </td>
           <td>{{ exam.due_date | date: 'dd/MM/yy' }}</td>
-          <td>{{ exam.results.length }} / {{ exam.class_info.student_ids.length }}</td>
-          <td>{{ exam.class_info.student_ids.length - exam.results.length }} / {{ exam.class_info.student_ids.length }}</td>
+          <td>{{ exam.handed_in_count }} / {{ exam.class_info.student_ids.length }}</td>
+          <td>{{ exam.awaiting_count }} / {{ exam.class_info.student_ids.length }}</td>
         </tr>
       </tbody>
     </table>
