@@ -1,0 +1,117 @@
+<div class="document-details-container">
+    <div class="top-bar">
+        <div class="document-links">
+            <div class="page-title">
+                <h2 *ngIf="classDetails" (click)="navigateToClass(classDetails._id)">
+                    {{ classDetails.subject }} Year {{ classDetails.year }}: Set {{ classDetails.set }}:
+                </h2>
+                <h4 class="document-title">{{ assignment.title }}</h4>
+            </div>
+            <h3 class="active-header" (click)="navigateToAssignments(classDetails._id)">Assignments</h3>
+            <h3 (click)="navigateToExams(classDetails._id)">Exams</h3>
+        </div>
+        <div class="document-report-button">
+            <button (click)="generatePDF()">Generate PDF Report</button>
+        </div>
+    </div>
+
+    <div class="document-details-content">
+        <div class="charts-row">
+            <div class="marks-chart-container">
+                <div class="chart" id="scoresChartContainer">
+                    <highcharts-chart [Highcharts]="Highcharts" [options]="scoresChartOptions"
+                        style="width: 100%; height: 35vw; display: block;">
+                    </highcharts-chart>
+                </div>
+            </div>
+
+            <!-- Document Details -->
+            <div class="document-edit-section">
+                <div class="document-edit-buttons">
+                    <div class="document-edit-button">
+                        <button (click)="toggleEditAssignmentDetails()">{{ isEditingAssignmentDetails ? 'Cancel' : 'Edit
+                            Assignment Details' }}</button>
+                    </div>
+                    <div class="document-save-button">
+                        <button *ngIf="isEditingAssignmentDetails" (click)="saveAssignment()">Save Changes</button>
+                    </div>
+                </div>
+                <div class="document-details">
+                    <div *ngFor="let field of assignmentFields" class="document-field">
+                        <label>{{ field.label }}</label>
+                        <p *ngIf="!isEditingAssignmentDetails || field.isReadOnly">{{ assignment[field.key] }}</p>
+
+                        <input *ngIf="isEditingAssignmentDetails && field.key !== 'due_date' && !field.isReadOnly"
+                            [(ngModel)]="assignment[field.key]" [type]="field.type" />
+
+                        <input *ngIf="isEditingAssignmentDetails && field.key === 'due_date'"
+                            [(ngModel)]="assignment[field.key]" type="date" [placeholder]="field.label" />
+                    </div>
+                </div>
+                <div class="document-delete-button">
+                    <button *ngIf="isEditingAssignmentDetails" (click)="deleteAssignment()">Delete Assignment</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grades-container">
+            <div class="grades-chart-container">
+                <div class="chart" id="gradesChartContainer">
+                    <highcharts-chart [Highcharts]="Highcharts" [options]="gradesChartOptions"
+                        style="width: 25vw; height: 20vw; display: block;">
+                    </highcharts-chart>
+                </div>
+            </div>
+            <div class="target-grade-chart-container">
+                <div class="chart" id="targetGradesChartContainer">
+                    <highcharts-chart [Highcharts]="Highcharts" [options]="targetGradeChartOptions"
+                        style="width: 100%; height: 20vw; display: block;">
+                    </highcharts-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="document-scores-container">
+            <div class="document-scores-header">
+                <h5>Results</h5>
+                <div class="row">
+                    <button (click)="toggleEditScores()">{{ isEditingScores ? 'Cancel' : 'Edit Scores' }}</button>
+                    <div class="document-save-button" *ngIf="isEditingScores">
+                        <button (click)="saveAssignment()">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="document-scores-content">
+                <table class="document-scores-table" [ngClass]="isEditingScores ? 'editing' : 'not-editing'">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Mark</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                            <th>Target Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let student of studentResults; let i = index">
+                            <td>{{ student.name }}</td>
+
+                            <td *ngIf="isEditingScores">
+                                <input [(ngModel)]="studentResults[i].mark" type="number" min="0"
+                                    [max]="assignment.total_marks"
+                                    (change)="recalculateGradeAndScore(studentResults[i])">
+                                / {{ assignment.total_marks }}
+                            </td>
+                            <td *ngIf="!isEditingScores">
+                                {{ student.mark }} / {{ assignment.total_marks }}
+                            </td>
+                            <td>{{ student.score }}</td>
+                            <td>{{ student.grade }}</td>
+                            <td> {{ getTargetGrade(student.student_id) }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

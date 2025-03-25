@@ -1,0 +1,186 @@
+<div class="document-details-container">
+    <div class="top-bar">
+        <div class="row">
+            <div class="document-links-2">
+                <h2>Teachers: Add Teacher</h2>
+            </div>
+        </div>
+        <div class="document-edit-button">
+            <button (click)="save()">Save</button>
+        </div>
+    </div>
+
+    <div class="add-teacher-container">
+        <div class="add-teacher-content" *ngIf="teacherForm">
+            <div class="teacher-details-container" [formGroup]="teacherForm">
+                <h2>Teacher Details</h2>
+
+                <div class="form-group">
+                    <h3>Title</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <mat-select formControlName="title">
+                            <mat-option *ngFor="let title of titles" [value]="title">
+                                {{ title }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <h3>First Name *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName">
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.get('firstName')?.invalid && teacherForm.get('firstName')?.touched">
+                        <span class="error">First name is required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Last Name *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName">
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.get('lastName')?.invalid && teacherForm.get('lastName')?.touched">
+                        <span class="error">Last name is required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Gender *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Gender</mat-label>
+                        <mat-select formControlName="gender">
+                            <mat-option *ngFor="let gender of genders" [value]="gender">
+                                {{ gender }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.get('gender')?.invalid && teacherForm.get('gender')?.touched">
+                        <span class="error">Gender is required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Email *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email">
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.get('email')?.invalid && teacherForm.get('email')?.touched">
+                        <span class="error">Valid email is required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Phone *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone</mat-label>
+                        <input matInput formControlName="phone">
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.get('phone')?.invalid && teacherForm.get('phone')?.touched">
+                        <span class="error">Valid phone number is required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Password *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.get('password')?.invalid && teacherForm.get('password')?.touched">
+                        <span class="error">Password must be at least 8 characters long with at least one number and one
+                            character</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Confirm Password *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput type="password" formControlName="confirmPassword">
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.hasError('mismatch') && teacherForm.get('confirmPassword')?.touched">
+                        <span class="error">Passwords do not match</span>
+                    </div>
+                    <div *ngIf="teacherForm.get('confirmPassword')?.invalid && teacherForm.get('password')?.touched">
+                        <span class="error">Confirm password is required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Subjects *</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Subjects</mat-label>
+                        <mat-select formControlName="subjects">
+                            <mat-option *ngFor="let subject of subjects" [value]="subject">
+                                {{ subject }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="teacherForm.get('confirmPassword')?.invalid && teacherForm.get('password')?.touched">
+                        <span class="error">At least one subject is required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-details-container" [formGroup]="teacherForm">
+                <h2>Classes:</h2>
+                <div formArrayName="classes">
+                    <div *ngFor="let classGroup of classes.controls; let i = index" [formGroupName]="i"
+                        class="class-details">
+
+                        <div class="form-group">
+                            <h3>Subject *</h3>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Subject</mat-label>
+                                <mat-select formControlName="subject">
+                                    <mat-option *ngFor="let subject of subjects" [value]="subject">{{ subject
+                                        }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="classGroup.get('subject')?.invalid && classGroup.get('subject')?.touched">
+                                <span class="error">Select a subject</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3>Year *</h3>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Year</mat-label>
+                                <mat-select formControlName="year">
+                                    <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="classGroup.get('year')?.invalid && classGroup.get('year')?.touched">
+                                <span class="error">Select a year</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3>Set *</h3>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Set</mat-label>
+                                <mat-select formControlName="set">
+                                    <mat-option *ngFor="let set of sets" [value]="set">{{ set }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="classGroup.get('set')?.invalid && classGroup.get('set')?.touched">
+                                <span class="error">Select a set</span>
+                            </div>
+                        </div>
+
+                        <button mat-icon-button color="warn" (click)="removeClass(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <button (click)="addClass()" [disabled]="!isClassesValid()">Add Class</button>
+            </div>
+        </div>
+    </div>
+</div>

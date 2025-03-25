@@ -1,0 +1,116 @@
+<div class="document-details-container">
+    <div class="top-bar">
+        <div class="row">
+            <div class="document-links">
+                <h2 *ngIf="classDetails" (click)="navigateToClass(classDetails._id)">
+                    {{ classDetails.subject }} Year {{ classDetails.year }}: Set {{ classDetails.set }}: Assignments:
+                </h2>
+            </div>
+            <div class="document-links-2">
+                <h2>&nbsp;Add Assignment</h2>
+            </div>
+        </div>
+        <div class="document-edit-button">
+            <button (click)="save()">Save</button>
+        </div>
+    </div>
+
+    <div class="add-assignment-container">
+        <div class="add-assignment-content">
+            <form [formGroup]="assignmentForm">
+                <div class="assignment-details-container">
+                    <h2>Assignment Details</h2>
+
+                    <div class="form-group">
+                        <h3>Title</h3>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Title</mat-label>
+                            <input matInput formControlName="title">
+                        </mat-form-field>
+                        <div *ngIf="assignmentForm.get('title')?.invalid && assignmentForm.get('title')?.touched">
+                            <span class="error">Title is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Topics *</h3>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Topics</mat-label>
+                            <input matInput formControlName="topics">
+                        </mat-form-field>
+                        <div *ngIf="assignmentForm.get('topics')?.invalid && assignmentForm.get('topics')?.touched">
+                            <span class="error">Topics are required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Due Date *</h3>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Due Date</mat-label>
+                            <input matInput type="date" formControlName="due_date">
+                        </mat-form-field>
+                        <div *ngIf="assignmentForm.get('due_date')?.invalid && assignmentForm.get('due_date')?.touched">
+                            <span class="error">Invalid due date format (YYYY-MM-DD)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Total Marks *</h3>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Total Marks</mat-label>
+                            <input matInput type="number" formControlName="total_marks">
+                        </mat-form-field>
+                        <div
+                            *ngIf="assignmentForm.get('total_marks')?.invalid && assignmentForm.get('total_marks')?.touched">
+                            <span class="error">Total marks must be a positive number</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="grade-boundaries-container">
+                <h2>Grade Boundaries:</h2>
+                <div class="grades">
+                    <div class="grade-column"
+                        *ngFor="let grade of ['A*_grade', 'A_grade', 'B_grade', 'C_grade', 'F_grade']">
+                        <div class="grade-form-group">
+                            <h3>{{ grade.replace('_grade', 'Boundary') }} *</h3>
+                            <mat-form-field appearance="outline">
+                                <mat-label>{{ grade.replace('_grade', '') }} Boundary</mat-label>
+                                <input matInput type="number" [(ngModel)]="assignment[grade]">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="document-scores-content">
+            <table class="document-scores-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Mark</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                        <th>Target Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of assignment.results; let i = index">
+                        <td>{{ student.name }}</td>
+                        <td>
+                            <input [(ngModel)]="assignment.results[i].mark" type="number" min="0"
+                                [max]="assignment.total_marks"
+                                (change)="recalculateGradeAndScore(assignment.results[i])">
+                            / {{ assignment.total_marks }}
+                        </td>
+                        <td>{{ student.score | number:'1.0-2' }}%</td>
+                        <td>{{ student.grade }}</td>
+                        <td>{{ getTargetGrade(student.student_id) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

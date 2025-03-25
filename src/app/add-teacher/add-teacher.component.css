@@ -1,0 +1,180 @@
+/* ------------------------------ Layout Styling ------------------------------ */
+.document-details-container {
+    display: flex;
+    flex-direction: column;
+    padding: 2vw;
+}
+
+.add-teacher-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.add-teacher-content {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: center;
+    gap: 2vw;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #f9f9f9;
+    padding: 2vw;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ------------------------------ Teacher & Class Containers ------------------------------ */
+.teacher-details-container,
+.class-details-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1vw;
+    color: #333;
+}
+
+/* ------------------------------ Subject Columns ------------------------------ */
+.subject-details-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.subjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5vw;
+}
+
+.subject-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* ------------------------------ Form Styling ------------------------------ */
+.form-group {
+    margin-bottom: 1.5vw;
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5vw;
+    color: #333;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+/* ------------------------------ Add Class Styling ------------------------------ */
+.add-class-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    margin-top: 1vw;
+    gap: 0.5vw;
+}
+
+.add-icon {
+    width: 24px;
+    height: 24px;
+}
+
+p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5CB8FF;
+}
+
+.class-details{
+    margin-bottom: 2vw;
+}
+
+/* ------------------------------ Responsive Layout ------------------------------ */
+@media (max-width: 768px) {
+    .add-teacher-content {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 5vw;
+    }
+    
+    .teacher-details-container,
+    .class-details-container {
+        width: 100%;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 1vw;
+    }
+
+    .subject-column {
+        width: 100%; /* Stack subjects vertically */
+    }
+}
+
+/* ------------------------------ Button Styling ------------------------------ */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Disabled button styling */
+button:disabled {
+    background-color: #d6d6d6; /* Light gray background */
+    color: #a1a1a1;  /* Gray text color */
+    cursor: not-allowed;  /* Show the 'not-allowed' cursor */
+}
+
+/* Styling for the disabled Add Class button */
+button[disabled] {
+    background-color: #d6d6d6;
+    color: #a1a1a1;
+    cursor: not-allowed;
+}
+
+.add-document-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #007bff;
+    padding: 0.5vw;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.add-document-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* ------------------------------ Error Message Styling ------------------------------ */
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.2vw;
+}

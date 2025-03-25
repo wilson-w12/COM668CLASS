@@ -1,0 +1,78 @@
+<div class="home-container">
+  <div class="my-classes-container">
+    <h2 class="header">My Classes</h2>
+    <div class="my-classes-content">
+      <div class="class-stats-container">
+        <div class="class-container">
+          <h2 class="class-value">{{ totalClasses }}</h2>
+          <h3>Classes</h3>
+        </div>
+        <div class="class-container" *ngFor="let subject of visibleSubjects">
+          <h2 class="class-value">{{ subject.value }}</h2>
+          <h3>{{ subject.key }}</h3>
+        </div>
+      </div>
+      <div class="arrows-container">
+        <div class="arrow-container" [class.disabled]="isPreviousDisabled" (click)="previousPage()">
+          <img src="assets/img/previousArrow.png" alt="Previous button" />
+        </div>
+        <div class="arrow-container" (click)="nextPage()" [class.disabled]="isNextDisabled">
+          <img src="assets/img/nextArrow.png" alt="Next button" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2 class="header">Assignments Due Today</h2>
+  <div class="assignments-container">
+    <table class="assignments-table">
+      <thead>
+        <tr>
+          <th class="assignment-title-label">Title</th>
+          <th>Class</th>
+          <th>Topic</th>
+          <th>Due Date</th>
+          <th>Handed In</th>
+          <th>Awaiting</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="assignmentsDueToday && assignmentsDueToday.length > 0">
+        <tr class="assignment" *ngFor="let assignment of assignmentsDueToday"
+          [routerLink]="['/classes', assignment.class_id, 'assignments', assignment._id]">
+          <td>{{ assignment.title }}</td>
+          <td>{{ assignment.class_info.subject }}: Year {{ assignment.class_info.year }}: Set {{
+            assignment.class_info.set |
+            uppercase }}</td>
+          <td>{{ assignment.topics || 'N/A' }}</td>
+          <td>{{ assignment.due_date | date: 'dd/MM/yy' }}</td>
+          <td>{{ assignment.results.length }} / {{ assignment.class_info.student_ids.length }}</td>
+          <td>{{ assignment.class_info.student_ids.length - assignment.results.length }} / {{
+            assignment.class_info.student_ids.length }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2 class="header">Exams Due Today</h2>
+  <div class="assignments-container">
+    <table class="assignments-table">
+      <thead>
+        <tr>
+          <th class="assignment-title-label">Title</th>
+          <th>Class</th>
+          <th>Due Date</th>
+          <th>Handed In</th>
+          <th>Awaiting</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="examsDueToday && examsDueToday.length > 0">
+        <tr class="assignment" *ngFor="let exam of examsDueToday" [routerLink]="['/exams', exam._id]">
+          <td>{{ exam.title }}</td>
+          <td>{{ exam.class_info.subject }}: Year {{ exam.class_info.year }}: Set {{ exam.class_info.set | uppercase }}
+          </td>
+          <td>{{ exam.due_date | date: 'dd/MM/yy' }}</td>
+          <td>{{ exam.handed_in_count }} / {{ exam.class_info.student_ids.length }}</td>
+          <td>{{ exam.awaiting_count }} / {{ exam.class_info.student_ids.length }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

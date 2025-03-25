@@ -1,0 +1,29 @@
+.student-container{
+    margin: 0 4vw;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    gap: 2vw;
+}
+
+.charts-content{
+    flex: 1;
+}
+
+.document-edit-section{
+    width: 30%
+}
+
+.document-field{
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar-row{
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    align-items: center;
+}

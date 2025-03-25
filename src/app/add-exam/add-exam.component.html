@@ -1,0 +1,116 @@
+<div class="document-details-container">
+    <div class="top-bar">
+        <div class="row">
+            <div class="document-links-2">
+                <h2>Add Exam</h2>
+            </div>
+        </div>
+        <div class="document-edit-button">
+            <button (click)="save()">Save</button>
+        </div>
+    </div>
+
+    <div class="add-exam-container">
+        <div class="add-exam-content">
+            <div class="exam-details-container">
+                <h2>Exam Details</h2>
+
+                <div class="form-group">
+                    <h3>Year</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Year</mat-label>
+                        <input matInput [formControl]="yearControl" [matAutocomplete]="autoYear"
+                            (blur)="clearIfNotValid(yearControl, years)" />
+                        <mat-autocomplete #autoYear="matAutocomplete">
+                            <mat-option *ngFor="let year of years" [value]="year">
+                                {{ year }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            
+                <div class="form-group">
+                    <h3>Subject</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Subject</mat-label>
+                        <input matInput [formControl]="subjectControl" [matAutocomplete]="autoSubject"
+                            (blur)="clearIfNotValid(subjectControl, subjects)" />
+                        <mat-autocomplete #autoSubject="matAutocomplete">
+                            <mat-option *ngFor="let subject of subjects" [value]="subject">
+                                {{ subject }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <h3>Title</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <input matInput [(ngModel)]="exam.title">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <h3>Due Date</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Due Date</mat-label>
+                        <input matInput type="date" [(ngModel)]="exam.due_date">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <h3>Total Marks</h3>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Total Marks</mat-label>
+                        <input matInput type="number" [(ngModel)]="exam.total_marks" (change)="recalculateAllScores()">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="grade-boundaries-container">
+                <h2>Grade Boundaries:</h2>
+                <div class="grades">
+                    <div class="grade-column"
+                        *ngFor="let grade of ['A*_grade', 'A_grade', 'B_grade', 'C_grade', 'F_grade']">
+                        <div class="grade-form-group">
+                            <h3>{{ grade.replace('_grade', '') }}</h3>
+                            <mat-form-field appearance="outline">
+                                <mat-label>{{ grade.replace('_grade', '') }} Boundary</mat-label>
+                                <input matInput type="number" [(ngModel)]="exam[grade]">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="document-scores-content">
+            <table class="document-scores-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Mark</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                        <th>Target Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of exam.results; let i = index">
+                        <td>{{ student.name }}</td>
+                        <td>
+                            <input [(ngModel)]="exam.results[i].mark" type="number" min="0"
+                                [max]="exam.total_marks"
+                                (change)="recalculateGradeAndScore(exam.results[i])">
+                            / {{ exam.total_marks }}
+                        </td>
+                        <td>{{ student.score | number:'1.0-2' }}%</td>
+                        <td>{{ student.grade }}</td>
+                        <td>{{ getTargetGrade(student.student_id) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

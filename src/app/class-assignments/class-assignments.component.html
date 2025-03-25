@@ -1,0 +1,46 @@
+<div class="class-container">
+    <div class="top-bar">
+        <div class="document-links">
+            <h2 *ngIf="classDetails" (click)="navigateToClass(classDetails._id)">
+                {{ classDetails.subject }} Year {{ classDetails.year }}: Set {{ classDetails.set }}
+            </h2>
+            <h3 class="active-header" (click)="navigateToAssignments(classDetails._id)">Assignments</h3>
+            <h3 (click)="navigateToExams(classDetails._id)">Exams</h3>
+        </div>
+        <div class="row">
+            <button class="add-document-btn" (click)="navigateToAddAssignment(classDetails._id)">
+                <img src="assets/img/addIcon.png" alt="Add Icon" class="add-icon">
+                Add Assignment
+            </button>
+            <div class="search-container">
+                <img src="assets/img/seachIcon.png" alt="Search Icon" class="search-icon">
+                <input type="text" class="search-input" placeholder="Search: Assignment Title..."
+                    (input)="filterAssignments($event)">
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="responsive-table">
+            <thead>
+                <tr>
+                    <th class="title-column">Title</th>
+                    <th>Topic</th>
+                    <th>Due Date</th>
+                    <th>Handed In</th>
+                    <th>Awaiting</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row-item" *ngFor="let assignment of filteredAssignments"
+                    [ngClass]="{'inactive-item': isPastDue(assignment.due_date)}"
+                    (click)="navigateToAssignmentDetails(classDetails._id, assignment._id)">
+                    <td>{{ assignment.title }}</td>
+                    <td>{{ assignment.topics || 'N/A' }}</td>
+                    <td>{{ assignment.due_date | date: 'dd/MM/yy' }}</td>
+                    <td>{{ getHandedInCount(assignment) }} / {{ classDetails?.students?.length || 0 }}</td>
+                    <td>{{ getAwaitingCount(assignment) }} / {{ classDetails?.students?.length || 0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

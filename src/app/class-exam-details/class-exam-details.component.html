@@ -1,0 +1,135 @@
+<div class="document-details-container">
+    <div class="top-bar">
+        <div class="document-links">
+            <div class="page-title">
+                <h2 *ngIf="examDetails">
+                    Year {{ examDetails.year }}: {{ examDetails.title }}
+                </h2>
+            </div>
+        </div>
+        <div class="filters">
+            <div class="subject-year-filters">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Year</mat-label>
+                        <mat-select [(ngModel)]="filters.year" (selectionChange)="applyFilters()">
+                            <mat-option value="">All Years</mat-option>
+                            <mat-option *ngFor="let year of uniqueYears" [value]="year">{{ year }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Set</mat-label>
+                        <mat-select [(ngModel)]="filters.set" (selectionChange)="applyFilters()">
+                            <mat-option value="">All Sets</mat-option>
+                            <mat-option *ngFor="let set of uniqueSets" [value]="set">{{ set }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="document-report-button">
+            <button (click)="generatePDF()">Generate PDF Report</button>
+        </div>
+    </div>
+    <div class="document-details-content">
+        <div class="charts-row">
+            <div class="marks-chart-container">
+                <div class="chart" id="marksChartContainer">
+                    <highcharts-chart [Highcharts]="Highcharts" [options]="marksChartOptions"
+                        style="width: 100%; height: 35vw; display: block;">
+                    </highcharts-chart>
+                </div>
+            </div>
+
+            <!-- Document Details -->
+            <div class="document-edit-section">
+                <div class="document-edit-button-container">
+                    <div class="row">
+                        <div class="document-edit-button">
+                            <button (click)="toggleEditExamDetails()">{{ isEditingExamDetails ? 'Cancel' : 'Edit
+                                Exam Details' }}</button>
+                        </div>
+                        <div class="document-save-button" *ngIf="isEditingExamDetails">
+                            <button *ngIf="isEditingExamDetails" (click)="saveExam()">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="document-details">
+                    <div *ngFor="let field of examFields" class="document-field">
+                        <label>{{ field.label }}</label>
+                        <p *ngIf="!isEditingExamDetails || field.isReadOnly">{{ exam[field.key] }}</p>
+
+                        <input *ngIf="isEditingExamDetails && field.key !== 'due_date' && !field.isReadOnly"
+                            [(ngModel)]="exam[field.key]" [type]="field.type" />
+
+                        <input *ngIf="isEditingExamDetails && field.key === 'due_date'" [(ngModel)]="exam[field.key]"
+                            type="date" [placeholder]="field.label" />
+                    </div>
+                </div>
+                <div class="document-delete-button">
+                    <button *ngIf="isEditingExamDetails" (click)="deleteExam()">Delete Exam</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grades-container">
+            <div class="grades-chart-container">
+                <div class="chart" id="gradesChartContainer">
+                    <highcharts-chart [Highcharts]="Highcharts" [options]="gradesChartOptions"
+                        style="width: 25vw; height: 20vw; display: block;">
+                    </highcharts-chart>
+                </div>
+            </div>
+            <div class="target-grade-chart-container">
+                <div class="chart" id="targetGradeChartContainer">
+                    <highcharts-chart [Highcharts]="Highcharts" [options]="targetGradeChartOptions"
+                        style="width: 100%; height: 20vw; display: block;">
+                    </highcharts-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="document-scores-container">
+            <div class="document-scores-header">
+                <h5>Results</h5>
+                <button (click)="toggleEditScores()">{{ isEditingScores ? 'Cancel' : 'Edit Scores' }}</button>
+            </div>
+            <div class="document-scores-content">
+                <table class="document-scores-table" [ngClass]="isEditingScores ? 'editing' : 'not-editing'">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Mark</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                            <th>Target Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let student of studentResults; let i = index">
+                            <td>{{ student.name }}</td>
+
+                            <td *ngIf="isEditingScores">
+                                <input [(ngModel)]="studentResults[i].mark" type="number" min="0"
+                                    [max]="exam.total_marks" (change)="recalculateGrade(studentResults[i])">
+                                / {{ exam.total_marks }}
+                            </td>
+
+                            <td *ngIf="!isEditingScores">
+                                {{ student.mark }} / {{ exam.total_marks }}
+                            </td>
+                            <td>{{ student.score }}</td>
+                            <td>{{ student.grade }}</td>
+                            <td>{{ student.target_grade }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="document-save-button" *ngIf="isEditingScores">
+                <button (click)="saveExam()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

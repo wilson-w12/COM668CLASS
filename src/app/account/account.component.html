@@ -1,0 +1,38 @@
+<div class="account-container">
+    <h2>Account</h2>
+    <div class="account-content">
+        <img src="assets/img/accountIcon.png" alt="Account Icon" class="account-icon" />
+        <div class="row">
+            <button (click)="toggleEdit()">
+                {{ isEditing ? 'Cancel' : 'Edit' }}
+            </button>
+            <button *ngIf="isEditing" (click)="saveDetails()" class="save-button">Save</button>
+        </div>
+
+        <div class="account-details">
+            <h3 *ngIf="!isEditing">Name</h3>
+            <p *ngIf="!isEditing">{{ user.first_name }} {{ user.last_name }}</p>
+
+            <h3 *ngIf="isEditing">First Name</h3>
+            <input *ngIf="isEditing" type="text" [(ngModel)]="user.first_name" (blur)="validateFirstName()">
+            <span class="error" *ngIf="errors.first_name">{{ errors.first_name }}</span>
+
+            <h3 *ngIf="isEditing">Last Name</h3>
+            <input *ngIf="isEditing" type="text" [(ngModel)]="user.last_name" (blur)="validateLastName()">
+            <span class="error" *ngIf="errors.last_name">{{ errors.last_name }}</span>
+
+            <h3>Email</h3>
+            <p *ngIf="!isEditing">{{ user.email }}</p>
+            <input *ngIf="isEditing" type="email" [(ngModel)]="user.email" (blur)="validateEmail()">
+            <span class="error" *ngIf="errors.email">{{ errors.email }}</span>
+
+            <h3>Phone Number</h3>
+            <p *ngIf="!isEditing">{{ user.phone }}</p>
+            <input *ngIf="isEditing" type="text" [(ngModel)]="user.phone" (blur)="validatePhone()">
+            <span class="error" *ngIf="errors.phone">{{ errors.phone }}</span>
+
+            <a href="/reset-password">Reset Password</a>
+            <button *ngIf="!isEditing" (click)="signOut()" class="sign-out-button">Sign Out</button>
+        </div>
+    </div>
+</div>

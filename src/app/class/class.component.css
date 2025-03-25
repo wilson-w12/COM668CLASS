@@ -1,0 +1,87 @@
+
+
+/* Search Bar */
+.document-search-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid #000;
+    border-radius: 45px;
+    padding: 5px 15px;
+    width: 22vw;
+    background-color: white;
+    transition: box-shadow 0.3s;
+}
+
+.document-search-container:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.document-search-icon {
+    width: 1.8vw;
+    height: 1.8vw;
+    margin-right: 0.8vw;
+}
+
+.document-search-input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.document-content {
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+}
+
+/* Charts */
+.charts-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.row{
+    gap: 2vw;
+    align-items: center;
+}
+
+
+/* Student List */
+.document-student-list {
+    padding: 1.5vw;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-height: 45vw;
+    overflow-y: auto;
+    width: 22vw;
+    align-self: flex-start;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.document-student-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.document-student-item:hover {
+    background: #e0f0ff;
+    transform: scale(1.02);
+}
+
+.document-student-item:last-child {
+    border-bottom: none;
+}
+
+.document-student-icon {
+    width: 24px;
+    height: 24px;
+}

@@ -1,0 +1,158 @@
+<div class="student-container">
+    <div class="top-bar">
+        <div class="document-links">
+            <h2 *ngIf="studentDetails" (click)="navigateToStudent(studentDetails._id)">
+                {{ studentDetails.first_name }} {{ studentDetails.last_name }}
+            </h2>
+        </div>
+        <div class="filters">
+            <div class="subject-year-filters">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Subject</mat-label>
+                        <mat-select [(value)]="filters.subject" (selectionChange)="applyFilters()">
+                            <mat-option value="">All Subjects</mat-option>
+                            <mat-option *ngFor="let subject of uniqueSubjects" [value]="subject">{{ subject
+                                }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="top-bar-row">
+            <button (click)="navigateToEditStudent()">Edit Further Student Details</button>
+            <div class="document-report-button">
+                <button (click)="generatePDF()">Generate PDF Report</button>
+            </div>
+        </div>
+    </div>
+    <div class="student-content">
+        <div class="row">
+            <div class="charts-content">
+                <div class="charts-row">
+                    <div class="chart" id="examChartContainer">
+                        <highcharts-chart #chart [Highcharts]="Highcharts" [options]="examChartOptions"
+                            style="width: 100%; height: 25vw; display: block;"></highcharts-chart>
+                    </div>
+                    <div class="chart" id="examGradeChartContainer">
+                        <highcharts-chart [Highcharts]="Highcharts" [options]="examGradeChartOptions"
+                            style="width: 100%; height: 25vw; display: block;">
+                        </highcharts-chart>
+                    </div>
+                </div>
+                <div class="charts-content">
+                    <div class="charts-row">
+                        <div class="chart" id="assignmentChartContainer">
+                            <highcharts-chart [Highcharts]="Highcharts" [options]="assignmentChartOptions"
+                                style="width: 100%; height: 25vw; display: block;">
+                            </highcharts-chart>
+                        </div>
+                        <div class="chart" id="assignmentGradeChartContainer">
+                            <highcharts-chart [Highcharts]="Highcharts" [options]="assignmentGradeChartOptions"
+                                style="width: 100%; height: 25vw; display: block;">
+                            </highcharts-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit Student Details Container -->
+            <div class="document-edit-section">
+                <div class="document-edit-button">
+                    <button (click)="toggleEditStudentDetails()">{{ isEditingStudentDetails ? 'Cancel' : 'Edit
+                        Student'
+                        }}</button>
+                </div>
+                <div class="document-details">
+                    <div *ngFor="let field of studentFields" class="document-field">
+                        <label>{{ field.label }}</label>
+                        <p *ngIf="!isEditingStudentDetails || field.isReadOnly">{{ student[field.key] }}</p>
+                        <input *ngIf="isEditingStudentDetails" [(ngModel)]="student[field.key]" [type]="field.type" />
+                    </div>
+                    <div class="document-field">
+                        <label>Subject</label>
+                        <select [(ngModel)]="selectedSubject" class="dropdown-subject">
+                            <option *ngFor="let subject of studentSubjects" [value]="subject">
+                                {{ subject }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="document-field">
+                        <label>Target Grade</label>
+
+                        <!-- Show dropdown when editing -->
+                        <select *ngIf="isEditingStudentDetails" [(ngModel)]="student.target_grades[selectedSubject]">
+                            <option *ngFor="let grade of gradeOptions" [value]="grade">
+                                {{ grade }}
+                            </option>
+                        </select>
+
+                        <!-- Show target grade as <p> when not editing -->
+                        <p *ngIf="!isEditingStudentDetails">
+                            {{ student.target_grades[selectedSubject] || 'N/A' }}
+                        </p>
+                    </div>
+                </div>
+                <div class="document-save-button">
+                    <button *ngIf="isEditingStudentDetails" (click)="saveEditedDetails()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+        <!-- Assignments Table -->
+        <div class="assignments-table-container">
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th class="title-column">Title</th>
+                        <th>Subject</th>
+                        <th>Due Date</th>
+                        <th>Mark</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-item" *ngFor="let exam of studentExamSeries"
+                        [ngClass]="{'inactive-item': isPastDue(exam.date)}"
+                        (click)="navigateToExamDetails(exam.exam_id)">
+                        <td>{{ exam.title }}</td>
+                        <td>{{ exam.subject }}</td>
+                        <td>{{ exam.date | date: 'dd/MM/yy' }}</td>
+                        <td>{{ exam.mark }}</td>
+                        <td>{{ exam.y }}</td>
+                        <td>{{ exam.grade }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="assignments-table-container">
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th class="title-column">Title</th>
+                        <th>Subject</th>
+                        <th>Topics</th>
+                        <th>Due Date</th>
+                        <th>Mark</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-item" *ngFor="let assignment of studentAssignmentSeries"
+                        [ngClass]="{'inactive-item': isPastDue(assignment.date)}"
+                        (click)="navigateToAssignmentDetails(assignment.class_id, assignment.assignment_id)">
+                        <td>{{ assignment.title }}</td>
+                        <td>{{ assignment.subject }}</td>
+                        <td>{{ assignment.topics }}</td>
+                        <td>{{ assignment.date | date: 'dd/MM/yy' }}</td>
+                        <td>{{ assignment.mark }}</td>
+                        <td>{{ assignment.y }}</td>
+                        <td>{{ assignment.grade }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
