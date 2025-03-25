@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'home', component: HomeComponent },
   { path: 'classes', component: ClassesComponent },
-  { path: 'classes/:class_id', component: ClassComponent },
+  { path: 'classes/:class_id', component: ClassComponent }, 
   { path: 'classes/:class_id/assignments', component: ClassAssignmentsComponent },
   { path: 'classes/:class_id/exams', component: ClassExamsComponent },
   { path: 'classes/:class_id/assignments/add-assignment', component: AddAssignmentComponent },
