@@ -38,6 +38,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'admin/create-teacher', component: AddTeacherComponent },
+  { path: '**', redirectTo: '/login' }
 ];
 
 
