@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "angular-google-charts": "^16.0.2",
+    "chart.js": "^4.4.7"
+  }
+}
