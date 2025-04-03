@@ -94,7 +94,6 @@ export class ClassesComponent implements OnInit {
     this.teacherService.getClasses(params).subscribe({
       next: (response) => {
         const classes = response.classes;
-        console.log(classes)
         if (this.myClassesView) {
           this.currentTeacherClasses = this.currentPage === 1
             ? classes
@@ -186,17 +185,14 @@ export class ClassesComponent implements OnInit {
     if (changedClasses.length > 0) {
       this.teacherService.updateTeacherClasses(changedClasses).subscribe({
         next: (response) => {
-          console.log('Teachers updated successfully', response);
-          // Optionally, reload the classes if needed
           this.loadClasses();
-          this.isEditing = false; // Exit edit mode
+          this.isEditing = false; 
         },
         error: (error) => {
           console.error('Error updating teachers:', error);
         }
       });
     } else {
-      console.log('No changes detected.');
     }
   }
   
