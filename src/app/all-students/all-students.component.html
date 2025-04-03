@@ -1,0 +1,60 @@
+<div class="document-details-container">
+    <div class="top-bar">
+        <div class="document-links">
+            <h2>Students</h2>
+        </div>
+        <!-- Filter Options -->
+        <div class="filters">
+            <div class="subject-year-filters">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Year</mat-label>
+                        <input type="text" matInput [formControl]="yearControl" [matAutocomplete]="autoYear">
+                        <mat-autocomplete #autoYear="matAutocomplete">
+                            <mat-option *ngFor="let year of filteredYears | async" [value]="year">
+                                {{ year }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Set</mat-label>
+                        <input type="text" matInput [formControl]="setControl" [matAutocomplete]="autoSet">
+                        <mat-autocomplete #autoSet="matAutocomplete">
+                            <mat-option *ngFor="let set of filteredSets | async" [value]="set">
+                                {{ set }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="search-container">
+                <img src="assets/img/seachIcon.png" alt="Search Icon" class="search-icon" />
+                <input class="search" [(ngModel)]="filters.search" placeholder="Search: Student Name"
+                    (input)="applyFilters()" />
+            </div>
+        </div>
+    </div>
+    <div class="grid-container">
+        <!-- Add Student Item -->
+        <div class="card add-item" (click)="navigateToAddStudent()">
+            <img src="assets/img/addIconBlue.png" alt="Add Student Icon" class="add-icon-blue" />
+            <p>Add Student</p>
+        </div>
+
+        <!-- Existing Student Items -->
+        <div *ngFor="let student of allStudents" class="card"
+            (click)="navigateToStudent(student._id)">
+            <p><strong>{{ student.first_name }} <br> {{ student.last_name }}</strong></p>
+            <p><strong>Year:</strong> {{ student.year }}</p>
+            <p><strong>Set:</strong> {{ student.set }}</p>
+        </div>
+    </div>
+    <!-- Load More Button -->
+    <div class="load-more-container" *ngIf="hasMoreStudents()">
+        <img src="assets/img/downArrow.png" alt="More Students Icon" (click)="loadMoreStudents()"
+            class="load-more-icon" />
+    </div>
+</div>

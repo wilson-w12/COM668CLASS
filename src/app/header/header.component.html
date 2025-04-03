@@ -1,0 +1,37 @@
+<header class="header">
+  <a href="/home">
+    <img class="logo" src="assets/img/CLASSLogo.png" alt="CLASS Logo">
+  </a>
+
+  <!-- Logged-in state -->
+  <div class="nav-links-container">
+    <div class="logged-in-main-nav-links">
+      <nav *ngIf="isLoggedIn; else loggedOutMenu">
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/classes">Classes</a></li>
+          <li><a href="/students">Students</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="logged-in-side-nav-links">
+      <nav *ngIf="isLoggedIn; else loggedOutMenu">
+        <ul>
+          <li class="dropdown" *ngIf="isAdmin">
+            <a href="#" class="admin-link">Admin</a>
+            <ul class="dropdown-menu">
+              <li><a href="/admin/create-teacher">Create Teacher</a></li>
+            </ul>
+          </li>
+          <li><a href="/help">Help</a></li>
+          <li><a href="/account">Account</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Logged-out state -->
+  <ng-template #loggedOutMenu>
+    <a href="/login" class="login-link">Login</a>
+  </ng-template>
+</header>

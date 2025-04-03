@@ -1,0 +1,57 @@
+.popup-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 80%;
+    opacity: 0;
+    animation: fadeInOut 5s ease forwards;
+  }
+  
+  .popup-notification.success {
+    background-color: green;
+  }
+  
+  .popup-notification.error {
+    background-color: red;
+  }
+  
+  .popup-notification.info {
+    background-color: blue;
+  }
+  
+  .popup-notification.warning {
+    background-color: orange;
+  }
+  
+  .popup-notification .close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  

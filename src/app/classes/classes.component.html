@@ -1,0 +1,99 @@
+<div class="document-details-container">
+    <div class="top-bar">
+        <div class="document-links">
+            <h2 (click)="toggleView(true)" class="myClassesView" [class.active]="myClassesView">My Classes</h2>
+            <h2 (click)="toggleView(false)" class="allClassesView" [class.active]="!myClassesView">All Classes</h2>
+        </div>
+        <div class="filters">
+            <div class="subject-year-filters">
+                <div *ngIf="!myClassesView">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teacher</mat-label>
+                        <input type="text" matInput [formControl]="teacherControl" [matAutocomplete]="autoTeacher">
+                        <mat-autocomplete #autoTeacher="matAutocomplete">
+                            <mat-option *ngFor="let teacher of filteredTeachers | async" [value]="teacher.name">
+                                {{ teacher.name }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Subject</mat-label>
+                        <input type="text" matInput [formControl]="subjectControl" [matAutocomplete]="autoSubject">
+                        <mat-autocomplete #autoSubject="matAutocomplete">
+                            <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject">
+                                {{ subject }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Year</mat-label>
+                        <input type="text" matInput [formControl]="yearControl" [matAutocomplete]="autoYear">
+                        <mat-autocomplete #autoYear="matAutocomplete">
+                            <mat-option *ngFor="let year of filteredYears | async" [value]="year">
+                                {{ year }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Set</mat-label>
+                        <input type="text" matInput [formControl]="setControl" [matAutocomplete]="autoSet">
+                        <mat-autocomplete #autoSet="matAutocomplete">
+                            <mat-option *ngFor="let set of filteredSets | async" [value]="set">
+                                {{ set }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="edit-grid-container">
+            <button *ngIf="isEditing" (click)="saveClasses()">Save</button>
+            <button (click)="toggleEdit()">
+                {{ isEditing ? 'Cancel' : 'Edit' }}
+            </button>
+        </div>
+    </div>
+    <div>
+        <div class="grid-container">
+            <!--
+            <div *ngIf="!myClassesView" class="card add-item" (click)="navigateToAddClass()">
+                <img src="assets/img/addIcon.png" alt="Add Class Icon" class="add-icon" />
+                <p>Add Class</p>
+            </div>
+-->
+            <div *ngFor="let class of (myClassesView ? currentTeacherClasses : allClasses)" class="card"
+                (click)="isEditing ? null : navigateToClass(class.class_id)" [ngClass]="{'disabled-card': isEditing}">
+
+                <p><strong>Subject:</strong> {{ class.subject }}</p>
+                <p><strong>Year:</strong> {{ class.year }} <strong>Set:</strong> {{ class.set }}</p>
+
+                <div *ngIf="!isEditing" class="teacher-display">
+                    <p><strong>Teacher:</strong> {{ getTeacherNames(class) }}</p>
+                </div>
+
+                <div *ngIf="isEditing" class="teacher-edit">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teachers</mat-label>
+                        <mat-select multiple [(ngModel)]="class.selectedTeacherIds">
+                            <mat-option *ngFor="let teacher of uniqueTeachers" [value]="teacher.id">
+                                {{ teacher.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="load-more-container" *ngIf="hasMoreClasses()">
+            <img src="assets/img/downArrow.png" alt="More Classes Icon" (click)="loadMoreClasses()"
+                class="load-more-icon" />
+        </div>
+    </div>
+</div>

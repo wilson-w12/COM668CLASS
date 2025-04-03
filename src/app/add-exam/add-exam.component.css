@@ -1,0 +1,138 @@
+/* ------------------------------ Layout Styling ------------------------------ */
+.document-details-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.add-exam-container {
+    display: flex;
+    justify-content: center;
+    gap: 5vw;
+}
+
+.add-exam-content {
+    display: flex;
+    flex-direction: row; /* Set the row direction to place items side by side */
+    justify-content: center;
+    gap: 5vw;
+    height: fit-content;
+    width: fit-content;
+    background-color: #f9f9f9;
+    padding: 2vw;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+/* ------------------------------ exam and Subject Details Containers ------------------------------ */
+.exam-details-container,
+.subject-details-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content; /* Each section takes up 48% width, leaving space between them */
+}
+
+/* ------------------------------ Subject Columns ------------------------------ */
+.subject-details-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.subjects {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5vw;
+}
+
+.subject-column {
+    display: flex;
+    flex-direction: column;
+    width: fit-content /* Adjust the width of each column (two columns) */
+}
+
+/* ------------------------------ Input Styling ------------------------------ */
+.form-group {
+    margin-bottom: 2vw;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5vw;
+    color: #333;
+}
+
+mat-form-field {
+    width: fit-content;
+}
+
+/* ------------------------------ Subject Form Group Styling ------------------------------ */
+.subject-form-group {
+    margin-bottom: 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+/* ------------------------------ Modern Input and Autocomplete Styling ------------------------------ */
+
+/* ------------------------------ Responsive Layout ------------------------------ */
+@media (max-width: 768px) {
+    .add-exam-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .row {
+        flex-direction: column;
+        gap: 1vw;
+    }
+    .subject-column {
+        width: 100%; /* On smaller screens, stack subjects vertically */
+    }
+}
+
+/* ------------------------------ Button and Hover Effects ------------------------------ */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.add-document-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #007bff;
+    padding: 0.5vw;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.add-document-btn:hover {
+    background-color: #0056b3;
+}
+
+/* ------------------------------ Button and Hover Effects ------------------------------ */
+
+.document-scores-table input{
+    width: 3vw;   
+}
+
+/* ------------------------------ Error Message Styling ------------------------------ */
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.2vw;
+}
