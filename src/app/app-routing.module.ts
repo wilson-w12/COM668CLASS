@@ -21,7 +21,6 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'sign-up', component: SignUpComponent },
   { path: 'home', component: HomeComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'classes/:class_id', component: ClassComponent }, 

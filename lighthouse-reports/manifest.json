@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://com668class.netlify.app/login",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_login-2025_04_03_16_22_02.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_login-2025_04_03_16_22_02.report.json",
+    "summary": {
+      "performance": 0.68,
+      "accessibility": 0.93,
+      "best-practices": 1,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/home",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_home-2025_04_03_16_22_19.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_home-2025_04_03_16_22_19.report.json",
+    "summary": {
+      "performance": 0.6,
+      "accessibility": 0.93,
+      "best-practices": 0.96,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/classes",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_classes-2025_04_03_16_22_35.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_classes-2025_04_03_16_22_35.report.json",
+    "summary": {
+      "performance": 0.66,
+      "accessibility": 0.96,
+      "best-practices": 0.96,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/exams/add-exam",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_exams_add_exam-2025_04_03_16_22_51.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_exams_add_exam-2025_04_03_16_22_51.report.json",
+    "summary": {
+      "performance": 0.68,
+      "accessibility": 0.96,
+      "best-practices": 1,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/students/add-student",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_students_add_student-2025_04_03_16_23_07.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_students_add_student-2025_04_03_16_23_07.report.json",
+    "summary": {
+      "performance": 0.65,
+      "accessibility": 0.96,
+      "best-practices": 0.96,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/students",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_students-2025_04_03_16_23_24.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_students-2025_04_03_16_23_24.report.json",
+    "summary": {
+      "performance": 0.66,
+      "accessibility": 0.96,
+      "best-practices": 0.96,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/account",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_account-2025_04_03_16_23_40.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_account-2025_04_03_16_23_40.report.json",
+    "summary": {
+      "performance": 0.68,
+      "accessibility": 0.93,
+      "best-practices": 0.96,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/reset-password",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_reset_password-2025_04_03_16_23_56.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_reset_password-2025_04_03_16_23_56.report.json",
+    "summary": {
+      "performance": 0.67,
+      "accessibility": 0.93,
+      "best-practices": 0.96,
+      "seo": 0.83
+    }
+  },
+  {
+    "url": "https://com668class.netlify.app/admin/create-teacher",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_admin_create_teacher-2025_04_03_16_24_11.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class_netlify_app-_admin_create_teacher-2025_04_03_16_24_11.report.json",
+    "summary": {
+      "performance": 0.63,
+      "accessibility": 0.91,
+      "best-practices": 1,
+      "seo": 0.83
+    }
+  }
+]
