@@ -14,33 +14,33 @@
 module.exports = function(config) {
   const configuration = {
     basePath: "",
-    frameworks: ["mocha", "chai"],
+    frameworks: ["jasmine", "@angular-devkit/build-angular"],
     files: [
-      {
-        pattern: "tests/fixtures/**",
-        included: false
-      },
-      {
-        pattern: "tests/*.test.js"
-      }
+      "src/test.ts",
+      "src/app/**/*.spec.ts"
     ],
-    reporters: ["progress"],
+    exclude: [],
+    preprocessors: {
+      "src/test.ts": ["@angular-devkit/build-angular"]
+    },
+    reporters: ["progress", "junit"],
+    junitReporter: {
+      outputDir: "test-results",
+      outputFile: "karma-test-results.xml",
+      useBrowserName: false
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    singleRun: true,
-    concurrency: 1,
-    browsers: ["Chrome", "Firefox", "Safari"],
-    customLaunchers: {
-      DockerChrome: {
-        base: "ChromeHeadless",
-        flags: ["--no-sandbox"]
-      }
-    }
+    singleRun: false,
+    browsers: ["ChromeHeadless", "FirefoxHeadless"],
+    captureTimeout: 60000,
+    concurrency: Infinity
   };
 
   if (process.env.INSIDE_DOCKER) configuration.browsers = ["DockerChrome"];
 
   config.set(configuration);
 };
+
