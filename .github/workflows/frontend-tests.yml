@@ -2,18 +2,11 @@ name: Run Angular Unit Tests
 
 on:
   push:
-    paths:
-      - 'frontend/**'
   pull_request:
-    paths:
-      - 'frontend/**'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
 
     steps:
       - name: Checkout repository
