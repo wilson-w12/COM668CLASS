@@ -6,10 +6,10 @@ import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-   private apiUrl = 'http://localhost:5000/api'; // Your Flask backend API URL
-   private tokenValidationUrl = 'http://localhost:5000/api/validate-token';
-  // private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
-  // private tokenValidationUrl = 'https://flask-backend-no8c.onrender.com/api/validate-token'; // Render backend API URL
+  // private apiUrl = 'http://localhost:5000/api'; // Your Flask backend API URL
+  // private tokenValidationUrl = 'http://localhost:5000/api/validate-token';
+   private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
+   private tokenValidationUrl = 'https://flask-backend-no8c.onrender.com/api/validate-token'; // Render backend API URL
 
   // BehaviorSubject to track authentication state
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
