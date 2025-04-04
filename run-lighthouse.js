@@ -96,7 +96,7 @@ function cleanupOldReports(reportDir, routeKey) {
 
   const summaryPath = path.join(reportsDir, 'lighthouse-summary.json');
   fs.writeFileSync(summaryPath, JSON.stringify(results, null, 2));
-  console.log(`📊 All reports done! Summary saved to: ${summaryPath}`);
+  console.log(`All reports done. Summary saved to: ${summaryPath}`);
 
   await chrome.kill();
 })();

@@ -1,8 +1,8 @@
 [
   {
     "url": "https://com668class.netlify.app/login",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_login-2025-04-04T11_02_05_321Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_login-2025-04-04T11_02_05_321Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_login-2025-04-04T11_24_11_599Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_login-2025-04-04T11_24_11_599Z.report.json",
     "summary": {
       "performance": 0.65,
       "accessibility": 0.93,
@@ -12,10 +12,10 @@
   },
   {
     "url": "https://com668class.netlify.app/home",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_home-2025-04-04T11_02_44_773Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_home-2025-04-04T11_02_44_773Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_home-2025-04-04T11_24_19_812Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_home-2025-04-04T11_24_19_812Z.report.json",
     "summary": {
-      "performance": 0.71,
+      "performance": 0.72,
       "accessibility": 0.93,
       "best-practices": 0.96,
       "seo": 0.83
@@ -23,10 +23,10 @@
   },
   {
     "url": "https://com668class.netlify.app/classes",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes-2025-04-04T11_02_52_898Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes-2025-04-04T11_02_52_898Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes-2025-04-04T11_24_28_002Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes-2025-04-04T11_24_28_002Z.report.json",
     "summary": {
-      "performance": 0.71,
+      "performance": 0.72,
       "accessibility": 0.96,
       "best-practices": 0.96,
       "seo": 0.83
@@ -34,10 +34,10 @@
   },
   {
     "url": "https://com668class.netlify.app/classes/C001",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001-2025-04-04T11_03_01_933Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001-2025-04-04T11_03_01_933Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001-2025-04-04T11_24_37_151Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001-2025-04-04T11_24_37_151Z.report.json",
     "summary": {
-      "performance": 0.67,
+      "performance": 0.7,
       "accessibility": 0.96,
       "best-practices": 0.96,
       "seo": 0.83
@@ -45,10 +45,10 @@
   },
   {
     "url": "https://com668class.netlify.app/classes/C001/assignments",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments-2025-04-04T11_03_10_261Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments-2025-04-04T11_03_10_261Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments-2025-04-04T11_24_46_206Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments-2025-04-04T11_24_46_206Z.report.json",
     "summary": {
-      "performance": 0.72,
+      "performance": 0.73,
       "accessibility": 0.94,
       "best-practices": 0.96,
       "seo": 0.83
@@ -56,8 +56,8 @@
   },
   {
     "url": "https://com668class.netlify.app/classes/C001/exams",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_exams-2025-04-04T11_03_18_801Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_exams-2025-04-04T11_03_18_801Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_exams-2025-04-04T11_24_55_063Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_exams-2025-04-04T11_24_55_063Z.report.json",
     "summary": {
       "performance": 0.72,
       "accessibility": 0.94,
@@ -67,10 +67,10 @@
   },
   {
     "url": "https://com668class.netlify.app/classes/C001/assignments/add-assignment",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_add-assignment-2025-04-04T11_03_26_885Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_add-assignment-2025-04-04T11_03_26_885Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_add-assignment-2025-04-04T11_25_03_439Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_add-assignment-2025-04-04T11_25_03_439Z.report.json",
     "summary": {
-      "performance": 0.71,
+      "performance": 0.7,
       "accessibility": 0.96,
       "best-practices": 0.96,
       "seo": 0.83
@@ -78,8 +78,8 @@
   },
   {
     "url": "https://com668class.netlify.app/classes/C001/assignments/67dedd35441b28bc9b68fd64",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_67dedd35441b28bc9b68fd64-2025-04-04T11_03_34_894Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_67dedd35441b28bc9b68fd64-2025-04-04T11_03_34_894Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_67dedd35441b28bc9b68fd64-2025-04-04T11_25_11_547Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_classes_C001_assignments_67dedd35441b28bc9b68fd64-2025-04-04T11_25_11_547Z.report.json",
     "summary": {
       "performance": 0.71,
       "accessibility": 0.94,
@@ -89,10 +89,10 @@
   },
   {
     "url": "https://com668class.netlify.app/exams/add-exam",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_add-exam-2025-04-04T11_03_43_934Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_add-exam-2025-04-04T11_03_43_934Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_add-exam-2025-04-04T11_25_19_202Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_add-exam-2025-04-04T11_25_19_202Z.report.json",
     "summary": {
-      "performance": 0.7,
+      "performance": 0.71,
       "accessibility": 0.96,
       "best-practices": 1,
       "seo": 0.83
@@ -100,10 +100,10 @@
   },
   {
     "url": "https://com668class.netlify.app/exams/67dedd36441b28bc9b690c11",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_67dedd36441b28bc9b690c11-2025-04-04T11_03_53_141Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_67dedd36441b28bc9b690c11-2025-04-04T11_03_53_141Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_67dedd36441b28bc9b690c11-2025-04-04T11_25_28_949Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_exams_67dedd36441b28bc9b690c11-2025-04-04T11_25_28_949Z.report.json",
     "summary": {
-      "performance": 0.71,
+      "performance": 0.68,
       "accessibility": 0.96,
       "best-practices": 0.96,
       "seo": 0.83
@@ -111,8 +111,8 @@
   },
   {
     "url": "https://com668class.netlify.app/students/add-student",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_add-student-2025-04-04T11_04_02_457Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_add-student-2025-04-04T11_04_02_457Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_add-student-2025-04-04T11_25_40_562Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_add-student-2025-04-04T11_25_40_562Z.report.json",
     "summary": {
       "performance": 0.68,
       "accessibility": 0.96,
@@ -122,10 +122,10 @@
   },
   {
     "url": "https://com668class.netlify.app/students",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students-2025-04-04T11_04_11_548Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students-2025-04-04T11_04_11_548Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students-2025-04-04T11_25_49_124Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students-2025-04-04T11_25_49_124Z.report.json",
     "summary": {
-      "performance": 0.71,
+      "performance": 0.72,
       "accessibility": 0.96,
       "best-practices": 0.96,
       "seo": 0.83
@@ -133,10 +133,10 @@
   },
   {
     "url": "https://com668class.netlify.app/students/67ddd3fe9fd80c6179b957e7/edit-student",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7_edit-student-2025-04-04T11_04_20_434Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7_edit-student-2025-04-04T11_04_20_434Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7_edit-student-2025-04-04T11_25_57_393Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7_edit-student-2025-04-04T11_25_57_393Z.report.json",
     "summary": {
-      "performance": 0.66,
+      "performance": 0.71,
       "accessibility": 0.87,
       "best-practices": 0.96,
       "seo": 0.83
@@ -144,10 +144,10 @@
   },
   {
     "url": "https://com668class.netlify.app/students/67ddd3fe9fd80c6179b957e7",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7-2025-04-04T11_04_28_870Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7-2025-04-04T11_04_28_870Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7-2025-04-04T11_26_06_403Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_students_67ddd3fe9fd80c6179b957e7-2025-04-04T11_26_06_403Z.report.json",
     "summary": {
-      "performance": 0.71,
+      "performance": 0.7,
       "accessibility": 0.84,
       "best-practices": 0.96,
       "seo": 0.83
@@ -155,8 +155,8 @@
   },
   {
     "url": "https://com668class.netlify.app/account",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_account-2025-04-04T11_04_36_875Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_account-2025-04-04T11_04_36_875Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_account-2025-04-04T11_26_14_291Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_account-2025-04-04T11_26_14_291Z.report.json",
     "summary": {
       "performance": 0.72,
       "accessibility": 0.93,
@@ -166,10 +166,10 @@
   },
   {
     "url": "https://com668class.netlify.app/reset-password",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_reset-password-2025-04-04T11_04_44_804Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_reset-password-2025-04-04T11_04_44_804Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_reset-password-2025-04-04T11_26_22_098Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_reset-password-2025-04-04T11_26_22_098Z.report.json",
     "summary": {
-      "performance": 0.73,
+      "performance": 0.72,
       "accessibility": 0.93,
       "best-practices": 0.96,
       "seo": 0.83
@@ -177,8 +177,8 @@
   },
   {
     "url": "https://com668class.netlify.app/admin/create-teacher",
-    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_admin_create-teacher-2025-04-04T11_04_52_786Z.report.html",
-    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_admin_create-teacher-2025-04-04T11_04_52_786Z.report.json",
+    "htmlPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_admin_create-teacher-2025-04-04T11_26_30_040Z.report.html",
+    "jsonPath": "C:\\Users\\willi\\OneDrive - Ulster University\\Ulster University\\Ulster_Y3\\COM668 Final Project\\COM668\\frontend\\lighthouse-reports\\com668class.netlify.app-_admin_create-teacher-2025-04-04T11_26_30_040Z.report.json",
     "summary": {
       "performance": 0.63,
       "accessibility": 0.91,
