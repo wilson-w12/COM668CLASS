@@ -30,6 +30,23 @@ if (!fs.existsSync(reportsDir)) {
   fs.mkdirSync(reportsDir);
 }
 
+// Keep 2 most recent reports 
+function cleanupOldReports(reportDir, routeKey) {
+  const allFiles = fs.readdirSync(reportDir);
+  const matchingFiles = allFiles
+    .filter(file => file.startsWith(routeKey) && (file.endsWith('.report.html') || file.endsWith('.report.json')))
+    .map(file => ({
+      file,
+      time: fs.statSync(path.join(reportDir, file)).mtime
+    }))
+    .sort((a, b) => b.time - a.time);
+
+  const filesToDelete = matchingFiles.slice(2); 
+  for (const { file } of filesToDelete) {
+    fs.unlinkSync(path.join(reportDir, file));
+  }
+}
+
 (async () => {
   const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
   const options = {
@@ -48,7 +65,10 @@ if (!fs.existsSync(reportsDir)) {
     const runnerResult = await lighthouse(fullUrl, options);
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, '_');
-    const safeRoute = `${baseUrl.replace(/^https?:\/\//, '').replace(/[\/:]/g, '_')}-${route.replace(/[\/:]/g, '_')}-${timestamp}`;
+    const routeKey = `${baseUrl.replace(/^https?:\/\//, '').replace(/[\/:]/g, '_')}-${route.replace(/[\/:]/g, '_')}`;
+    const safeRoute = `${routeKey}-${timestamp}`;
+
+    cleanupOldReports(reportsDir, routeKey);
 
     const htmlPath = path.join(reportsDir, `${safeRoute}.report.html`);
     const jsonPath = path.join(reportsDir, `${safeRoute}.report.json`);
