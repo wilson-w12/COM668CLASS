@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service'; 
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent {
   password: string = '';
   loginError: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private popupService: PopupNotificationService,) {}
 
   // Submit
   onSubmit(): void {
@@ -27,6 +28,7 @@ export class LoginComponent {
         },
         (error) => {
           this.loginError = true;
+          this.popupService.showError('Unable to login. Please try again.');
         }
       );
     }
