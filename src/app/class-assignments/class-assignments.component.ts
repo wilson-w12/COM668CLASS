@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherService } from '../../services/teacher.service';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 @Component({
   selector: 'app-class-assignments',
@@ -19,7 +20,8 @@ export class ClassAssignmentsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private teacherService: TeacherService,
-    private router: Router
+    private router: Router,
+    private popupService: PopupNotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -34,10 +36,10 @@ export class ClassAssignmentsComponent implements OnInit {
     this.teacherService.getClassById(classId).subscribe({
       next: (data) => {
         this.classDetails = data.class;
-        console.log("Fetch class details: ", this.classDetails)
       },
       error: (err) => {
         console.error('Error fetching class details:', err);
+        this.popupService.showError('Unable to load class details. Please try again.');
       }
     });
   }
@@ -53,6 +55,7 @@ export class ClassAssignmentsComponent implements OnInit {
       },
       error: (err: any) => {
         console.error('Error fetching assignments:', err);
+        this.popupService.showError('Unable to load assignments. Please try again.');
       }
     });
   }
@@ -60,12 +63,10 @@ export class ClassAssignmentsComponent implements OnInit {
 
   filterAssignments(event: Event): void {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase().trim();
-
     if (!searchTerm) {
       this.filteredAssignments = this.allAssignments;
       return;
     }
-
     this.filteredAssignments = this.allAssignments.filter(assignment =>
       assignment.title.toLowerCase().includes(searchTerm)
     );

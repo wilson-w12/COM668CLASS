@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TeacherService } from '../../services/teacher.service';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 @Component({
   selector: 'app-class-exams',
@@ -17,7 +18,8 @@ export class ClassExamsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private teacherService: TeacherService,
-    private router: Router
+    private router: Router,
+    private popupService: PopupNotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class ClassExamsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching class details:', err);
+        this.popupService.showError('Unable to load class details. Please try again.');
       }
     });
   }
@@ -51,6 +54,7 @@ export class ClassExamsComponent implements OnInit {
       },
       error: (err: any) => {
         console.error('Error fetching exams:', err);
+        this.popupService.showError('Unable to load exams. Please try again.');
       }
     });
   }

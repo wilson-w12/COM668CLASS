@@ -4,6 +4,7 @@ import { TeacherService } from '../../services/teacher.service';
 import * as Highcharts from 'highcharts';
 import jsPDF from 'jspdf';
 import { PdfGenerationService } from '../../services/PdfGeneration.service';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 @Component({
   selector: 'app-class',
@@ -18,7 +19,8 @@ export class ClassComponent implements AfterViewChecked {
     private teacherService: TeacherService,
     private cdRef: ChangeDetectorRef,
     private router: Router,
-    private pdfGenerationService: PdfGenerationService
+    private pdfGenerationService: PdfGenerationService,
+    private popupService: PopupNotificationService
   ) { }
 
   classId: string | null = null;
@@ -93,6 +95,7 @@ export class ClassComponent implements AfterViewChecked {
       },
       error: (err) => {
         console.error('Error fetching class details:', err);
+        this.popupService.showError('Unable to load class details. Please try again.');
       }
     });
   }
@@ -111,6 +114,7 @@ export class ClassComponent implements AfterViewChecked {
       },
       error: (err: any) => {
         console.error('Error fetching assignments:', err);
+        this.popupService.showError('Unable to load assignment details. Please try again.');
       }
     });
   }
@@ -120,6 +124,7 @@ export class ClassComponent implements AfterViewChecked {
       next: (data) => {
         if (!data.exam || !data.exam.grade_distribution) {
           console.warn("Warning: data.exam or grade_distribution is missing", data);
+          this.popupService.showError('Data missing. Please try again.');
           return;
         }
 
@@ -135,6 +140,7 @@ export class ClassComponent implements AfterViewChecked {
       },
       error: (err) => {
         console.error("Error fetching grade data:", err);
+        this.popupService.showError('Unable to load grde details. Please try again.');
       }
     });
   }
@@ -166,6 +172,7 @@ export class ClassComponent implements AfterViewChecked {
       },
       error: (err) => {
         console.error("Error fetching student data:", err);
+        this.popupService.showError('Unable to load student details. Please try again.');
       }
     });
   }

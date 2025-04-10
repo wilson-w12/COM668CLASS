@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TeacherService } from '../../services/teacher.service';
 import { ActivatedRoute } from '@angular/router';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 @Component({
   selector: 'app-edit-student',
@@ -42,7 +43,7 @@ export class EditStudentComponent {
 
   teachersMap: { [subjectName: string]: { class_id: string, name: string, year: string, set: string }[] } = {} as { [subjectName: string]: { class_id: string, name: string, year: string, set: string }[] };
 
-  constructor(private http: HttpClient, private teacherService: TeacherService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef
+  constructor(private http: HttpClient, private teacherService: TeacherService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef, private popupService: PopupNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -112,6 +113,7 @@ export class EditStudentComponent {
       },
       error: (err) => {
         console.error('Error fetching student details:', err);
+        this.popupService.showError('Unable to load student details. Please try again.');
       }
     });
   }
@@ -131,6 +133,7 @@ export class EditStudentComponent {
       },
       (error) => {
         console.error('Error fetching classes for subject:', subject, error);
+        this.popupService.showError('Unable to classes for subject: ' + subject);
       }
     );
   }

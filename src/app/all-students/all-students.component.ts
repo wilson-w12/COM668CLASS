@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TeacherService } from '../../services/teacher.service';
 import { FormControl } from '@angular/forms';
 import { startWith, map, Observable } from 'rxjs';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 @Component({
   selector: 'app-all-students',
@@ -35,7 +36,8 @@ export class AllStudentsComponent implements OnInit {
 
   constructor(
     private teacherService: TeacherService,
-    private router: Router
+    private router: Router,
+    private popupService: PopupNotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +77,7 @@ export class AllStudentsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching students:', error);
+        this.popupService.showError('Unable to load students. Please try again.');
       }
     });
   }
@@ -133,7 +136,7 @@ export class AllStudentsComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.currentPage = 1; 
+    this.currentPage = 1;
     this.loadStudents();
   }
 

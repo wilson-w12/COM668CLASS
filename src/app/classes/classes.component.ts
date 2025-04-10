@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 interface Teacher {
   id: string;
@@ -59,7 +60,8 @@ export class ClassesComponent implements OnInit {
   filteredYears!: Observable<number[]>;
   filteredSets!: Observable<string[]>;
 
-  constructor(private teacherService: TeacherService, private router: Router) { }
+  constructor(private teacherService: TeacherService, private router: Router, private popupService: PopupNotificationService,
+) { }
 
   ngOnInit(): void {
     this.loadClasses();
@@ -107,6 +109,7 @@ export class ClassesComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching classes:', error);
+        this.popupService.showError('Unable to load classes. Please try again.');
       },
     });
   }

@@ -140,6 +140,7 @@ export class StudentComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching student details:', err);
+        this.popupService.showError('Unable to load student details. Please try again.');
       }
     });
   }

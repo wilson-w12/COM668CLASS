@@ -35,6 +35,7 @@ export class ResetPasswordComponent implements OnInit {
     const teacherId = this.teacherService.getTeacherIdFromToken(); 
     if (!teacherId) {
       console.error('No teacher ID found in token');
+      this.popupService.showError('Unable to load account details. Please try again.');
       return;
     }
 
@@ -46,7 +47,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching teacher details:', error);
-        this.popupService.showError('Failed to fetch teacher details.');
+        this.popupService.showError('Failed to laod teacher details.');
       }
     );
   }

@@ -74,7 +74,11 @@ export class ClassExamDetailsComponent {
         this.originalStudentResults = this.studentResults
         this.updateCharts();
       },
-      error: (err) => { console.error('Error fetching exam details:', err); },
+      error: (err) => { 
+        console.error('Error fetching exam details:', err);         
+        this.popupService.showError('Unable to load exam details. Please try again.');
+      },
+      
     });
   }
 

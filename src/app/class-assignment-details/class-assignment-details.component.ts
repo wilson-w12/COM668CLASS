@@ -54,7 +54,10 @@ export class ClassAssignmentDetailsComponent {
   fetchClassDetails(): void {
     this.teacherService.getClassById(this.classId).subscribe({
       next: (data) => { this.classDetails = data.class; },
-      error: (err) => { console.error('Error fetching class details:', err); },
+      error: (err) => {
+        console.error('Error fetching class details:', err);
+        this.popupService.showError('Unable to load class details. Please try again.');
+      },
     });
   }
 
@@ -79,7 +82,10 @@ export class ClassAssignmentDetailsComponent {
 
         this.updateCharts();
       },
-      error: (err) => console.error('Error fetching assignments:', err),
+      error: (err) => {
+        console.error('Error fetching assignments:', err);
+        this.popupService.showError('Unable to load assignment details. Please try again.');
+      },
     });
   }
 
@@ -89,7 +95,10 @@ export class ClassAssignmentDetailsComponent {
         this.allStudents = data.students || [];
         this.updateTargetGradeChart();
       },
-      error: (err) => console.error("Error fetching student data:", err),
+      error: (err) => {
+        console.error("Error fetching student data:", err);
+        this.popupService.showError('Unable to load student details. Please try again.');
+      },
     });
   }
 
@@ -160,7 +169,7 @@ export class ClassAssignmentDetailsComponent {
           y: count as number
         })) as Array<{ name: string, y: number }>
       }]
-    };    
+    };
   }
 
   updateTargetGradeChart(): void {
