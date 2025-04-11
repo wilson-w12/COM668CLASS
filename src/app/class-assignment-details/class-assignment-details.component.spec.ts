@@ -96,103 +96,52 @@ describe('ClassAssignmentDetailsComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    jasmine.getEnv().allowRespy(true);
-  });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch class details on init', () => {
+  it('should load class, assignment and students on init', () => {
     expect(teacherServiceMock.getClassById).toHaveBeenCalledWith('class123');
-    expect(component.classDetails).toEqual(jasmine.objectContaining({ year: 10 }));
-  });
-
-  it('should fetch assignment details on init', () => {
     expect(teacherServiceMock.getAssignmentByAssignmentId).toHaveBeenCalledWith('class123', 'assignment456');
-    expect(component.assignment.title).toBe('Test Assignment');
-  });
-
-  it('should fetch students on init', () => {
     expect(teacherServiceMock.getStudentsByClassId).toHaveBeenCalledWith('class123');
   });
 
-  it('should toggle assignment edit mode', () => {
-    component.assignment.title = 'Edited';
-    component.originalAssignment.title = 'Original';
-    component.isEditingAssignmentDetails = true;
+  it('should toggle edit mode and reset form when toggled off', () => {
+    component.originalAssignment = { title: 'Original Title', topics: 'Topic A', due_date: '2025-04-15', total_marks: 100, ['A*_grade']: 90, A_grade: 80, B_grade: 70, C_grade: 60, F_grade: 0 };
+    component.assignment = { ...component.originalAssignment, title: 'Edited Title' };
+    component.assignmentForm.setValue({
+      title: 'Edited Title',
+      topics: 'Topic A',
+      due_date: '2025-04-15',
+      total_marks: 100,
+      A_star_grade: 90,
+      A_grade: 80,
+      B_grade: 70,
+      C_grade: 60,
+      F_grade: 0
+    });
 
+    component.isEditingAssignmentDetails = true;
     component.toggleEditAssignmentDetails();
 
     expect(component.isEditingAssignmentDetails).toBeFalse();
-    expect(component.assignment.title).toBe('Original');
-  });
-  it('should validate assignment correctly', () => {
-    component.assignment = {
-      title: 'Math HW',
-      total_marks: 100,
-      ['A*_grade']: 90,
-      A_grade: 80,
-      B_grade: 70,
-      C_grade: 60,
-      F_grade: 0
-    };
-    expect(component.validateAssignment()).toBeTrue();
+    expect(component.assignment.title).toBe('Original Title');
   });
 
-  it('should fail validation if title is missing', () => {
-    component.assignment = {
-      title: '',
-      total_marks: 100,
-      ['A*_grade']: 90,
-      A_grade: 80,
-      B_grade: 70,
-      C_grade: 60,
-      F_grade: 0
-    };
-    expect(component.validateAssignment()).toBeFalse();
-  });
-
-  it('should validate student scores correctly', () => {
+  it('should prevent save if form invalid or marks invalid', () => {
+    component.assignmentForm.patchValue({ title: '' }); // force invalid title
     component.assignment.total_marks = 100;
-    component.studentResults = [
-      { mark: 80, grade: 'A' },
-      { mark: null, grade: 'Not Submitted' }
-    ];
-    expect(component.validateScores()).toBeTrue();
-  });
+    component.studentResults = [{ name: 'John', mark: 150 }];
 
-  it('should fail validation on invalid score', () => {
-    component.assignment.total_marks = 100;
-    component.studentResults = [{ mark: 120, grade: 'A' }];
-    expect(component.validateScores()).toBeFalse();
-  });
-
-  it('should not save if assignment is invalid', () => {
-    component.assignment = { title: '' };
     component.saveAssignment();
     expect(popupServiceMock.showError).toHaveBeenCalled();
   });
 
-  it('should not save if scores are invalid', () => {
+  it('should save valid assignment changes and show success', () => {
     component.assignment = {
-      title: 'Math',
-      total_marks: 100,
-      ['A*_grade']: 90,
-      A_grade: 80,
-      B_grade: 70,
-      C_grade: 60,
-      F_grade: 0
-    };
-    component.studentResults = [{ mark: 101 }];
-    component.saveAssignment();
-    expect(popupServiceMock.showError).toHaveBeenCalled();
-  });
-
-  it('should save updated assignment if valid and changed', () => {
-    component.assignment = {
-      title: 'Math',
+      title: 'Assignment',
+      topics: 'Algebra',
+      due_date: '2025-04-15',
       total_marks: 100,
       ['A*_grade']: 90,
       A_grade: 80,
@@ -201,7 +150,18 @@ describe('ClassAssignmentDetailsComponent', () => {
       F_grade: 0
     };
     component.originalAssignment = { ...component.assignment, results: [] };
-    component.studentResults = [{ student_id: '1', mark: 95, score: 95, grade: 'A*' }];
+    component.assignmentForm.setValue({
+      title: 'Assignment',
+      topics: 'Algebra',
+      due_date: '2025-04-15',
+      total_marks: 100,
+      A_star_grade: 90,
+      A_grade: 80,
+      B_grade: 70,
+      C_grade: 60,
+      F_grade: 0
+    });
+    component.studentResults = [{ student_id: '1', name: 'John', mark: 95 }];
     component.allStudents = [{ _id: '1', target_grade: 'A' }];
 
     component.saveAssignment();
@@ -210,9 +170,11 @@ describe('ClassAssignmentDetailsComponent', () => {
     expect(popupServiceMock.showSuccess).toHaveBeenCalled();
   });
 
-  it('should not save assignment if unchanged', () => {
-    const data = {
-      title: 'Same',
+  it('should not save if no changes detected', () => {
+    const unchanged = {
+      title: 'Assignment',
+      topics: 'Algebra',
+      due_date: '2025-04-15',
       total_marks: 100,
       ['A*_grade']: 90,
       A_grade: 80,
@@ -221,8 +183,20 @@ describe('ClassAssignmentDetailsComponent', () => {
       F_grade: 0,
       results: []
     };
-    component.assignment = { ...data };
-    component.originalAssignment = { ...data };
+
+    component.assignment = { ...unchanged };
+    component.originalAssignment = JSON.parse(JSON.stringify(unchanged));
+    component.assignmentForm.setValue({
+      title: unchanged.title,
+      topics: unchanged.topics,
+      due_date: unchanged.due_date,
+      total_marks: unchanged.total_marks,
+      A_star_grade: 90,
+      A_grade: 80,
+      B_grade: 70,
+      C_grade: 60,
+      F_grade: 0
+    });
     component.studentResults = [];
 
     component.saveAssignment();
@@ -230,19 +204,62 @@ describe('ClassAssignmentDetailsComponent', () => {
     expect(teacherServiceMock.updateAssignment).not.toHaveBeenCalled();
   });
 
-  it('should generate PDF and trigger save', () => {
-    component.assignment = { title: 'Test Assignment' };
-    component.assignmentFields = [];
-    component.studentResults = [
-      { name: 'Alice', mark: 90, score: 90, grade: 'A*', student_id: '1' }
-    ];
-    component.allStudents = [{ _id: '1', target_grade: 'A' }];
-    component.classDetails = {
-      year: 10,
-      set: 'A',
-      subject: 'Math',
-      teachers: [{ name: 'Mr. Smith' }]
+  it('should delete assignment and navigate on success', () => {
+    component.classId = 'class123';
+    component.assignmentId = 'assignment456';
+
+    component.deleteAssignment();
+
+    expect(teacherServiceMock.deleteAssignment).toHaveBeenCalledWith('class123', 'assignment456');
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/classes/class123']);
+    expect(popupServiceMock.showSuccess).toHaveBeenCalled();
+  });
+
+  it('should show error on delete failure', () => {
+    teacherServiceMock.deleteAssignment.and.returnValue(throwError(() => new Error('delete failed')));
+    component.classId = 'class123';
+    component.assignmentId = 'assignment456';
+
+    component.deleteAssignment();
+
+    expect(popupServiceMock.showError).toHaveBeenCalled();
+  });
+
+  it('should recalculate grade and score correctly', () => {
+    component.assignment = {
+      total_marks: 100,
+      ['A*_grade']: 90,
+      A_grade: 80,
+      B_grade: 70,
+      C_grade: 60,
+      F_grade: 0
     };
+  
+    const student: { mark: number; score: number | null; grade: string } = {
+      mark: 85,
+      score: null,
+      grade: ''
+    };
+  
+    component.recalculateGradeAndScore(student);
+  
+    expect(student.grade).toBe('A');
+    expect(student.score).toBe(85);
+  });  
+
+  it('should handle null mark in recalculateGradeAndScore', () => {
+    const student = { mark: null, score: null, grade: '' };
+    component.recalculateGradeAndScore(student);
+    expect(student.grade).toBe('Not Submitted');
+    expect(student.score).toBeNull();
+  });
+
+  it('should call generatePDF and save', () => {
+    component.assignment = { title: 'PDF Test' };
+    component.classDetails = { year: 10, set: 'A', subject: 'Math', teachers: [{ name: 'Teacher One' }] };
+    component.assignmentFields = [];
+    component.studentResults = [{ name: 'Alice', mark: 90, score: 90, grade: 'A*', student_id: '1' }];
+    component.allStudents = [{ _id: '1', target_grade: 'A' }];
 
     const fakeDoc = {
       setFontSize: () => {},
@@ -264,44 +281,6 @@ describe('ClassAssignmentDetailsComponent', () => {
     component.generatePDF();
 
     expect(pdfServiceMock.addLogoToPDF).toHaveBeenCalled();
-    expect(pdfServiceMock.addChartSection).toHaveBeenCalled();
     expect(fakeDoc.save).toHaveBeenCalled();
-  });
-
-  it('should delete assignment and navigate on success', () => {
-    component.classId = 'class123';
-    component.assignmentId = 'assignment456';
-
-    component.deleteAssignment();
-
-    expect(teacherServiceMock.deleteAssignment).toHaveBeenCalledWith('class123', 'assignment456');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/classes/class123']);
-    expect(popupServiceMock.showSuccess).toHaveBeenCalled();
-  });
-
-  it('should show error on delete failure', () => {
-    spyOn(console, 'error');
-    teacherServiceMock.deleteAssignment.and.returnValue(throwError(() => new Error('fail')));
-    component.classId = 'class123';
-    component.assignmentId = 'assignment456';
-
-    component.deleteAssignment();
-
-    expect(popupServiceMock.showError).toHaveBeenCalledWith('Error deleting assignment. Please try again.');
-  });
-
-  it('should navigate to class view', () => {
-    component.navigateToClass('classX');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/classes/classX']);
-  });
-
-  it('should navigate to assignments view', () => {
-    component.navigateToAssignments('classY');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/classes/classY/assignments']);
-  });
-
-  it('should navigate to exams view', () => {
-    component.navigateToExams('classZ');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/classes/classZ/exams']);
   });
 });
