@@ -47,7 +47,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching teacher details:', error);
-        this.popupService.showError('Failed to laod teacher details.');
+        this.popupService.showError('Failed to load teacher details.');
       }
     );
   }
