@@ -5,6 +5,7 @@ import * as Highcharts from 'highcharts';
 import { PopupNotificationService } from '../../services/popup-notification.service';
 import { PdfGenerationService } from '../../services/PdfGeneration.service';
 import jsPDF from 'jspdf';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-class-assignment-details',
@@ -26,6 +27,9 @@ export class ClassAssignmentDetailsComponent {
   isEditingScores = false;
   originalStudentResults: any[] = [];
   updatedAssignment: any;
+  assignmentForm!: FormGroup; 
+  errors: string[] = [];
+
 
   Highcharts: typeof Highcharts = Highcharts;
 
@@ -38,7 +42,8 @@ export class ClassAssignmentDetailsComponent {
     private teacherService: TeacherService,
     private router: Router,
     private popupService: PopupNotificationService,
-    private pdfGenerationService: PdfGenerationService
+    private pdfGenerationService: PdfGenerationService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -68,17 +73,29 @@ export class ClassAssignmentDetailsComponent {
         this.assignment = { ...data };
         this.originalAssignment = { ...data };
         this.assignmentFields = this.formatAssignmentFields(data);
-
-        // 🛠️ Ensure all students have a valid result
+        console.log("assignment fields ", this.assignmentFields)
+        // Ensure students have valid result
         this.studentResults = data.results?.map(({ student_id, name, score, mark, grade }: any) => ({
           student_id,
           name,
           score,
-          mark: mark !== null ? mark : null, // Keep null if mark is missing
+          mark: mark !== null ? mark : null, // Null if mark missing
           grade
         })) || [];
 
         this.originalStudentResults = this.studentResults;
+
+        this.assignmentForm = this.fb.group({
+          title: [this.assignment.title, Validators.required],
+          topics: [this.assignment.topics, Validators.required],
+          due_date: [this.assignment.due_date, [Validators.required, Validators.pattern('^\\d{4}-\\d{2}-\\d{2}$')]],
+          total_marks: [this.assignment.total_marks, [Validators.required, Validators.min(1)]],
+          A_star_grade: [this.assignment['A*_grade'], [Validators.required, Validators.min(0), Validators.max(100)]],
+          A_grade: [this.assignment.A_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+          B_grade: [this.assignment.B_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+          C_grade: [this.assignment.C_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+          F_grade: [this.assignment.F_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+        });
 
         this.updateCharts();
       },
@@ -210,10 +227,24 @@ export class ClassAssignmentDetailsComponent {
 
   toggleEditAssignmentDetails(): void {
     this.isEditingAssignmentDetails = !this.isEditingAssignmentDetails;
+  
     if (!this.isEditingAssignmentDetails) {
       this.assignment = { ...this.originalAssignment };
+  
+      // Reset form to original values
+      this.assignmentForm.setValue({
+        title: this.assignment.title,
+        topics: this.assignment.topics,
+        due_date: this.assignment.due_date,
+        total_marks: this.assignment.total_marks,
+        A_star_grade: this.assignment['A*_grade'],
+        A_grade: this.assignment.A_grade,
+        B_grade: this.assignment.B_grade,
+        C_grade: this.assignment.C_grade,
+        F_grade: this.assignment.F_grade,
+      });
     }
-  }
+  }  
 
   toggleEditScores(): void {
     this.isEditingScores = !this.isEditingScores;
@@ -252,53 +283,79 @@ export class ClassAssignmentDetailsComponent {
     });
   }
 
-  saveAssignment(): void {
-    if (!this.validateAssignment()) {
-      this.popupService.showError('Please ensure all assignment details are valid before saving.');
-      return;
-    }
-    if (!this.validateScores()) {
-      this.popupService.showError('Please ensure all student scores are valid before saving.');
-      return;
+  validateBeforeSave(): boolean {
+    this.assignmentForm.markAllAsTouched();
+    this.errors = [];
+
+    if (!this.assignmentForm.valid) {
+      this.errors.push("Please ensure all assignment fields are correctly filled.");
     }
 
+    const totalMarks = this.assignment.total_marks;
+    this.studentResults.forEach((student) => {
+      if (student.mark !== null && (student.mark < 0 || student.mark > totalMarks)) {
+        this.errors.push(`Invalid mark for ${student.name}: must be between 0 and ${totalMarks}`);
+      }
+    });
+
+    if (this.errors.length > 0) {
+      this.popupService.showError(this.errors.join(" - "));
+      return false;
+    }
+    return true;
+  }
+
+  saveAssignment(): void {
+    if (!this.validateBeforeSave()) return;
+  
+    // Sync latest form values to this.assignment
+    const formValues = this.assignmentForm.value;
+    this.assignment = {
+      ...this.assignment,
+      title: formValues.title,
+      topics: formValues.topics,
+      due_date: formValues.due_date,
+      total_marks: formValues.total_marks,
+      "A*_grade": formValues.A_star_grade,
+      A_grade: formValues.A_grade,
+      B_grade: formValues.B_grade,
+      C_grade: formValues.C_grade,
+      F_grade: formValues.F_grade,
+    };
+  
     const formattedResults = this.studentResults.map(student => {
-      // Ensure no missing or invalid student marks
       if (student.mark === undefined || student.mark === null) {
         student.grade = "Not Submitted";
         student.score = null;
       } else {
-        this.recalculateGradeAndScore(student);  // Recalculate grade and score if valid mark
+        this.recalculateGradeAndScore(student);
       }
-
+  
       return {
         student_id: student.student_id,
         mark: student.mark !== undefined ? student.mark : null,
-        score: student.score,  // may be null if "Not Submitted"
+        score: student.score,
         grade: student.grade
       };
     });
-
-    console.log("formatted results: ", formattedResults);
-
+  
     this.updatedAssignment = {
       ...this.assignment,
       results: formattedResults
     };
-
+  
     if (JSON.stringify(this.updatedAssignment) === JSON.stringify(this.originalAssignment)) {
       console.log("No changes detected.");
       this.isEditingAssignmentDetails = false;
       return;
     }
-
-    // Assignment update logic
+  
     this.teacherService.updateAssignment(this.classId, this.assignmentId, this.updatedAssignment).subscribe({
       next: () => {
         console.log("Assignment updated successfully");
         this.isEditingScores = false;
         this.isEditingAssignmentDetails = false;
-        this.fetchAssignment();
+        this.fetchAssignment(); 
         this.popupService.showSuccess('Assignment updated successfully!');
       },
       error: (error) => {
@@ -307,6 +364,7 @@ export class ClassAssignmentDetailsComponent {
       }
     });
   }
+  
 
   getTargetGrade(studentId: string): string {
     const student = this.allStudents.find(s => s._id === studentId);
@@ -351,10 +409,14 @@ export class ClassAssignmentDetailsComponent {
     return { grade, percentage: roundedPercentage };
   }
 
+  convertFormKey(key: string): string {
+    return key === 'A*_grade' ? 'A_star_grade' : key;
+  }  
+
   generatePDF(): void {
     const title = `Year ${this.classDetails.year}: Set ${this.classDetails.set}: Assignment - ${this.assignment.title}`;
     const tableTitle = 'Student Results:';
-    const tableData = this.studentResults; // Your student results data
+    const tableData = this.studentResults; 
     const doc = new jsPDF();
 
     // Add Logo 

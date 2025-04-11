@@ -25,35 +25,52 @@
                 </div>
             </div>
 
-            <!-- Document Details -->
+            <!-- Assignment Details -->
             <div class="document-edit-section">
                 <div class="document-edit-buttons">
                     <div class="document-edit-button">
-                        <button (click)="toggleEditAssignmentDetails()">{{ isEditingAssignmentDetails ? 'Cancel' : 'Edit
-                            Assignment Details' }}</button>
+                        <button (click)="toggleEditAssignmentDetails()">
+                            {{ isEditingAssignmentDetails ? 'Cancel' : 'Edit Assignment Details' }}
+                        </button>
                     </div>
                     <div class="document-save-button">
                         <button *ngIf="isEditingAssignmentDetails" (click)="saveAssignment()">Save Changes</button>
                     </div>
                 </div>
+
                 <div class="document-details">
-                    <div *ngFor="let field of assignmentFields" class="document-field">
-                        <label>{{ field.label }}</label>
-                        <p *ngIf="!isEditingAssignmentDetails || field.isReadOnly">{{ assignment[field.key] }}</p>
+                    <form [formGroup]="assignmentForm">
+                        <div *ngFor="let field of assignmentFields" class="document-field">
 
-                        <input *ngIf="isEditingAssignmentDetails && field.key !== 'due_date' && !field.isReadOnly"
-                            [(ngModel)]="assignment[field.key]" [type]="field.type" />
+                            <label>{{ field.label }}</label>
 
-                        <input *ngIf="isEditingAssignmentDetails && field.key === 'due_date'"
-                            [(ngModel)]="assignment[field.key]" type="date" [placeholder]="field.label" />
-                    </div>
+                            <!-- Title, Topics, Marks, Grades -->
+                            <mat-form-field *ngIf="isEditingAssignmentDetails && !field.isReadOnly && field.key !== 'due_date'" appearance="outline">
+                                <input matInput [formControlName]="convertFormKey(field.key)" [type]="field.type" />
+                            </mat-form-field>
+
+                            <!-- Due Date -->
+                            <mat-form-field *ngIf="isEditingAssignmentDetails && !field.isReadOnly && field.key === 'due_date'" appearance="outline" >
+                                <input matInput type="date" [formControlName]="'due_date'" />
+                            </mat-form-field>
+
+                            <!-- Error Message -->
+                            <div class="error"
+                                *ngIf="assignmentForm.get(convertFormKey(field.key))?.invalid && assignmentForm.get(convertFormKey(field.key))?.touched">
+                                <span>{{ field.label }} is invalid</span>
+                            </div>
+
+                            <!-- Read-only fallback -->
+                            <p *ngIf="!isEditingAssignmentDetails || field.isReadOnly">{{ assignment[field.key] }}</p>
+                        </div>
+                    </form>
                 </div>
                 <div class="document-delete-button">
-                    <button *ngIf="isEditingAssignmentDetails" (click)="deleteAssignment()">Delete Assignment</button>
+                    <button *ngIf="isEditingAssignmentDetails" (click)="deleteAssignment()">Delete
+                        Assignment</button>
                 </div>
             </div>
         </div>
-
         <div class="grades-container">
             <div class="grades-chart-container">
                 <div class="chart" id="gradesChartContainer">
@@ -81,6 +98,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="document-scores-content">
                 <table class="document-scores-table" [ngClass]="isEditingScores ? 'editing' : 'not-editing'">
                     <thead>
@@ -96,18 +114,22 @@
                         <tr *ngFor="let student of studentResults; let i = index">
                             <td>{{ student.name }}</td>
 
+                            <!-- Editable mark input -->
                             <td *ngIf="isEditingScores">
                                 <input [(ngModel)]="studentResults[i].mark" type="number" min="0"
                                     [max]="assignment.total_marks"
                                     (change)="recalculateGradeAndScore(studentResults[i])">
                                 / {{ assignment.total_marks }}
                             </td>
+
+                            <!-- Non-editable mark display -->
                             <td *ngIf="!isEditingScores">
                                 {{ student.mark }} / {{ assignment.total_marks }}
                             </td>
-                            <td>{{ student.score }}</td>
-                            <td>{{ student.grade }}</td>
-                            <td> {{ getTargetGrade(student.student_id) }} </td>
+
+                            <td>{{ student.score || 'N/A' }}</td>
+                            <td>{{ student.grade || 'N/A' }}</td>
+                            <td>{{ getTargetGrade(student.student_id) }}</td>
                         </tr>
                     </tbody>
                 </table>

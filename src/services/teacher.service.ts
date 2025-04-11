@@ -7,8 +7,8 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class TeacherService {
-  // private apiUrl = 'http://localhost:5000/api'; // Flask backend API URL
-   private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
+   private apiUrl = 'http://localhost:5000/api'; // Flask backend API URL
+  // private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
   
   constructor(private authService: AuthService, private http: HttpClient) { }
 

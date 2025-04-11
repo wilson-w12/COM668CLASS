@@ -168,7 +168,6 @@ button:hover {
 .document-delete-button {
     display: flex;
     justify-content: center;
-    margin-bottom: 1vw;
 }
 
 /* Delete Button */
@@ -198,7 +197,10 @@ button:hover {
 }
 
 .document-field {
-    margin-bottom: 15px;
+    margin-bottom: 2vw;
+    display: flex;
+    flex-direction: column;
+    width: 90%
 }
 
 .document-field label {
@@ -265,6 +267,13 @@ button:hover {
 .document-edit-section textarea::placeholder {
     color: #999;
     font-style: italic;
+}
+
+/* ------------------------------ Error Message Styling ------------------------------ */
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.2vw;
 }
 
 /* --------------------------- Filter Section --------------------------- */
