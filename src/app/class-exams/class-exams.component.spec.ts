@@ -12,41 +12,69 @@ describe('ClassExamsComponent', () => {
   let teacherService: jasmine.SpyObj<TeacherService>;
 
   beforeEach(async () => {
-    // Mock TeacherService
     const teacherServiceMock = jasmine.createSpyObj('TeacherService', [
       'getClassById', 'getExamsByClassId'
     ]);
-
-    // Mock data for service methods
-    teacherServiceMock.getClassById.and.returnValue(of({ class: { year: 10, subject: 'Math' } }));
-    teacherServiceMock.getExamsByClassId.and.returnValue(of({ exams: [{ title: 'Midterm Exam', due_date: '2023-05-01' }] }));
-
+  
+    teacherServiceMock.getClassById.and.returnValue(of({
+      class: {
+        _id: 'test-class-id',
+        year: 10,
+        subject: 'Math',
+        set: 'B',
+        students: new Array(30),  
+      }
+    }));
+  
+    teacherServiceMock.getExamsByClassId.and.returnValue(of({
+      exams: [{
+        _id: 'exam1',
+        title: 'Midterm Exam',
+        due_date: '2023-05-01',
+        results: new Array(20) 
+      }]
+    }));
+  
     await TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,  // Mock HTTP requests
-        RouterTestingModule,      // Mock routing
+        HttpClientTestingModule,
+        RouterTestingModule,
       ],
-      declarations: [ClassExamsComponent],  // Declare the standalone component here
+      declarations: [ClassExamsComponent],
       providers: [
         { provide: TeacherService, useValue: teacherServiceMock },
         {
-          provide: ActivatedRoute,  // Mock ActivatedRoute
+          provide: ActivatedRoute,
           useValue: {
             snapshot: {
               paramMap: {
-                get: () => 'test-class-id', // Mock class ID route parameter
+                get: () => 'test-class-id',
               },
             },
           },
         },
       ]
     }).compileComponents();
-
+  
     fixture = TestBed.createComponent(ClassExamsComponent);
     component = fixture.componentInstance;
-    teacherService = TestBed.inject(TeacherService) as jasmine.SpyObj<TeacherService>;
+  
+    component.filteredExams = [{
+      _id: 'exam1',
+      title: 'Midterm Exam',
+      due_date: '2023-05-01',
+      results: new Array(20)
+    }];
+    component.classDetails = {
+      _id: 'test-class-id',
+      subject: 'Math',
+      year: 10,
+      set: 'B',
+      students: new Array(30)
+    };
+  
     fixture.detectChanges();
-  });
+  });  
 
   it('should create', () => {
     expect(component).toBeTruthy();

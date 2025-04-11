@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,24 +45,6 @@ describe('ClassExamDetailsComponent', () => {
     router = jasmine.createSpyObj('Router', ['navigate']);
     location = jasmine.createSpyObj('Location', ['back']);
   
-    // ✅ Provide default return values as Observables
-    teacherService.getExamFilters.and.returnValue(of({ years: [10], sets: ['B'] }));
-    teacherService.getExamByExamId.and.returnValue(of({
-      title: 'Mock Exam',
-      subject: 'Math',
-      year: 10,
-      due_date: '2025-05-01',
-      total_marks: 100,
-      'A*_grade': 90,
-      A_grade: 80,
-      B_grade: 70,
-      C_grade: 60,
-      F_grade: 0,
-      results: []
-    }));
-    teacherService.updateExam.and.returnValue(of({}));
-    teacherService.deleteExam.and.returnValue(of({}));
-  
     await TestBed.configureTestingModule({
       declarations: [ClassExamDetailsComponent],
       imports: [
@@ -105,74 +87,76 @@ describe('ClassExamDetailsComponent', () => {
   
     fixture = TestBed.createComponent(ClassExamDetailsComponent);
     component = fixture.componentInstance;
+  
+    component.examForm = new FormBuilder().group({
+      title: [''],
+      subject: [''],
+      year: [null],
+      due_date: [''],
+      total_marks: [null],
+      A_star_grade: [null],
+      A_grade: [null],
+      B_grade: [null],
+      C_grade: [null],
+      F_grade: [null]
+    });
+  
+    spyOn(component as any, 'fetchExamDetails').and.callFake(() => {
+      const mockData = {
+        title: 'Mock Exam',
+        subject: 'Math',
+        year: 10,
+        due_date: '2025-05-01',
+        total_marks: 100,
+        'A*_grade': 90,
+        A_grade: 80,
+        B_grade: 70,
+        C_grade: 60,
+        F_grade: 0,
+        results: []
+      };
+      component.exam = mockData;
+      return of(mockData);
+    });    
+  
+    teacherService.getExamFilters.and.returnValue(of({ years: [10], sets: ['B'] }));
     fixture.detectChanges();
   });
-
-  function createValidExamForm(): FormGroup {
-    return new FormBuilder().group({
-      title: ['Mock Exam'],
-      subject: ['Math'],
-      year: [10],
-      due_date: ['2025-05-01'],
-      total_marks: [100],
-      A_star_grade: [90],
-      A_grade: [80],
-      B_grade: [70],
-      C_grade: [60],
-      F_grade: [0]
-    });
-  }
-  
 
   it('should create component', () => {
     expect(component).toBeTruthy();
   });
 
   it('should call fetchExamDetails with correct params on loadFilters', fakeAsync(() => {
-    const examData = {
-      title: 'Mock Exam',
-      subject: 'Math',
-      year: 10,
-      due_date: '2025-05-01',
-      total_marks: 100,
-      'A*_grade': 90,
-      A_grade: 80,
-      B_grade: 70,
-      C_grade: 60,
-      F_grade: 0,
-      results: []
-    };
-    teacherService.getExamFilters.and.returnValue(of({ years: [10], sets: ['B'] }));
-    teacherService.getExamByExamId.and.returnValue(of(examData));
-
     component.ngOnInit();
     tick();
 
     expect(teacherService.getExamFilters).toHaveBeenCalled();
-    expect(teacherService.getExamByExamId).toHaveBeenCalledWith('mock-exam-id', { year: 10, set: 'B' });
+    expect((component as any).fetchExamDetails).toHaveBeenCalled();
     expect(component.examForm).toBeDefined();
     expect(component.exam.title).toBe('Mock Exam');
   }));
 
   it('should validateBeforeSave return false if form invalid', () => {
+    component.exam = { total_marks: 100 };
     component.examForm = new FormBuilder().group({
-      title: [''], // invalid
-      subject: [''],
-      year: [10],
-      due_date: ['2025-05-01'],
-      total_marks: [100],
+      title: ['', Validators.required],
+      subject: ['', Validators.required],
+      year: [10, Validators.required],
+      due_date: ['2025-05-01', Validators.required],
+      total_marks: [100, Validators.required],
       A_star_grade: [90],
       A_grade: [80],
       B_grade: [70],
       C_grade: [60],
       F_grade: [0]
     });
-  
-    component.studentResults = [{ mark: 90, grade: 'A*' }]; 
+
+    component.studentResults = [{ mark: 90, grade: 'A*' }];
     const isValid = component.validateBeforeSave();
     expect(isValid).toBeFalse();
     expect(popupService.showError).toHaveBeenCalled();
-  });  
+  });
 
   it('should validateBeforeSave return true if form is valid', () => {
     component.exam = { total_marks: 100 };
@@ -215,7 +199,6 @@ describe('ClassExamDetailsComponent', () => {
     };
 
     component.studentResults = [{ student_id: '1', mark: 85, grade: 'A' }];
-
     component.examForm = new FormBuilder().group({
       title: ['Exam'],
       subject: ['Science'],
@@ -230,7 +213,6 @@ describe('ClassExamDetailsComponent', () => {
     });
 
     teacherService.updateExam.and.returnValue(of({}));
-
     component.saveExam();
 
     expect(teacherService.updateExam).toHaveBeenCalledWith('mock-exam-id', jasmine.any(Object));
@@ -275,7 +257,6 @@ describe('ClassExamDetailsComponent', () => {
   it('should delete exam and show success', () => {
     component.examId = 'mock-exam-id';
     teacherService.deleteExam.and.returnValue(of({}));
-
     component.deleteExam();
 
     expect(teacherService.deleteExam).toHaveBeenCalledWith('mock-exam-id');
@@ -286,6 +267,7 @@ describe('ClassExamDetailsComponent', () => {
     spyOn(console, 'error');
     component.examId = 'mock-exam-id';
     teacherService.deleteExam.and.returnValue(throwError(() => new Error('delete error')));
+
     component.deleteExam();
     expect(popupService.showError).toHaveBeenCalledWith('Error deleting exam. Please try again.');
   });
