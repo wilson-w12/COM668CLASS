@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -80,12 +80,14 @@ describe('ClassExamDetailsComponent', () => {
               }
             }
           }
-        }
+        },
+        FormBuilder
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ClassExamDetailsComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create component', () => {
@@ -119,7 +121,7 @@ describe('ClassExamDetailsComponent', () => {
   }));
 
   it('should validateBeforeSave return false if form invalid', () => {
-    component.examForm = component['fb'].group({
+    component.examForm = new FormBuilder().group({
       title: [''], // invalid
       subject: [''],
       year: [10],
@@ -140,7 +142,7 @@ describe('ClassExamDetailsComponent', () => {
 
   it('should validateBeforeSave return true if form is valid', () => {
     component.exam = { total_marks: 100 };
-    component.examForm = component['fb'].group({
+    component.examForm = new FormBuilder().group({
       title: ['Test'],
       subject: ['Math'],
       year: [10],
@@ -180,7 +182,7 @@ describe('ClassExamDetailsComponent', () => {
 
     component.studentResults = [{ student_id: '1', mark: 85, grade: 'A' }];
 
-    component.examForm = component['fb'].group({
+    component.examForm = new FormBuilder().group({
       title: ['Exam'],
       subject: ['Science'],
       year: [10],
@@ -219,7 +221,7 @@ describe('ClassExamDetailsComponent', () => {
     component.originalExam = { ...examData };
     component.studentResults = [];
 
-    component.examForm = component['fb'].group({
+    component.examForm = new FormBuilder().group({
       title: ['Same'],
       subject: ['Same'],
       year: [10],
