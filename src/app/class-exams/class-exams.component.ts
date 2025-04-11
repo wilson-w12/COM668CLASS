@@ -50,7 +50,7 @@ export class ClassExamsComponent implements OnInit {
           new Date(b.due_date).getTime() - new Date(a.due_date).getTime()
         );
         this.filteredExams = [...this.allExams];
-        console.log("Sorted Exams: ", this.allExams);
+        console.log("Filtered Exams: ", this.filteredExams);
       },
       error: (err: any) => {
         console.error('Error fetching exams:', err);

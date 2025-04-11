@@ -29,10 +29,9 @@
           <th>Awaiting</th>
         </tr>
       </thead>
-      <tbody *ngIf="classDetails?.exams?.length > 0">
+      <tbody *ngIf="filteredExams.length > 0">
         <tr class="row-item" *ngFor="let exam of filteredExams" [ngClass]="{'inactive-item': isPastDue(exam.due_date)}"
           (click)="navigateToExamDetails(exam._id, classDetails.year, classDetails.set)">
-            >
           <td>{{ exam.title }}</td>
           <td>{{ classDetails.subject }}: {{ classDetails.year }}: Set {{ classDetails.set | uppercase }}</td>
           <td>{{ exam.due_date | date: 'dd/MM/yy' }}</td>
