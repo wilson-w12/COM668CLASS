@@ -255,34 +255,6 @@ export class ClassAssignmentDetailsComponent {
     }
   }
 
-  validateAssignment(): boolean {
-    // Validate presence
-    const isTitleValid = typeof this.assignment.title === 'string' && this.assignment.title.trim() !== '';
-    const isAStarValid = this.isValidGrade(this.assignment['A*_grade']);
-    const isAValid = this.isValidGrade(this.assignment.A_grade);
-    const isBValid = this.isValidGrade(this.assignment.B_grade);
-    const isCValid = this.isValidGrade(this.assignment.C_grade);
-    const isFValid = this.isValidGrade(this.assignment.F_grade);
-    const isMarksValid = this.isValidGrade(this.assignment.total_marks);
-    return isTitleValid && isAStarValid && isAValid && isBValid && isCValid && isFValid && isMarksValid;
-  }
-
-  // Validate grades
-  isValidGrade(grade: any): boolean {
-    return typeof grade === 'number' && !isNaN(grade);
-  }
-
-
-  validateScores(): boolean {
-    // Validate score is >= 0 and <= total marks if score provided
-    return this.studentResults.every(student => {
-      if (student.mark !== null && student.mark !== undefined) {
-        return student.mark >= 0 && student.mark <= this.assignment.total_marks;
-      }
-      return student.grade === 'Not Submitted';
-    });
-  }
-
   validateBeforeSave(): boolean {
     this.assignmentForm.markAllAsTouched();
     this.errors = [];
@@ -308,7 +280,6 @@ export class ClassAssignmentDetailsComponent {
   saveAssignment(): void {
     if (!this.validateBeforeSave()) return;
   
-    // Sync latest form values to this.assignment
     const formValues = this.assignmentForm.value;
     this.assignment = {
       ...this.assignment,
