@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -44,7 +44,25 @@ describe('ClassExamDetailsComponent', () => {
     ]);
     router = jasmine.createSpyObj('Router', ['navigate']);
     location = jasmine.createSpyObj('Location', ['back']);
-
+  
+    // ✅ Provide default return values as Observables
+    teacherService.getExamFilters.and.returnValue(of({ years: [10], sets: ['B'] }));
+    teacherService.getExamByExamId.and.returnValue(of({
+      title: 'Mock Exam',
+      subject: 'Math',
+      year: 10,
+      due_date: '2025-05-01',
+      total_marks: 100,
+      'A*_grade': 90,
+      A_grade: 80,
+      B_grade: 70,
+      C_grade: 60,
+      F_grade: 0,
+      results: []
+    }));
+    teacherService.updateExam.and.returnValue(of({}));
+    teacherService.deleteExam.and.returnValue(of({}));
+  
     await TestBed.configureTestingModule({
       declarations: [ClassExamDetailsComponent],
       imports: [
@@ -84,11 +102,27 @@ describe('ClassExamDetailsComponent', () => {
         FormBuilder
       ]
     }).compileComponents();
-
+  
     fixture = TestBed.createComponent(ClassExamDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+  function createValidExamForm(): FormGroup {
+    return new FormBuilder().group({
+      title: ['Mock Exam'],
+      subject: ['Math'],
+      year: [10],
+      due_date: ['2025-05-01'],
+      total_marks: [100],
+      A_star_grade: [90],
+      A_grade: [80],
+      B_grade: [70],
+      C_grade: [60],
+      F_grade: [0]
+    });
+  }
+  
 
   it('should create component', () => {
     expect(component).toBeTruthy();
@@ -133,12 +167,12 @@ describe('ClassExamDetailsComponent', () => {
       C_grade: [60],
       F_grade: [0]
     });
-
-    component.studentResults = [];
+  
+    component.studentResults = [{ mark: 90, grade: 'A*' }]; 
     const isValid = component.validateBeforeSave();
     expect(isValid).toBeFalse();
     expect(popupService.showError).toHaveBeenCalled();
-  });
+  });  
 
   it('should validateBeforeSave return true if form is valid', () => {
     component.exam = { total_marks: 100 };

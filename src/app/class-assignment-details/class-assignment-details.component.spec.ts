@@ -80,14 +80,15 @@ describe('ClassAssignmentDetailsComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ClassAssignmentDetailsComponent);
-    component = fixture.componentInstance;
-
-    // Set default service return values
+    // Default return values
     teacherService.getClassById.and.returnValue(of({ class: { year: 10, set: 'A', subject: 'Math', teachers: [{ name: 'Mr. Smith' }] } }));
     teacherService.getAssignmentByAssignmentId.and.returnValue(of({ title: 'Test Assignment', results: [] }));
     teacherService.getStudentsByClassId.and.returnValue(of({ students: [] }));
+    teacherService.deleteAssignment.and.returnValue(of({}));
+    teacherService.updateAssignment.and.returnValue(of({}));
 
+    fixture = TestBed.createComponent(ClassAssignmentDetailsComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
