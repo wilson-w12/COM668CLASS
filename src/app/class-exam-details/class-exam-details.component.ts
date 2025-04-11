@@ -6,6 +6,7 @@ import { PopupNotificationService } from '../../services/popup-notification.serv
 import { PdfGenerationService } from '../../services/PdfGeneration.service';
 import jsPDF from 'jspdf';
 import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-class-exam-details',
@@ -23,6 +24,8 @@ export class ClassExamDetailsComponent {
   uniqueYears: number[] = [];
   uniqueSets: string[] = [];
   updatedExam: any;
+  examForm!: FormGroup;
+  errors: string[] = [];
   filters = {
     year: 0,
     set: ''
@@ -43,7 +46,8 @@ export class ClassExamDetailsComponent {
     private router: Router,
     private popupService: PopupNotificationService,
     public pdfGenerationService: PdfGenerationService,
-    private location: Location
+    private location: Location,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -72,6 +76,20 @@ export class ClassExamDetailsComponent {
           target_grade
         })) || [];
         this.originalStudentResults = this.studentResults
+
+        this.examForm = this.fb.group({
+          title: [this.exam.title, Validators.required],
+          subject: [this.exam.subject, Validators.required],
+          year: [this.exam.year, [Validators.required, Validators.min(7), Validators.max(13)]],
+          due_date: [this.exam.due_date, [Validators.required, Validators.pattern('^\\d{4}-\\d{2}-\\d{2}$')]],
+          total_marks: [this.exam.total_marks, [Validators.required, Validators.min(1)]],
+          A_star_grade: [this.exam['A*_grade'], [Validators.required, Validators.min(0), Validators.max(100)]],
+          A_grade: [this.exam.A_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+          B_grade: [this.exam.B_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+          C_grade: [this.exam.C_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+          F_grade: [this.exam.F_grade, [Validators.required, Validators.min(0), Validators.max(100)]],
+        });
+        
         this.updateCharts();
       },
       error: (err) => { 
@@ -197,10 +215,23 @@ export class ClassExamDetailsComponent {
 
   toggleEditExamDetails(): void {
     this.isEditingExamDetails = !this.isEditingExamDetails;
+  
     if (!this.isEditingExamDetails) {
       this.exam = { ...this.originalExam };
+      this.examForm.setValue({
+        title: this.exam.title,
+        subject: this.exam.subject,
+        year: this.exam.year,
+        due_date: this.exam.due_date,
+        total_marks: this.exam.total_marks,
+        A_star_grade: this.exam['A*_grade'],
+        A_grade: this.exam.A_grade,
+        B_grade: this.exam.B_grade,
+        C_grade: this.exam.C_grade,
+        F_grade: this.exam.F_grade,
+      });
     }
-  }
+  }  
 
   toggleEditScores(): void {
     this.isEditingScores = !this.isEditingScores;
@@ -211,46 +242,45 @@ export class ClassExamDetailsComponent {
     }
   }
 
-  validateExam(): boolean {
-    // Validate presence
-    const isTitleValid = typeof this.exam.title === 'string' && this.exam.title.trim() !== '';
-    const isSubjectValid = this.exam.subject && this.exam.subject.trim() !== '';
-    const isAStarValid = this.isValidGrade(this.exam['A*_grade']);
-    const isAValid = this.isValidGrade(this.exam.A_grade);
-    const isBValid = this.isValidGrade(this.exam.B_grade);
-    const isCValid = this.isValidGrade(this.exam.C_grade);
-    const isFValid = this.isValidGrade(this.exam.F_grade);
-    const isMarksValid = this.isValidGrade(this.exam.total_marks);
-    const isYearValid = this.exam.year ? (this.exam.year >= 8 && this.exam.year <= 12 && !isNaN(this.exam.year)) : true;
+  validateBeforeSave(): boolean {
+    this.examForm.markAllAsTouched();
+    this.errors = [];
 
-    return isTitleValid && isSubjectValid && isAStarValid && isAValid && isBValid && isCValid && isFValid && isMarksValid && isYearValid;
-  }
+    if (!this.examForm.valid) {
+      this.errors.push("Please ensure all assignment fields are correctly filled.");
+    }
 
-  // Validate grades
-  isValidGrade(grade: any): boolean {
-    return typeof grade === 'number' && !isNaN(grade);
-  }
-
-
-  validateScores(): boolean {
-    // Validate score is >= 0 and <= total marks if score provided
-    return this.studentResults.every(student => {
-      if (student.mark !== null && student.mark !== undefined) {
-        return student.mark >= 0 && student.mark <= this.exam.total_marks;
+    const totalMarks = this.exam.total_marks;
+    this.studentResults.forEach((student) => {
+      if (student.mark !== null && (student.mark < 0 || student.mark > totalMarks)) {
+        this.errors.push(`Invalid mark for ${student.name}: must be between 0 and ${totalMarks}`);
       }
-      return student.grade === 'Not Submitted';
     });
+
+    if (this.errors.length > 0) {
+      this.popupService.showError(this.errors.join(" - "));
+      return false;
+    }
+    return true;
   }
 
   saveExam(): void {
-    if (!this.validateExam()) {
-      this.popupService.showError('Please ensure all assignment details are valid before saving.');
-      return;
-    }
-    if (!this.validateScores()) {
-      this.popupService.showError('Please ensure all student scores are valid before saving.');
-      return;
-    }
+    if (!this.validateBeforeSave()) return;
+
+    const formValues = this.examForm.value;
+    this.exam = {
+      ...this.exam,
+      title: formValues.title,
+      subject: formValues.subject,
+      year: formValues.year,
+      due_date: formValues.due_date,
+      total_marks: formValues.total_marks,
+      "A*_grade": formValues.A_star_grade,
+      A_grade: formValues.A_grade,
+      B_grade: formValues.B_grade,
+      C_grade: formValues.C_grade,
+      F_grade: formValues.F_grade,
+    };
 
     const formattedResults = this.studentResults.map(student => ({
       student_id: student.student_id,
@@ -291,7 +321,7 @@ export class ClassExamDetailsComponent {
   }
 
   calculateGrade(mark: number): string {
-    const AStarGrade = this.exam['A*_grade']; // Use bracket notation
+    const AStarGrade = this.exam['A*_grade']; 
     const AGrade = this.exam.A_grade;
     const BGrade = this.exam.B_grade;
     const CGrade = this.exam.C_grade;
@@ -423,6 +453,10 @@ export class ClassExamDetailsComponent {
       });
     });
   }
+
+  convertFormKey(key: string): string {
+    return key === 'A*_grade' ? 'A_star_grade' : key;
+  }  
 
   deleteExam(): void {
     this.teacherService.deleteExam(this.examId).subscribe({

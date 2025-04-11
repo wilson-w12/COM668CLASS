@@ -57,16 +57,34 @@
                     </div>
                 </div>
                 <div class="document-details">
-                    <div *ngFor="let field of examFields" class="document-field">
-                        <label>{{ field.label }}</label>
-                        <p *ngIf="!isEditingExamDetails || field.isReadOnly">{{ exam[field.key] }}</p>
+                    <form [formGroup]="examForm">
+                        <div *ngFor="let field of examFields" class="document-field">
+                            <label>{{ field.label }}</label>
 
-                        <input *ngIf="isEditingExamDetails && field.key !== 'due_date' && !field.isReadOnly"
-                            [(ngModel)]="exam[field.key]" [type]="field.type" />
+                            <!-- Reactive inputs for editing -->
+                            <mat-form-field
+                                *ngIf="isEditingExamDetails && !field.isReadOnly && field.key !== 'due_date'"
+                                appearance="outline">
+                                <input matInput [formControlName]="convertFormKey(field.key)" [type]="field.type" />
+                            </mat-form-field>
 
-                        <input *ngIf="isEditingExamDetails && field.key === 'due_date'" [(ngModel)]="exam[field.key]"
-                            type="date" [placeholder]="field.label" />
-                    </div>
+                            <!-- Due date field -->
+                            <mat-form-field
+                                *ngIf="isEditingExamDetails && !field.isReadOnly && field.key === 'due_date'"
+                                appearance="outline">
+                                <input matInput type="date" [formControlName]="'due_date'" />
+                            </mat-form-field>
+
+                            <!-- Validation error -->
+                            <div class="error"
+                                *ngIf="examForm.get(convertFormKey(field.key))?.invalid && examForm.get(convertFormKey(field.key))?.touched">
+                                <span>{{ field.label }} is required or invalid</span>
+                            </div>
+
+                            <!-- Read-only fallback -->
+                            <p *ngIf="!isEditingExamDetails || field.isReadOnly">{{ exam[field.key] }}</p>
+                        </div>
+                    </form>
                 </div>
                 <div class="document-delete-button">
                     <button *ngIf="isEditingExamDetails" (click)="deleteExam()">Delete Exam</button>
