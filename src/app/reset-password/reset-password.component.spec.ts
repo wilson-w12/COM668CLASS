@@ -68,7 +68,7 @@ describe('ResetPasswordComponent', () => {
 
       component.fetchTeacherDetails();
 
-      expect(mockPopupService.showError).toHaveBeenCalledWith('Failed to fetch teacher details.');
+      expect(mockPopupService.showError).toHaveBeenCalledWith('Failed to load teacher details.');
     });
 
     it('should handle missing teacher ID', () => {
