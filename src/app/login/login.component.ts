@@ -19,6 +19,7 @@ export class LoginComponent {
   // Submit
   onSubmit(): void {
     if (this.username && this.password) {
+      console.log("Logging in")
       this.authService.login(this.username, this.password).subscribe(
         (response: any) => {
           // Store token, move to dashboard
