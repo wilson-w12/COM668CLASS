@@ -1,4 +1,4 @@
-/* ------------------------------ Layout Styling ------------------------------ */
+/* ------------------------------ Layout ------------------------------ */
 .document-details-container {
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@
 
 .add-student-content {
     display: flex;
-    flex-direction: row; /* Set the row direction to place items side by side */
+    flex-direction: row; 
     justify-content: center;
     gap: 5vw;
     width: fit-content;
@@ -29,7 +29,7 @@
 .subject-details-container {
     display: flex;
     flex-direction: column;
-    width: fit-content; /* Each section takes up 48% width, leaving space between them */
+    width: fit-content; 
 }
 
 /* ------------------------------ Subject Columns ------------------------------ */
@@ -47,10 +47,10 @@
 .subject-column {
     display: flex;
     flex-direction: column;
-    width: fit-content /* Adjust the width of each column (two columns) */
+    width: fit-content 
 }
 
-/* ------------------------------ Input Styling ------------------------------ */
+/* ------------------------------ Input ------------------------------ */
 .form-group {
     margin-bottom: 2vw;
 }
@@ -66,7 +66,7 @@ mat-form-field {
     width: fit-content;
 }
 
-/* ------------------------------ Subject Form Group Styling ------------------------------ */
+/* ------------------------------ Subject Form Group ------------------------------ */
 .subject-form-group {
     margin-bottom: 2vw;
     display: flex;
@@ -74,9 +74,8 @@ mat-form-field {
     gap: 1vw;
 }
 
-/* ------------------------------ Modern Input and Autocomplete Styling ------------------------------ */
+/* ------------------------------ Input and Autocomplete ------------------------------ */
 
-/* ------------------------------ Responsive Layout ------------------------------ */
 @media (max-width: 768px) {
     .add-student-container {
         flex-direction: column;
@@ -87,7 +86,7 @@ mat-form-field {
         gap: 1vw;
     }
     .subject-column {
-        width: 100%; /* On smaller screens, stack subjects vertically */
+        width: 100%; 
     }
 }
 

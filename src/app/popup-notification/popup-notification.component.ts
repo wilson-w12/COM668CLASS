@@ -28,7 +28,7 @@ export class PopupNotificationComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Hide the notification
+  // Hide notification
   closeNotification() {
     this.popupService.hideNotification();
   }

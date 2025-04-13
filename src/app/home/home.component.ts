@@ -20,29 +20,27 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class HomeComponent implements OnInit {
-  totalClasses: number = 0; // To store the total number of classes
-  subjectCounts: { [key: string]: number } = {}; // To store the classes per subject
-  visibleSubjects: { key: string; value: number }[] = []; // Currently visible containers
-  currentPage: number = 0; // Tracks the current page
-  ITEMSPERPAGE: number = 3; // Number of items per page (adjust based on screen width)
+  totalClasses: number = 0; 
+  subjectCounts: { [key: string]: number } = {}; 
+  visibleSubjects: { key: string; value: number }[] = []; 
+  currentPage: number = 0; 
+  ITEMSPERPAGE: number = 3; 
   animationState = 'in';
 
-  assignmentsDueToday: any[] = []; // To store assignments due today
-  examsDueToday: any[] = []; // To store exams due today
+  assignmentsDueToday: any[] = [];
+  examsDueToday: any[] = []; 
 
-  // Update the class properties
-  isNextDisabled: boolean = false; // Tracks if the Next button is disabled
-  isPreviousDisabled: boolean = false; // Tracks if the Previous button is disabled
+  isNextDisabled: boolean = false; 
+  isPreviousDisabled: boolean = false; 
 
-  constructor(private teacherService: TeacherService) { } // Inject TeacherService
+  constructor(private teacherService: TeacherService) { } 
 
   ngOnInit(): void {
     this.fetchCurrentTeacherClasses();
     this.fetchAssignmentsExamsDueToday();
   }
 
-
-  // Fetch current teacher's classes
+  // Get current teacher's classes
   fetchCurrentTeacherClasses(): void {
     this.teacherService.getCurrentTeacherClasses().subscribe({
       next: (response) => {
@@ -63,7 +61,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
   // Group classes by subject
   groupClassesBySubject(classes: any[]): { [subject: string]: number } {
     return classes.reduce((counts, currentClass) => {
@@ -73,8 +70,7 @@ export class HomeComponent implements OnInit {
     }, {});
   }
 
-
-  // Fetch assignments and exams due today
+  // Get assignments and exams due today
   fetchAssignmentsExamsDueToday(): void {
     this.teacherService.getAssignmentsExamsDueToday().subscribe({
       next: (response) => {
@@ -89,8 +85,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-  // Update the visible subjects based on the current page
+  // Update visible subjects based on current page
   updateVisibleSubjects(): void {
     const subjectArray = Object.entries(this.subjectCounts).map(([key, value]) => ({
       key,
@@ -107,7 +102,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  // Handle the "Next" button click
+  // Next button click
   nextPage(): void {
     const maxPages = Math.ceil(Object.keys(this.subjectCounts).length / this.ITEMSPERPAGE);
     if (this.currentPage < maxPages - 1) {
@@ -116,7 +111,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // Handle the "Previous" button click
+  // Previous button click
   previousPage(): void {
     if (this.currentPage > 0) {
       this.currentPage--;

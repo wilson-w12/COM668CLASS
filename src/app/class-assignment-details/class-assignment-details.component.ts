@@ -192,7 +192,7 @@ export class ClassAssignmentDetailsComponent {
   updateTargetGradeChart(): void {
     const gradeMap: { [key: string]: number } = { 'A*': 9, 'A': 8, 'B': 7, 'C': 6, 'D': 5, 'F': 0 };
 
-    // Create the targetGradeMap from allStudents data
+    // TargetGradeMap from allStudents data
     const targetGradeMap = new Map(this.allStudents.map(student => [student.student_id, gradeMap[student.target_grade] || 0]));
 
     this.targetGradeChartOptions = {
@@ -231,7 +231,7 @@ export class ClassAssignmentDetailsComponent {
     if (!this.isEditingAssignmentDetails) {
       this.assignment = { ...this.originalAssignment };
   
-      // Reset form to original values
+      // Reset form 
       this.assignmentForm.setValue({
         title: this.assignment.title,
         topics: this.assignment.topics,

@@ -173,20 +173,20 @@ button:hover {
 /* Delete Button */
 .document-delete-button button {
     margin-top: 1vw;
-    background-color: #dc3545; /* Red for delete */
+    background-color: #dc3545; 
     color: white;
     border-radius: 8px;
     padding: 12px 24px;
     font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 8px; /* Space between icon and text */
+    gap: 8px; 
     font-weight: bold;
 }
 
 .document-delete-button button:hover {
-    background-color: #b02a37; /* Darker red */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    background-color: #b02a37; 
+    transform: scale(1.05); 
 }
 
 .document-details {
@@ -378,7 +378,6 @@ button:hover {
     font-size: 14px;
 }
 
-/* When not editing scores */
 .not-editing tbody tr {
     cursor: pointer;
     transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
@@ -393,7 +392,6 @@ button:hover {
     text-decoration: underline;
 }
 
-/* When editing scores */
 .editing tbody tr {
     cursor: default;
     transition: background-color 0.2s ease-in-out;

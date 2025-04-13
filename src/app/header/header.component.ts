@@ -9,17 +9,17 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;  
-  isAdmin = false; // Direct boolean for admin state, not an observable
+  isAdmin = false; 
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Subscribe to login state changes
+    // Login state changes
     this.authService.isAuthenticated().subscribe((isValid) => {
       this.isLoggedIn = isValid;
       console.log("isLoggedIn: " + this.isLoggedIn);
 
-      // Now check if the user is an admin (if logged in)
+      // Check user is admin (if logged in)
       if (this.isLoggedIn) {
         this.authService.isAdmin().subscribe((isAdmin) => {
           this.isAdmin = isAdmin;

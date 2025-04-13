@@ -5,29 +5,25 @@
     margin-top: 2vw;
 }
 
-/* Marks Chart */
 .marks-chart-container {
     width: 70%;
     margin-right: 2vw;
 }
 
-/* Grades & Target Grade Charts */
 .grades-container {
     display: flex;
     gap: 2vw;
     margin-top: 2vw;
-    width: 100%; /* Ensure it takes full width */
+    width: 100%; 
 }
 
-/* Grades Chart */
 .grades-chart-container {
-    width: fit-content; /* Fixed width for grades chart */
+    width: fit-content; 
     margin-right: 2vw;
 }
 
-/* Target Grade Chart - Takes the remaining space */
 .target-grade-chart-container {
-    flex-grow: 1; /* Ensures it takes up the remaining width */
+    flex-grow: 1; 
     display: flex;
 }
 

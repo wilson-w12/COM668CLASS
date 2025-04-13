@@ -25,11 +25,8 @@ export class AllStudentsComponent implements OnInit {
     search: ''
   };
 
-  // Declare the form controls
   yearControl = new FormControl();
   setControl = new FormControl();
-
-  // Initialize filtered options
   filteredYears!: Observable<number[]>;
   filteredSets!: Observable<string[]>;
 
@@ -45,9 +42,7 @@ export class AllStudentsComponent implements OnInit {
     this.loadFilters();
   }
 
-  /**
-   * Fetch students based on filters and pagination.
-   */
+  // Get students for filters and pagination
   loadStudents(): void {
     const searchTerms = this.filters.search.trim().toLowerCase().split(/\s+/);
     this.pageSize = this.currentPage === 1 ? 24 : 25;
@@ -63,7 +58,7 @@ export class AllStudentsComponent implements OnInit {
       params.set = this.filters.set;
     }
     if (this.filters.search) {
-      params['search'] = this.filters.search; // Pass search query directly
+      params['search'] = this.filters.search; 
     }
 
     this.teacherService.getStudents(params).subscribe({
@@ -71,7 +66,7 @@ export class AllStudentsComponent implements OnInit {
         if (this.currentPage === 1) {
           this.allStudents = response.students; // Reset for new search
         } else {
-          this.allStudents = [...this.allStudents, ...response.students]; // Append for pagination
+          this.allStudents = [...this.allStudents, ...response.students]; // Append students
         }
         this.totalStudents = response.total_students;
       },
@@ -82,9 +77,7 @@ export class AllStudentsComponent implements OnInit {
     });
   }
 
-  /**
-   * Fetch unique years and sets for filter dropdowns.
-   */
+  // Get unique years and sets
   loadFilters(): void {
     this.teacherService.getStudentsFilters().subscribe({
       next: (response) => {

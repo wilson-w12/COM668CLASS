@@ -30,7 +30,7 @@ export class ResetPasswordComponent implements OnInit {
     this.fetchTeacherDetails();
   }
 
-  // Fetch teacher details
+  // Get teacher details
   fetchTeacherDetails() {
     const teacherId = this.teacherService.getTeacherIdFromToken(); 
     if (!teacherId) {

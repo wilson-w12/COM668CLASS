@@ -38,9 +38,9 @@ export class ClassComponent implements AfterViewChecked {
   genderChartOptions: Highcharts.Options = {};
   submissionRates: number[] = [];
 
-  Highcharts: typeof Highcharts = Highcharts; // Required for HighchartsChartModule
+  Highcharts: typeof Highcharts = Highcharts; 
 
-  // Average Results Chart (Existing)
+  // Average Results Chart
   chartOptions: Highcharts.Options = {
     chart: { type: 'line' },
     title: { text: 'Loading...' },
@@ -48,7 +48,7 @@ export class ClassComponent implements AfterViewChecked {
     series: []
   };
 
-  // Grade Distribution Chart (New)
+  // Grade Distribution Chart 
   gradeChartOptions: Highcharts.Options = {
     chart: { type: 'column' },
     title: { text: 'Grade Distribution' },
@@ -57,7 +57,7 @@ export class ClassComponent implements AfterViewChecked {
     series: []
   };
 
-  // Submission Rate Chart (New)
+  // Submission Rate Chart 
   submissionRateChartOptions: Highcharts.Options = {
     chart: { type: 'column' },
     title: { text: 'Assignment Completion Rate' },
@@ -75,7 +75,7 @@ export class ClassComponent implements AfterViewChecked {
     if (this.classId) {
       this.fetchClassDetails(this.classId);
       this.fetchAssignments(this.classId);
-      this.fetchExamsAndGrades(this.classId); // Fetch grade distribution
+      this.fetchExamsAndGrades(this.classId); 
       this.fetchStudents(this.classId)
       this.updateCharts();
       this.updateGradeChart();
@@ -128,13 +128,13 @@ export class ClassComponent implements AfterViewChecked {
           return;
         }
 
-        // Reset grade counts before processing new data
+        // Reset grade counts
         this.gradeCounts = { 'A*': 0, 'A': 0, 'B': 0, 'C': 0, 'F': 0 };
 
         // Use grade_distribution directly
         Object.keys(this.gradeCounts).forEach((grade) => {
           this.gradeCounts[grade as keyof typeof this.gradeCounts] =
-            data.exam.grade_distribution[grade] || 0; // Default to 0 if missing
+            data.exam.grade_distribution[grade] || 0;
         });
         this.updateGradeChart();
       },
@@ -158,7 +158,7 @@ export class ClassComponent implements AfterViewChecked {
         console.log("Data.students at chart creation: ", data.students);
         console.log("All students at chart creation: ", this.allStudents);
         console.log("Filtered students at chart creation: ", this.filteredStudents);
-        // Reset gender counts before processing new data
+        // Reset gender counts 
         this.genderCounts = { Male: 0, Female: 0, 'Other': 0 };
 
         // Count occurrences of each gender
@@ -280,7 +280,7 @@ export class ClassComponent implements AfterViewChecked {
       updatedDoc.text("Class Insights:", 10, currentYPosition);
       currentYPosition += 15;
 
-      // Ensure charts are rendered before adding students
+      // Ensure charts render before adding students
       this.pdfGenerationService.addChartSection(updatedDoc, ["chartContainer", "gradeChartContainer"], 10, [90, 90], currentYPosition, (updatedY: number) => {
         currentYPosition = updatedY;
         this.pdfGenerationService.addChartSection(updatedDoc, ["genderChartContainer", "submissionRateChartContainer"], 10, [90, 90], currentYPosition, (updatedY: number) => {
@@ -314,7 +314,6 @@ export class ClassComponent implements AfterViewChecked {
             currentYPosition += rowHeight;
           });
 
-          // Save PDF after everything is added
           updatedDoc.save(`Year_${this.classDetails.year}_Set_${this.classDetails.set}_Class_Report.pdf`);
         });
       });

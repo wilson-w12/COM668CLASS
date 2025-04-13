@@ -47,14 +47,12 @@ export class ClassesComponent implements OnInit {
   myClassesView = true;
   isEditing = false
 
-  // Declare the form controls
   teacherCardControl = new FormControl();
   teacherControl = new FormControl();
   subjectControl = new FormControl();
   yearControl = new FormControl();
   setControl = new FormControl();
 
-  // Initialize filtered options
   filteredTeachers!: Observable<{ id: string, name: string }[]>;
   filteredSubjects!: Observable<string[]>;
   filteredYears!: Observable<number[]>;
@@ -88,7 +86,7 @@ export class ClassesComponent implements OnInit {
     if (this.filters.set) {
       params.set = this.filters.set;
     }
-    // Add search_terms as an array
+    // Search_terms
     if (this.filters.search) {
       params['search_terms[]'] = searchTerms;
     }
@@ -125,7 +123,7 @@ export class ClassesComponent implements OnInit {
         this.filteredTeachers = this.teacherControl.valueChanges.pipe(
           startWith(''),
           map(value => {
-            // Find the selected teacher's ID
+            // Find selected teacher's ID
             const selectedTeacher = this.uniqueTeachers.find(teacher => teacher.name === value);
             this.filters.teacher = selectedTeacher ? selectedTeacher.id : ''; // Store ID
             this.applyFilters();
@@ -167,16 +165,14 @@ export class ClassesComponent implements OnInit {
   }
 
   saveClasses(): void {
-    // Step 1: Track modified classes
     const changedClasses: { class_id: string; selectedTeacherIds: string[] }[] = [];
-  
     const classesToCheck = this.myClassesView ? this.currentTeacherClasses : this.allClasses;
-    // Iterate over each class and check if the selected teachers have changed
+    //  Check if selected teachers have changed
     classesToCheck.forEach((classItem: ClassItem) => {
-      // Compare the selected teacher IDs with the original teacher IDs
+      // Compare selected teacher IDs with original teacher IDs
       const originalTeacherIds = classItem.teachers.map((t: Teacher) => t.id);
       if (classItem.selectedTeacherIds && !this.areArraysEqual(originalTeacherIds, classItem.selectedTeacherIds)) {
-        // If they are different, add this class to the changed classes list
+        // If different add class to changed classes list
         changedClasses.push({
           class_id: classItem.class_id,
           selectedTeacherIds: classItem.selectedTeacherIds
@@ -184,7 +180,7 @@ export class ClassesComponent implements OnInit {
       }
     });
   
-    // Step 2: Send only the changed classes to the backend
+    // Send changed classes to backend
     if (changedClasses.length > 0) {
       this.teacherService.updateTeacherClasses(changedClasses).subscribe({
         next: (response) => {
@@ -199,18 +195,16 @@ export class ClassesComponent implements OnInit {
     }
   }
   
-  // Utility function to compare two arrays (to detect changes in teacher assignments)
+  // Detect changes in teacher assignments
   areArraysEqual(arr1: any[], arr2: any[]): boolean {
     if (arr1.length !== arr2.length) {
       return false;
     }
-  
     for (let i = 0; i < arr1.length; i++) {
       if (arr1[i] !== arr2[i]) {
         return false;
       }
     }
-  
     return true;
   }
   

@@ -10,7 +10,7 @@ import { PopupNotificationService } from '../../services/popup-notification.serv
   standalone: false,
 })
 export class ClassExamsComponent implements OnInit {
-  classId!: string; // The definite assignment assertion
+  classId!: string; 
   classDetails: any = null;
   allExams: any[] = [];
   filteredExams: any[] = [];
@@ -23,9 +23,7 @@ export class ClassExamsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Capture the class ID from the route
     this.classId = this.route.snapshot.paramMap.get('class_id')!;
-    // Use the classId to fetch class-specific assignments if needed
     this.fetchClassDetails(this.classId);
     this.fetchExams(this.classId);
   }

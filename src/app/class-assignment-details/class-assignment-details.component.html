@@ -24,8 +24,6 @@
                     </highcharts-chart>
                 </div>
             </div>
-
-            <!-- Assignment Details -->
             <div class="document-edit-section">
                 <div class="document-edit-buttons">
                     <div class="document-edit-button">
@@ -60,7 +58,7 @@
                                 <span>{{ field.label }} is invalid</span>
                             </div>
 
-                            <!-- Read-only fallback -->
+                            <!-- Read-only -->
                             <p *ngIf="!isEditingAssignmentDetails || field.isReadOnly">{{ assignment[field.key] }}</p>
                         </div>
                     </form>

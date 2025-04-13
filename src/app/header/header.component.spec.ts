@@ -43,7 +43,7 @@ describe('HeaderComponent', () => {
 
   it('should set isLoggedIn to true when authenticated', () => {
     spyOn(authService, 'isAuthenticated').and.returnValue(of(true));
-    spyOn(authService, 'isAdmin').and.returnValue(of(false)); // Simulate not admin
+    spyOn(authService, 'isAdmin').and.returnValue(of(false)); 
 
     component.ngOnInit();
 

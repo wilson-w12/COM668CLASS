@@ -29,7 +29,7 @@ export class PdfGenerationService {
     // Check if new page
     public checkPageBreak(doc: jsPDF, currentY: number): number {
         if (currentY < 0) {
-            return 10; // Default Y position
+            return 10; 
         }
         const pageHeight = doc.internal.pageSize.height;
         const marginBottom = 20;
@@ -50,12 +50,11 @@ export class PdfGenerationService {
             doc.setFillColor(220, 220, 220);
             doc.rect(currentX, startY - 6, columnWidths[i], 8, "F");
     
-            // Align header text to the left of the column width
+            // Left-align header 
             doc.text(header, currentX + 2, startY - 2, { align: "left" });
     
             currentX += columnWidths[i];
         });
-    
         doc.setLineWidth(0.5);
         doc.line(10, startY + 2, 10 + columnWidths.reduce((a, b) => a + b, 0), startY + 2);
     }    
@@ -77,11 +76,7 @@ export class PdfGenerationService {
                 console.error("Invalid drawing position", currentX, startY);
                 return;
             }
-    
-            // Draw the text at the current position
             doc.text(displayText, currentX + 2, startY + 5, { align: "left" });
-    
-            // Update currentX for next column
             currentX += columnWidths[i];
         });
     }
@@ -187,7 +182,7 @@ export class PdfGenerationService {
                         addChartsToPDF(index + 1); // Skip if error
                     });
                 } else {
-                    addChartsToPDF(index + 1); // If chart is missing, skip
+                    addChartsToPDF(index + 1); // If chart missing, skip
                 }
             };
             addChartsToPDF(0);

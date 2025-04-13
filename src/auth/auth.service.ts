@@ -6,26 +6,25 @@ import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-   private apiUrl = 'http://localhost:5000/api'; // Your Flask backend API URL
-   private tokenValidationUrl = 'http://localhost:5000/api/validate-token';
-  // private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
-  // private tokenValidationUrl = 'https://flask-backend-no8c.onrender.com/api/validate-token'; // Render backend API URL
+  // private apiUrl = 'http://localhost:5000/api'; 
+  // private tokenValidationUrl = 'http://localhost:5000/api/validate-token';
+   private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
+   private tokenValidationUrl = 'https://flask-backend-no8c.onrender.com/api/validate-token'; // Render backend API URL
 
-  // BehaviorSubject to track authentication state
+  // Track authentication state
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
-  private isAdminSubject = new BehaviorSubject<boolean>(false); // Track if the user is admin
+  private isAdminSubject = new BehaviorSubject<boolean>(false); 
 
   constructor(private http: HttpClient) {
-    // Validate token on service initialization
     this.validateToken();
   }
 
-  // Fetch current login state
+  // Get current login state
   isAuthenticated(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }
 
-  // Fetch current admin state
+  // Get current admin state
   isAdmin(): Observable<boolean> {
     return this.isAdminSubject.asObservable();
   }
@@ -39,14 +38,14 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl + '/login', body).pipe(
       map((response) => {
         localStorage.setItem('token', response.token);
-        localStorage.setItem('isAdmin', response.isAdmin); // Store isAdmin flag
-        this.isLoggedInSubject.next(true); // Set login state true
-        this.isAdminSubject.next(response.isAdmin); // Set admin state
+        localStorage.setItem('isAdmin', response.isAdmin);
+        this.isLoggedInSubject.next(true); 
+        this.isAdminSubject.next(response.isAdmin); 
         return response;
       }),
       catchError((error) => {
-        this.isLoggedInSubject.next(false); // Set login state false
-        this.isAdminSubject.next(false); // Set admin state false
+        this.isLoggedInSubject.next(false); 
+        this.isAdminSubject.next(false);
         throw error;
       })
     );
@@ -56,17 +55,17 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('isAdmin');
-    this.isLoggedInSubject.next(false); // Set login state false
-    this.isAdminSubject.next(false); // Set admin state false
+    this.isLoggedInSubject.next(false); 
+    this.isAdminSubject.next(false);
   }
 
   // Validate token and set login state
   validateToken(): void {
     const token = localStorage.getItem('token');
-    const isAdmin = localStorage.getItem('isAdmin') === 'true'; // Check isAdmin from localStorage
+    const isAdmin = localStorage.getItem('isAdmin') === 'true'; 
     if (!token) {
-      this.isLoggedInSubject.next(false); // Set login state false
-      this.isAdminSubject.next(false); // Set admin state false
+      this.isLoggedInSubject.next(false); 
+      this.isAdminSubject.next(false); 
       return;
     }
 
@@ -74,7 +73,7 @@ export class AuthService {
       next: (response) => {
         this.isLoggedInSubject.next(response.valid);
         if (response.valid) {
-          this.isAdminSubject.next(isAdmin); // Set admin state based on stored value
+          this.isAdminSubject.next(isAdmin); 
         }
       },
       error: () => {
@@ -88,7 +87,7 @@ export class AuthService {
     return this.http.post('/api/signup', { username, password });
   }
 
-  // Method to get the authorization token from local storage
+  // Get authorization token from local storage
   getAuthToken(): string | null {
     return localStorage.getItem('token');
   }

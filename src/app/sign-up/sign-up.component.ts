@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth/auth.service'; // Import the AuthService to handle sign-up
+import { AuthService } from '../../auth/auth.service'; 
 
 @Component({
   selector: 'app-sign-up',
@@ -11,17 +11,17 @@ import { AuthService } from '../../auth/auth.service'; // Import the AuthService
 export class SignUpComponent {
   username: string = '';
   password: string = '';
-  confirmPassword: string = '';  // Add confirmPassword field
+  confirmPassword: string = ''; 
   signUpError: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Method to handle form submission
+  // Submit
   onSubmit(): void {
-    // Check if passwords match
+    // Check passwords match
     if (this.password !== this.confirmPassword) {
       this.signUpError = true;
-      return; // Do not proceed if passwords do not match
+      return; // Return if passwords don't match
     }
 
     if (this.username && this.password && this.confirmPassword) {

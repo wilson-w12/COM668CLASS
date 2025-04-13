@@ -28,17 +28,17 @@ export class PopupNotificationService {
     this.showNotification(message, 'warning');
   }
 
-  // Internal method to show notification and hide it after a delay
+  // Internal method to show notification and hide after delay
   private showNotification(message: string, type: 'success' | 'error' | 'info' | 'warning') {
     this.notificationSubject.next({ message, type });
 
-    // Automatically hide the notification after 5 seconds
+    // Automatically hide notification after 5 seconds
     setTimeout(() => {
       this.hideNotification();
     }, 5000); // 5 seconds timeout
   }
 
-  // Hide the notification
+  // Hide notification
   hideNotification() {
     this.notificationSubject.next({ message: '', type: null });
   }

@@ -1,53 +1,31 @@
 <div class="sign-up-container">
-    <h2>SIGN UP</h2>
-    <form (ngSubmit)="onSubmit()" #signUpForm="ngForm" class="sign-up-form">
-      <div class="username-container">
-        <label for="username">EMAIL</label>
-        <input
-          id="username"
-          type="text"
-          name="username"
-          [(ngModel)]="username"
-          #usernameInput="ngModel"
-          required
-        />
-        <div *ngIf="usernameInput.invalid && usernameInput.touched" class="missing-error">
-          Email is required.
-        </div>
+  <h2>SIGN UP</h2>
+  <form (ngSubmit)="onSubmit()" #signUpForm="ngForm" class="sign-up-form">
+    <div class="username-container">
+      <label for="username">EMAIL</label>
+      <input id="username" type="text" name="username" [(ngModel)]="username" #usernameInput="ngModel" required />
+      <div *ngIf="usernameInput.invalid && usernameInput.touched" class="missing-error">
+        Email is required.
       </div>
-      <div class="password-container">
-        <label for="password">PASSWORD</label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          [(ngModel)]="password"
-          #passwordInput="ngModel"
-          required
-        />
-        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="missing-error">
-          Password is required.
-        </div>
-      </div>
-      <div class="confirm-password-container">
-        <label for="confirm-password">CONFIRM PASSWORD</label>
-        <input
-          id="confirm-password"
-          type="password"
-          name="confirm-password"
-          [(ngModel)]="confirmPassword" 
-          #confirmPasswordInput="ngModel" 
-          required
-        />
-        <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched" class="missing-error">
-          Confirm Password is required.
-        </div>
-      </div>
-      <button type="submit" [disabled]="signUpForm.invalid">SIGN UP</button>
-    </form>
-    <div *ngIf="signUpError" class="error">
-      Invalid username or password.
     </div>
-    <a href="/login" class="login-link">Already have an account? Login here</a>
+    <div class="password-container">
+      <label for="password">PASSWORD</label>
+      <input id="password" type="password" name="password" [(ngModel)]="password" #passwordInput="ngModel" required />
+      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="missing-error">
+        Password is required.
+      </div>
+    </div>
+    <div class="confirm-password-container">
+      <label for="confirm-password">CONFIRM PASSWORD</label>
+      <input id="confirm-password" type="password" name="confirm-password" [(ngModel)]="confirmPassword"
+        #confirmPasswordInput="ngModel" required />
+      <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched" class="missing-error">
+        Confirm Password is required.
+      </div>
+    </div>
+    <button type="submit" [disabled]="signUpForm.invalid">SIGN UP</button>
+  </form>
+  <div *ngIf="signUpError" class="error">
+    Invalid username or password.
   </div>
-  
+</div>

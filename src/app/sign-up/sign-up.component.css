@@ -37,51 +37,49 @@ label{
 }
 
 input{
-    width: 16.5vw;  /* Set width to 414px */
-    height: 1vw;  /* Set height to 72px */
-    border-radius: 50px;  /* Apply rounded corners with 50px radius (can adjust the value) */
-    border: 1px solid #000000;  /* Optional border style */
-    padding: 10px;  /* Add padding inside the input for spacing */
-    font-size: 16px;  /* Adjust font size */
-    transition: all 0.3s ease;  /* Add transition for smooth effects on hover/focus */  
-    text-align: center;  /* Center the text horizontally */
+    width: 16.5vw; 
+    height: 1vw;  
+    border-radius: 50px;  
+    border: 1px solid #000000;  
+    padding: 10px;  
+    font-size: 16px;  
+    transition: all 0.3s ease; 
+    text-align: center; 
 }
 
 .missing-error{
     margin-top: 0.9vw;
 }
 
-/* Style for the button */
+/* Button styles */
 button {
-    width: 10vw;  /* Button width */
-    font-size: 16px;  /* Font size */
-    border: none;  /* Remove border */
-    cursor: pointer;  /* Cursor on hover */
-    transition: all 0.3s ease;  /* Smooth transition */
+    width: 10vw;  
+    font-size: 16px;  
+    border: none;  
+    cursor: pointer; 
+    transition: all 0.3s ease;  
 }
 
-/* Hover effect for the button */
 button:hover {
-    background-color: #00405d;  /* Darker shade of the original button color */
-    transform: scale(1.05);  /* Slightly enlarge the button */
+    background-color: #00405d;  
+    transform: scale(1.05); 
 }
 
-/* Disable the button when the form is invalid */
 button:disabled {
-    background-color: #cfcfcf;  /* Disabled background color */
-    cursor: not-allowed;  /* Change cursor to indicate the button is disabled */
+    background-color: #cfcfcf;  
+    cursor: not-allowed;  
 }
 
 .login-link{
     font-weight: bold;
     font-size: 16px;
     color: #5CB8FF;
-    transition: color 0.3s ease, transform 0.3s ease;  /* Smooth transition on hover */
+    transition: color 0.3s ease, transform 0.3s ease;  
   }
   
   .login-link:hover {
-    color: #00405d;  /* Change the color on hover */
-    transform: scale(1.05);  /* Slightly enlarge the link */
+    color: #00405d; 
+    transform: scale(1.05);  
   }
 
 .error{

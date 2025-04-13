@@ -3,7 +3,7 @@
     color: #fff;
     text-align: center;
     margin-top: 2vw;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .footer-content {
@@ -13,8 +13,8 @@
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    border-radius: 8px; /* Slight rounding for softer appearance */
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(92, 184, 255, 0)); /* Subtle gradient */
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(92, 184, 255, 0)); 
 }
 
 .footer-section {
@@ -26,7 +26,7 @@
     margin-bottom: 0.8rem;
     font-size: 1.2rem;
     color: #f4f4f4;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Subtle text shadow */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); 
 }
 
 .footer-section p,
@@ -34,7 +34,7 @@
     font-size: 0.9rem;
     line-height: 1.6;
     margin: 0.5rem 0;
-    color: #f0f0f0; /* Softer white for text */
+    color: #f0f0f0; 
 }
 
 .footer-section ul {
@@ -53,7 +53,7 @@
 }
 
 .footer-section ul li a:hover {
-    color: #ffffff; /* Brightens on hover */
+    color: #ffffff; 
     text-decoration: underline;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .social-icons img:hover {
-    transform: scale(1.2); /* Enlarges slightly on hover */
+    transform: scale(1.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -74,11 +74,11 @@
     color: #e0e0e0;
     padding: 0.8rem 0;
     font-size: 0.9rem;
-    border-radius: 0 0 8px 8px; /* Matches the top border rounding */
+    border-radius: 0 0 8px 8px; 
     margin-top: 1rem;
 }
 
 .footer-bottom p {
     margin: 0;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Slight text shadow for depth */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); 
 }

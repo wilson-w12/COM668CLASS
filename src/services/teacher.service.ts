@@ -7,42 +7,42 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class TeacherService {
-   private apiUrl = 'http://localhost:5000/api'; // Flask backend API URL
-  // private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
+  // private apiUrl = 'http://localhost:5000/api'; // Flask backend API URL
+   private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
   
   constructor(private authService: AuthService, private http: HttpClient) { }
 
   // ================== AUTHENTICATION METHODS ==================
 
-  // Method to get the authorization token from local storage
+  // Get authorization token from local storage
   private getAuthToken(): string | null {
-    return localStorage.getItem('token'); // Retrieve token from localStorage
+    return localStorage.getItem('token'); 
   }
 
   // ================== CLASS METHODS ==================
 
-  // Fetch current teacher's classes
+  // Get current teacher's classes
   getCurrentTeacherClasses(): Observable<any> {
     const token = this.authService.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/teacher/classes`, { headers });
   }
 
-  // Fetch all classes with optional filters
+  // Get all classes with optional filters
   getClasses(params: any): Observable<any> {
     const token = this.authService.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/classes`, { headers, params });
   }
 
-  // Fetch a class by its ID
+  // Get class by ID
   getClassById(classId: string): Observable<any> {
     const token = this.authService.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/classes/${classId}`, { headers });
   }
 
-  // Fetch students for a specific class
+  // Get students for class
   getStudentsByClassId(classId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -51,21 +51,21 @@ export class TeacherService {
 
   // ================== ASSIGNMENT METHODS ==================
 
-  // Fetch assignments for a specific class
+  // Get assignments for class
   getAssignmentsByClassId(classId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/classes/${classId}/assignments`, { headers });
   }
 
-  // Fetch assignment details by assignment ID
+  // Get assignment details by assignment ID
   getAssignmentByAssignmentId(classId: string, assignmentId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/classes/${classId}/assignments/${assignmentId}`, { headers });
   }
 
-  // Fetch assignment data for student charts
+  // Get assignment data for student charts
   getStudentAssignmentData(studentId: string, params: any): Observable<any> {
     const token = this.authService.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -101,35 +101,35 @@ export class TeacherService {
 
   // ================== EXAM METHODS ==================
 
-  // Fetch exams for a specific class
+  // Get exams for class
   getExamsByClassId(classId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/classes/${classId}/exams`, { headers });
   }
 
-  // Fetch a specific exam by ID with optional filters
+  // Get exam by ID with optional filters
   getExamByExamId(examId: string, params: any): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/exams/${examId}`, { headers, params });
   }
 
-  // Fetch exam and grade distributions for a class
+  // Get exam and grade distributions for class
   getExamAndGradesByClassId(classId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/classes/${classId}/recent-exam`, { headers });
   }
 
-  // Fetch exam data for student charts
+  // Get exam data for student charts
   getStudentExamData(studentId: string, params: any): Observable<any> {
     const token = this.authService.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/students/${studentId}/exams-chart`, { headers, params });
   }
 
-  // Fetch specific exam filter options
+  // Get specific exam filter options
   getExamFilters(examId: string): Observable<any> {
     const token = this.authService.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -165,21 +165,21 @@ export class TeacherService {
 
   // ================== STUDENT METHODS ==================
 
-  // Fetch all students with optional filters
+  // Get all students with optional filters
   getStudents(params: any): Observable<any> {
     const token = this.authService.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/students`, { headers, params });
   }
 
-  // Fetch student details by student ID
+  // Get student details by student ID
   getStudent(studentId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/students/${studentId}`, { headers });
   }
 
-  // Fetch student details by student ID
+  // Get student enrolled classes by student ID
   getStudentClasses(studentId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -208,7 +208,7 @@ export class TeacherService {
     );
   }
 
-  // Add a student
+  // Add student
   addStudent(studentData: any): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -220,7 +220,7 @@ export class TeacherService {
   }  
 
   // ================== TEACHER METHODS ==================
-  // Fetch student details by student ID
+  // Get student details by student ID
   getTeacher(teacherId: string): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -231,7 +231,6 @@ export class TeacherService {
   getTeacherIdFromToken(): string | null {
     const token = localStorage.getItem('token');
     if (!token) return null;
-
     try {
       const tokenPayload = JSON.parse(atob(token.split('.')[1]));
       return tokenPayload.sub;
@@ -241,7 +240,7 @@ export class TeacherService {
     }
   }
 
-  // Get all teachers with an optional subject filter
+  // Get all teachers with optional subject filter
   getTeachers(subject?: string): Observable<any> {
     let params = new HttpParams();
     if (subject) {
@@ -252,14 +251,14 @@ export class TeacherService {
     return this.http.get<any>(`${this.apiUrl}/teachers`, { headers, params });
   }
 
-// Update teacher using teacher Id
+// Update teacher by teacher ID
 updateTeacher(teacherId: string, updatedUser: any): Observable < any > {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.put<any>(`${this.apiUrl}/teachers/${teacherId}`, updatedUser, { headers });
 }
 
-// Update one or more teacher's classes
+// Update teacher's classes
 updateTeacherClasses(changedClasses: { class_id: string, selectedTeacherIds: string[] }[]): Observable < any > {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -271,6 +270,7 @@ requestVerificationCode(email: string): Observable < any > {
   return this.http.post<any>(`${this.apiUrl}/request-password-reset`, { email });
 }
 
+// Reset account password
 resetPassword(email: string, verificationCode: string, newPassword: string, teacherId: string): Observable < any > {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -283,6 +283,7 @@ resetPassword(email: string, verificationCode: string, newPassword: string, teac
   return this.http.put<any>(`${this.apiUrl}/reset-password`, data, { headers });
 }
 
+// Add a teacher account
 addTeacher(teacherData: any): Observable<any> {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -291,28 +292,28 @@ addTeacher(teacherData: any): Observable<any> {
 
 // ================== FILTER METHODS ==================
 
-// Fetch unique class filters (subjects & years)
+// Get unique class filters (subjects & years)
 getClassFilters(): Observable < any > {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.get<any>(`${this.apiUrl}/classes/classes-filters`, { headers });
 }
 
-// Fetch unique student filters (years & sets)
+// Get unique student filters (years & sets)
 getStudentsFilters(): Observable < any > {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.get<any>(`${this.apiUrl}/students/students-filters`, { headers });
 }
 
-// Fetch unique subjects for a specific student
+// Get unique subjects for specific student
 getStudentFilters(studentId: string): Observable < any > {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.get<any>(`${this.apiUrl}/students/${studentId}/student-filters`, { headers });
 }
 
-// Fetch assignments and exams due today
+// Get assignments and exams due today
 getAssignmentsExamsDueToday(): Observable < any > {
   const token = this.authService.getAuthToken();
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

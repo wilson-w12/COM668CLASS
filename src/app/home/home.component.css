@@ -7,7 +7,6 @@
   flex-direction: row;
   margin-bottom: 1vw;
   gap: 5vw;
-  /* Space between containers */
   align-items: center;
 }
 
@@ -24,33 +23,21 @@
 
 .class-container {
   position: relative;
-  /* Positioning context for absolute positioning */
   background-color: white;
   border: 2px solid #5CB8FF;
-  /* Thinner border */
   border-radius: 8px;
-  /* Rounded corners for a softer look */
   width: 12vw;
-  /* Fixed width */
   height: 8vw;
-  /* Fixed height */
   overflow: hidden;
-  /* Prevent overflow outside the container */
   text-align: center;
   padding: 10px;
-  /* Add some padding for inner spacing */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
-  /* Subtle shadow for depth */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  /* Smooth hover effects */
 }
 
-/* Add a hover effect for interactivity */
 .class-container:hover {
   transform: translateY(-5px);
-  /* Slight lift effect on hover */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
-  /* Enhance shadow on hover */
 }
 
 .arrows-container {
@@ -66,32 +53,22 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  /* Pointer cursor for clickable state */
   opacity: 1;
-  /* Fully visible by default */
   transition: opacity 0.3s ease;
 }
 
 .arrow-container.disabled {
   cursor: not-allowed;
-  /* Show not-allowed cursor for disabled state */
   opacity: 0.5;
-  /* Make the disabled arrow semi-transparent */
   pointer-events: none;
-  /* Prevent clicking on disabled arrows */
 }
 
 .arrow-container img {
   max-width: 100%;
-  /* Ensure the image fits within the container's width */
   max-height: 100%;
-  /* Ensure the image fits within the container's height */
   object-fit: contain;
-  /* Maintain the aspect ratio of the image */
 }
 
-
-/* No changes to typography (h2 and h3 styles) */
 .class-value {
   position: absolute;
   top: 40%;
@@ -130,10 +107,8 @@ h3 {
 .assignments-table th,
 .assignments-table td {
   padding: 10px 15px;
-  /* Add padding for inner spacing */
   text-align: left;
   border-bottom: 1px solid #ddd;
-  /* Horizontal lines under each row */
 }
 
 .assignments-table th {
@@ -150,32 +125,24 @@ h3 {
 
 .assignment-title-label {
   width: 30vw;
-  /* Title column width */
 }
 
 .assignments-table th:not(.assignment-title-label) {
   width: auto;
-  /* Other columns will have width fit their content */
   padding-right: 2vw;
-  /* Add gap between columns */
 }
 
-/* Optional: Style for table data cells for alignment consistency */
 .assignments-table td {
   padding-right: 1vw;
-  /* Add gap between cells */
 }
 
-/* Ensuring the table cells have content width based on their content */
 .assignments-table td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* To avoid content overflow */
   cursor: pointer;
 }
 
 .assignments-table tr:last-child td {
   border-bottom: none;
-  /* No border after the last row */
 }

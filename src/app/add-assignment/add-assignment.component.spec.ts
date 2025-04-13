@@ -16,7 +16,6 @@ import { TeacherService } from '../../services/teacher.service';
 import { PopupNotificationService } from '../../services/popup-notification.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
-// Create a mock Router and ActivatedRoute
 class MockRouter {
   navigate = jasmine.createSpy('navigate');
 }
@@ -24,7 +23,7 @@ class MockRouter {
 class MockActivatedRoute {
   snapshot = {
     paramMap: {
-      get: jasmine.createSpy('get').and.returnValue('class_id') // Mock class_id param
+      get: jasmine.createSpy('get').and.returnValue('class_id') 
     }
   };
 }

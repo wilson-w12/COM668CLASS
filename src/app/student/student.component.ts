@@ -15,24 +15,24 @@ declare module 'jspdf' {
 
 interface ExamDataPoint {
   exam_id: string | null;
-  y: number;  // Score (score, class average, or year average)
+  y: number;  
   mark?: number;
-  grade?: string;  // Optional grade
-  date: string; // Formatted date for display
+  grade?: string;  
+  date: string; 
   subject: string;
-  title?: string; // Some data points may not have a title
+  title?: string; 
 }
 
 interface AssignmentDataPoint {
   class_id: string | null;
   assignment_id: string | null;
-  y: number;  // Score (score, class average, or year average)
+  y: number;  
   mark?: number;
-  grade?: string;  // Optional grade
-  date: string; // Formatted date for display
+  grade?: string;  
+  date: string; 
   subject: string;
   topics: string | null;
-  title?: string; // Some data points may not have a title
+  title?: string; 
 }
 
 @Component({
@@ -86,8 +86,8 @@ export class StudentComponent implements OnInit {
       buttons: {
         contextButton: {
           menuItems: [
-            'downloadPDF',  // Enable PDF export
-            'downloadSVG',  // Enable SVG export
+            'downloadPDF', 
+            'downloadSVG', 
           ]
         }
       }
@@ -279,8 +279,8 @@ export class StudentComponent implements OnInit {
         buttons: {
           contextButton: {
             menuItems: [
-              'downloadPDF',  // Enable PDF export
-              'downloadSVG',  // Enable SVG export
+              'downloadPDF',  
+              'downloadSVG',  
             ]
           }
         }
@@ -289,7 +289,7 @@ export class StudentComponent implements OnInit {
       xAxis: { categories: this.examCategories, title: { text: 'Subjects' } },
       yAxis: { title: { text: 'Scores' } },
       tooltip: {
-        useHTML: true, // Ensure correct formatting
+        useHTML: true, 
         formatter: function () {
           let gradeText = (this as any).grade ? `<b>Grade:</b> ${(this as any).grade} <br/>` : '';
           return `
@@ -330,7 +330,7 @@ export class StudentComponent implements OnInit {
       xAxis: { categories: this.assignmentCategories, title: { text: 'Subjects' } },
       yAxis: { title: { text: 'Scores' } },
       tooltip: {
-        useHTML: true, // Ensure correct formatting
+        useHTML: true, 
         formatter: function () {
           let gradeText = (this as any).grade ? `<b>Grade:</b> ${(this as any).grade} <br/>` : '';
           return `
@@ -367,7 +367,7 @@ export class StudentComponent implements OnInit {
       }
     });
 
-    // Format exam grade data for the pie chart
+    // Format exam grade data for pie chart
     const examGradeData = Object.entries(examGradeCounts).map(([grade, count]) => ({
       name: grade,
       y: count
@@ -381,7 +381,7 @@ export class StudentComponent implements OnInit {
       }
     });
 
-    // Format assignment grade data for the pie chart
+    // Format assignment grade data for pie chart
     const assignmentGradeData = Object.entries(assignmentGradeCounts).map(([grade, count]) => ({
       name: grade,
       y: count
@@ -487,12 +487,11 @@ export class StudentComponent implements OnInit {
         return `Grade for ${subject} is invalid.`;
       }
     }
-
     return true;
   }
 
   isValidGrade(grade: any): boolean {
-    // Check grade is valid string grade
+    // Check grade is valid 
     const validGrades = ['A*', 'A', 'B', 'C', 'F'];
     return validGrades.includes(grade) || (typeof grade === 'number' && !isNaN(grade));
   }
@@ -611,7 +610,6 @@ export class StudentComponent implements OnInit {
           }
         }
         console.log("Areas of Strength: ", areasOfStrength)
-
 
         const rowData = [
           this.pdfGenerationService.wrapText(item.title || 'Untitled Assignment', assignmentColumnWidths[0]),

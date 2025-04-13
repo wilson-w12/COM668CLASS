@@ -51,7 +51,6 @@ export class ClassExamDetailsComponent {
   ) { }
 
   ngOnInit(): void {
-    // Capture the class ID from the route
     this.examId = this.route.snapshot.paramMap.get('exam_id')!;
     this.loadFilters(this.examId);
     this.updateCharts();
@@ -66,7 +65,7 @@ export class ClassExamDetailsComponent {
         this.examDetails = data;
         this.examFields = this.formatExamFields(data);
 
-        // Ensure all students have a valid result
+        // Ensure students have valid result
         this.studentResults = data.results?.map(({ student_id, name, mark, score, grade, target_grade }: any) => ({
           student_id,
           name,
@@ -342,7 +341,7 @@ export class ClassExamDetailsComponent {
   }
 
   generatePDF(): void {
-    // Build the title dynamically based on filters.year and filters.set
+    // Build title dynamically for filters.year and filters.set
     let title = `Year ${this.examDetails.year}: Exam - ${this.examDetails.title}`;
     if (this.filters.year && this.filters.set) {
       title = `Year ${this.examDetails.year}: Exam - ${this.examDetails.title} (Year ${this.filters.year}: Set ${this.filters.set})`;
@@ -352,7 +351,7 @@ export class ClassExamDetailsComponent {
       title = `Year ${this.examDetails.year}: Exam - ${this.examDetails.title} (Set ${this.filters.set})`;
     }
     const tableTitle = 'Student Results:';
-    const tableData = this.studentResults; // Your student results data
+    const tableData = this.studentResults; 
     const doc = new jsPDF();
 
     // Add Logo 

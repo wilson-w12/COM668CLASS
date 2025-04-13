@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'; // ✅ ADD THIS
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AddStudentComponent', () => {
@@ -25,7 +25,7 @@ describe('AddStudentComponent', () => {
         MatInputModule,
         MatSelectModule,
         MatButtonModule,
-        MatAutocompleteModule, // ✅ FIXED
+        MatAutocompleteModule, 
         BrowserAnimationsModule
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

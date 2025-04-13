@@ -36,7 +36,7 @@ export class AddAssignmentComponent {
     results: []
   };
   isEditingScores = false;
-  errors: string[] = []  // Now using an array to store error messages
+  errors: string[] = []  // Store error messages
 
   constructor(
     private fb: FormBuilder,
@@ -188,10 +188,9 @@ export class AddAssignmentComponent {
   }
 
   save(): void {
-    // Validation checks
     this.validateForm();
     if (this.errors.length > 0) {
-      this.popupService.showError(this.errors.join(" - ")); // Show errors
+      this.popupService.showError(this.errors.join(" - ")); 
       return;
     }
   

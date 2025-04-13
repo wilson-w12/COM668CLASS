@@ -2,8 +2,6 @@
   <a href="/home">
     <img class="logo" src="assets/img/CLASSLogo.png" alt="CLASS Logo">
   </a>
-
-  <!-- Logged-in state -->
   <div class="nav-links-container">
     <div class="logged-in-main-nav-links">
       <nav *ngIf="isLoggedIn; else loggedOutMenu">
@@ -30,7 +28,6 @@
     </div>
   </div>
 
-  <!-- Logged-out state -->
   <ng-template #loggedOutMenu>
     <a href="/login" class="login-link">Login</a>
   </ng-template>

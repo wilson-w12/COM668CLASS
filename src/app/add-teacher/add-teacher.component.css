@@ -1,4 +1,4 @@
-/* ------------------------------ Layout Styling ------------------------------ */
+/* ------------------------------ Layout ------------------------------ */
 .document-details-container {
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
 
 .add-teacher-content {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap; 
     justify-content: center;
     gap: 2vw;
     width: 90%;
@@ -58,7 +58,7 @@ h2 {
     width: 100%;
 }
 
-/* ------------------------------ Form Styling ------------------------------ */
+/* ------------------------------ Form ------------------------------ */
 .form-group {
     margin-bottom: 1.5vw;
     display: flex;
@@ -76,7 +76,7 @@ mat-form-field {
     width: 100%;
 }
 
-/* ------------------------------ Add Class Styling ------------------------------ */
+/* ------------------------------ Add Class ------------------------------ */
 .add-class-container {
     display: flex;
     align-items: center;
@@ -102,7 +102,6 @@ p {
     margin-bottom: 2vw;
 }
 
-/* ------------------------------ Responsive Layout ------------------------------ */
 @media (max-width: 768px) {
     .add-teacher-content {
         flex-direction: column;
@@ -121,11 +120,11 @@ p {
     }
 
     .subject-column {
-        width: 100%; /* Stack subjects vertically */
+        width: 100%; 
     }
 }
 
-/* ------------------------------ Button Styling ------------------------------ */
+/* ------------------------------ Button ------------------------------ */
 button {
     background-color: #007bff;
     color: white;
@@ -141,14 +140,12 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Disabled button styling */
 button:disabled {
-    background-color: #d6d6d6; /* Light gray background */
-    color: #a1a1a1;  /* Gray text color */
-    cursor: not-allowed;  /* Show the 'not-allowed' cursor */
+    background-color: #d6d6d6; 
+    color: #a1a1a1; 
+    cursor: not-allowed; 
 }
 
-/* Styling for the disabled Add Class button */
 button[disabled] {
     background-color: #d6d6d6;
     color: #a1a1a1;
@@ -172,7 +169,7 @@ button[disabled] {
 }
 
 
-/* ------------------------------ Error Message Styling ------------------------------ */
+/* ------------------------------ Error Message ------------------------------ */
 .error {
     color: red;
     font-size: 0.9rem;

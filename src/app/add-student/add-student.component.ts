@@ -40,14 +40,14 @@ export class AddStudentComponent implements OnInit {
   constructor(private http: HttpClient, private teacherService: TeacherService) { }
 
   ngOnInit(): void {
-    // Initialize form controls for each subject
+    // Form controls for each subject
     this.subjects.forEach((subject) => {
       this.teacherControls[subject] = new FormControl('');
       this.targetGradeControls[subject] = new FormControl('');
       this.teachersMap[subject] = [];
     });
 
-    // Watch for changes in year and set, then auto-select teachers
+    // Changes in year and set, auto-select teachers
     this.yearControl.valueChanges.subscribe(() => this.fetchClassesForYearSet());
     this.setControl.valueChanges.subscribe(() => this.fetchClassesForYearSet());
 
@@ -63,7 +63,7 @@ export class AddStudentComponent implements OnInit {
 
     if (!selectedYear || !selectedSet) return;
 
-    // Fetch classes for each subject based on selected year and set
+    // Fetch classes for each subject for selected year and set
     this.subjects.forEach(subject => {
       this.getClassesForSubjectYearSet(subject, selectedYear, selectedSet);
     });
@@ -73,26 +73,14 @@ export class AddStudentComponent implements OnInit {
   getClassesForSubjectYearSet(subject: string, year: string, set: string): void {
     this.teacherService.getClasses({ subject, year, set }).subscribe(
       (response) => {
-        console.log(`Fetching classes for Subject: ${subject}, Year: ${year}, Set: ${set}`);
-        console.log("Classes fetched:", response); // Log the full response
-
-        // Find the matching teacher for the selected year and set
+        // Find teacher for selected year and set
         const matchingTeacher = response.classes.find((classData: any) =>
           String(classData.year) === String(year) && classData.set === set
         );
-
-        console.log("Matching teacher found:", matchingTeacher); // Log the matching teacher
-
-        // If a matching teacher is found, set the value in the form control
         if (matchingTeacher) {
           console.log("Setting teacher value in form control");
-          const class_id = matchingTeacher.class_id; // Get the class_id from the matched teacher
-          console.log("Class ID:", class_id); // Log the class_id for debugging
-
-          // Directly set the value in the teacherControls form control
+          const class_id = matchingTeacher.class_id; // Get class_id for matched teacher
           this.teacherControls[subject].setValue(class_id);
-
-          // Optionally, you can also update the model if needed
           this.student.teachers[subject] = class_id;
         } else {
           console.log("No matching teacher found for the selected year and set");
@@ -104,11 +92,11 @@ export class AddStudentComponent implements OnInit {
     );
   }
 
-  // Fetch classes for a subject 
+  // Fetch classes for subject 
   getClassesForSubject(subject: string): void {
     this.teacherService.getClasses({ subject }).subscribe(
       (response) => {
-        // Update teacher map with teacher information
+        // Update teacher map with teacher info
         this.teachersMap[subject] = response.classes.map((classData: any) => ({
           class_id: classData.class_id,
           name: classData.teachers.map((teacher: any) => teacher.name).join(", "),
@@ -123,7 +111,7 @@ export class AddStudentComponent implements OnInit {
     );
   }
 
-  // Automatically select teachers based on year and set
+  // Automatically select teachers for year and set
   autoSelectTeachers(): void {
     const selectedYear = this.yearControl.value;
     const selectedSet = this.setControl.value;
@@ -131,12 +119,12 @@ export class AddStudentComponent implements OnInit {
     if (!selectedYear || !selectedSet) return;
 
     this.subjects.forEach(subject => {
-      // Find matching teacher based on selected year and set
+      // Find matching teacher for selected year and set
       const matchingTeacher = this.teachersMap[subject].find(
         teacher => teacher.year === selectedYear && teacher.set === selectedSet
       );
 
-      // Set the teacher in the corresponding form control
+      // Set teacher
       if (matchingTeacher) {
         this.student.teachers[subject] = matchingTeacher.class_id;
       }

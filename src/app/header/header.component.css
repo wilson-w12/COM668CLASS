@@ -1,82 +1,77 @@
 /* Header styles */
 .header {
   display: flex;
-  align-items: center; /* Vertically center the logo and content */
-  height: fit-content; /* 10.5% of the screen height */
-  width: 100%; /* Ensure it spans the full width of the screen */
+  align-items: center; 
+  height: fit-content; 
+  width: 100%; 
   margin-bottom: 5vh;
   border-bottom: 2px solid #005477;
-  padding: 0 2rem; /* Horizontal padding */
-  box-sizing: border-box; /* Include padding in width calculation */
+  padding: 0 2rem; 
+  box-sizing: border-box; 
   position: relative;
-  overflow: hidden; /* Prevent elements from spilling outside */
-  background-color: #fff; /* Make sure background is clean */
+  overflow: hidden;
+  background-color: #fff; 
 }
 
 /* Logo styles */
 .logo {
-  height: 100%; /* Take full height of the header */
-  width: 12vw; /* 12% of the screen width */
-  object-fit: contain; /* Maintain image aspect ratio */
+  height: 100%; 
+  width: 12vw; 
+  object-fit: contain; 
   cursor: pointer;
 }
 
-/* Navigation links container */
+/* Links */
 .nav-links-container {
   display: flex;
-  justify-content: flex-end; /* Align links to the right */
+  justify-content: flex-end; 
   align-items: center;
   width: 100%;
   height: 100%;
-  gap: 2rem; /* Space between nav groups */
+  gap: 2rem; 
 }
 
-/* General link styles */
 ul {
   margin: 0;
   list-style: none;
   display: flex;
-  gap: 2rem; /* Space between menu items */
+  gap: 2rem; 
 }
 
-/* Style for each link */
 ul li a {
   text-decoration: none;
-  color: #333; /* Dark grey for text */
-  font-size: 1rem; /* Slightly larger font size */
-  font-weight: 500; /* Medium weight */
-  text-transform: uppercase; /* Uppercase for a sleek look */
-  padding: 0.5rem 1rem; /* Space around text */
-  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-  border-radius: 5px; /* Rounded corners on hover */
+  color: #333; 
+  font-size: 1rem; 
+  font-weight: 500; 
+  text-transform: uppercase;
+  padding: 0.5rem 1rem; 
+  transition: color 0.3s ease, transform 0.3s ease; 
+  border-radius: 5px; 
 }
 
-/* Hover effect for links */
 ul li a:hover {
-  color: #005477; /* Change text color on hover */
-  background-color: rgba(0, 85, 119, 0.1); /* Subtle background change on hover */
-  transform: translateY(-3px); /* Slight hover lift effect */
+  color: #005477; 
+  background-color: rgba(0, 85, 119, 0.1); 
+  transform: translateY(-3px); 
 }
 
-/* Login link styles */
 .login-link {
   font-weight: bold;
   text-decoration: none;
-  color: #005477; /* Color for the login link */
+  color: #005477; 
   position: absolute;
-  bottom: 10%; /* Slightly above the bottom of the header */
-  right: 2rem; /* Ensure it's aligned within the visible area */
-  transition: color 0.3s, text-decoration 0.3s; /* Smooth transition */
-  white-space: nowrap; /* Prevent wrapping */
+  bottom: 10%; 
+  right: 2rem; 
+  transition: color 0.3s, text-decoration 0.3s;
+  white-space: nowrap; 
 }
 
-/* Hover effect for login link */
 .login-link:hover {
   text-decoration: underline;
-  color: #004466; /* Slightly darker shade on hover */
+  color: #004466; 
 }
 
-/* Admin dropdown styles */
+/* Admin dropdown */
 .header .nav-links-container .logged-in-side-nav-links .dropdown {
   position: relative;
 }

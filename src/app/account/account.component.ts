@@ -79,7 +79,7 @@ export class AccountComponent implements OnInit {
     this.errors.verification_code = '';
   }
 
-  // Save changes if all validations pass
+  // Save changes if validations pass
   saveDetails() {
     this.validateFirstName();
     this.validateLastName();

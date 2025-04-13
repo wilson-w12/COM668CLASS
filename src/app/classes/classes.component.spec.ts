@@ -74,9 +74,9 @@ describe('ClassesComponent', () => {
 
   it('should detect and update changed classes on save', fakeAsync(() => {
     fixture.detectChanges();
-    tick(); // allow observables to emit
+    tick(); 
 
-    teacherServiceSpy.getClasses.calls.reset(); // clear init calls
+    teacherServiceSpy.getClasses.calls.reset(); 
 
     const updatedClass = {
       ...component.currentTeacherClasses[0],
@@ -87,12 +87,12 @@ describe('ClassesComponent', () => {
     teacherServiceSpy.updateTeacherClasses.and.returnValue(of({ success: true }));
 
     component.saveClasses();
-    tick(); // simulate async response
+    tick();
 
     expect(teacherServiceSpy.updateTeacherClasses).toHaveBeenCalledWith([
       { class_id: '123', selectedTeacherIds: ['t2'] }
     ]);
-    expect(teacherServiceSpy.getClasses).toHaveBeenCalledTimes(1); // only reload once
+    expect(teacherServiceSpy.getClasses).toHaveBeenCalledTimes(1); 
   }));
 
   it('should toggle view and reload classes', fakeAsync(() => {

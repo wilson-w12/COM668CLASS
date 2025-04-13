@@ -185,7 +185,7 @@ export class AddExamComponent {
 
   // Validate all fields
   validateFields() {
-    this.errors = [];  // Reset errors array before validating
+    this.errors = [];  
     this.validateTitle();
     this.validateDueDate();
     this.validateTotalMarks();
@@ -193,15 +193,15 @@ export class AddExamComponent {
   }
 
   save(): void {
-    this.validateFields();  // Validate all fields
+    this.validateFields();  
 
-    // If there are any errors, show them in a single popup
+    // Show errors
     if (this.errors.length > 0) {
       this.popupService.showError(this.errors.join(" - "));
       return;
     }
 
-    // If all validations pass, save the exam
+    // Save exam
     const examData = {
       title: this.exam.title,
       year: this.yearControl.value,

@@ -3,7 +3,6 @@
         <div class="document-links">
             <h2>Students</h2>
         </div>
-        <!-- Filter Options -->
         <div class="filters">
             <div class="subject-year-filters">
                 <div>
@@ -38,13 +37,10 @@
         </div>
     </div>
     <div class="grid-container">
-        <!-- Add Student Item -->
         <div class="card add-item" (click)="navigateToAddStudent()">
             <img src="assets/img/addIconBlue.png" alt="Add Student Icon" class="add-icon-blue" />
             <p>Add Student</p>
         </div>
-
-        <!-- Existing Student Items -->
         <div *ngFor="let student of allStudents" class="card"
             (click)="navigateToStudent(student._id)">
             <p><strong>{{ student.first_name }} <br> {{ student.last_name }}</strong></p>
@@ -52,7 +48,6 @@
             <p><strong>Set:</strong> {{ student.set }}</p>
         </div>
     </div>
-    <!-- Load More Button -->
     <div class="load-more-container" *ngIf="hasMoreStudents()">
         <img src="assets/img/downArrow.png" alt="More Students Icon" (click)="loadMoreStudents()"
             class="load-more-icon" />

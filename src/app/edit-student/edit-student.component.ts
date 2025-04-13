@@ -77,15 +77,13 @@ export class EditStudentComponent {
         // Set student details
         this.studentDetails = data.student;
         this.studentClasses = data.classes;
-  
-        // Populate student object
         this.student.firstName = data.student.first_name;
         this.student.lastName = data.student.last_name;
         this.genderControl.setValue(data.student.gender);
         this.yearControl.setValue(data.student.year);
         this.setControl.setValue(data.student.set);
   
-        // Populate target grades if they exist
+        // Set target grades
         if (data.student.target_grades) {
           Object.entries(data.student.target_grades).forEach(([subject, grade]) => {
             if (this.targetGradeControls[subject]) {
@@ -94,7 +92,7 @@ export class EditStudentComponent {
           });
         }
   
-        // Populate teachers based on student classes
+        // Set teachers 
         this.student.teachers = {};
         this.studentClasses.forEach((classData: any) => {
           const subject = classData.subject;
@@ -106,7 +104,7 @@ export class EditStudentComponent {
           }
         });
   
-        // Manually trigger change detection
+        // Trigger change detection
         this.cdRef.detectChanges(); 
   
         console.log("Updated student object: ", this.student);

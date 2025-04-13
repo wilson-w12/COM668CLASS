@@ -55,7 +55,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Edit Student Details Container -->
             <div class="document-edit-section">
                 <div class="document-edit-button">
                     <button (click)="toggleEditStudentDetails()">{{ isEditingStudentDetails ? 'Cancel' : 'Edit
@@ -79,15 +78,11 @@
 
                     <div class="document-field">
                         <label>Target Grade</label>
-
-                        <!-- Show dropdown when editing -->
                         <select *ngIf="isEditingStudentDetails" [(ngModel)]="student.target_grades[selectedSubject]">
                             <option *ngFor="let grade of gradeOptions" [value]="grade">
                                 {{ grade }}
                             </option>
                         </select>
-
-                        <!-- Show target grade as <p> when not editing -->
                         <p *ngIf="!isEditingStudentDetails">
                             {{ student.target_grades[selectedSubject] || 'N/A' }}
                         </p>
@@ -98,7 +93,6 @@
                 </div>
             </div>
         </div>
-        <!-- Assignments Table -->
         <div class="assignments-table-container">
             <table class="responsive-table">
                 <thead>

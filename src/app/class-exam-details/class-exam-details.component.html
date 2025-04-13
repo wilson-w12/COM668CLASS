@@ -81,7 +81,7 @@
                                 <span>{{ field.label }} is required or invalid</span>
                             </div>
 
-                            <!-- Read-only fallback -->
+                            <!-- Read-only -->
                             <p *ngIf="!isEditingExamDetails || field.isReadOnly">{{ exam[field.key] }}</p>
                         </div>
                     </form>

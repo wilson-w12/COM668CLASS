@@ -1,4 +1,4 @@
-/* ------------------------------ Layout Styling ------------------------------ */
+/* ------------------------------ Layout ------------------------------ */
 .document-details-container {
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@
 
 .add-exam-content {
     display: flex;
-    flex-direction: row; /* Set the row direction to place items side by side */
+    flex-direction: row; 
     justify-content: center;
     gap: 5vw;
     height: fit-content;
@@ -25,12 +25,12 @@
 
 }
 
-/* ------------------------------ exam and Subject Details Containers ------------------------------ */
+/* ------------------------------ Exam and Subject Details Containers ------------------------------ */
 .exam-details-container,
 .subject-details-container {
     display: flex;
     flex-direction: column;
-    width: fit-content; /* Each section takes up 48% width, leaving space between them */
+    width: fit-content; 
 }
 
 /* ------------------------------ Subject Columns ------------------------------ */
@@ -48,7 +48,7 @@
 .subject-column {
     display: flex;
     flex-direction: column;
-    width: fit-content /* Adjust the width of each column (two columns) */
+    width: fit-content 
 }
 
 /* ------------------------------ Input Styling ------------------------------ */
@@ -67,7 +67,7 @@ mat-form-field {
     width: fit-content;
 }
 
-/* ------------------------------ Subject Form Group Styling ------------------------------ */
+/* ------------------------------ Subject Form Group ------------------------------ */
 .subject-form-group {
     margin-bottom: 2vw;
     display: flex;
@@ -75,9 +75,7 @@ mat-form-field {
     gap: 1vw;
 }
 
-/* ------------------------------ Modern Input and Autocomplete Styling ------------------------------ */
-
-/* ------------------------------ Responsive Layout ------------------------------ */
+/* ------------------------------ Input and Autocomplete ------------------------------ */
 @media (max-width: 768px) {
     .add-exam-container {
         flex-direction: column;
@@ -88,7 +86,7 @@ mat-form-field {
         gap: 1vw;
     }
     .subject-column {
-        width: 100%; /* On smaller screens, stack subjects vertically */
+        width: 100%; 
     }
 }
 
@@ -124,13 +122,11 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* ------------------------------ Button and Hover Effects ------------------------------ */
-
 .document-scores-table input{
     width: 3vw;   
 }
 
-/* ------------------------------ Error Message Styling ------------------------------ */
+/* ------------------------------ Error Message ------------------------------ */
 .error {
     color: red;
     font-size: 0.9rem;
