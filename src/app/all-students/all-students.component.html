@@ -29,10 +29,16 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="search-container">
-                <img src="assets/img/seachIcon.png" alt="Search Icon" class="search-icon" />
-                <input class="search" [(ngModel)]="filters.search" placeholder="Search: Student Name"
-                    (input)="applyFilters()" />
+            <div class="row">
+                <button class="add-document-btn" (click)="navigateToAddAssignment(classDetails._id)">
+                    <img src="assets/img/addIcon.png" alt="Add Icon" class="add-icon">
+                    Add Assignment
+                </button>
+                <div class="search-container">
+                    <img src="assets/img/seachIcon.png" alt="Search Icon" class="search-icon" />
+                    <input class="search" [(ngModel)]="filters.search" placeholder="Search: Student Name"
+                        (input)="applyFilters()" />
+                </div>
             </div>
         </div>
     </div>
@@ -41,8 +47,7 @@
             <img src="assets/img/addIconBlue.png" alt="Add Student Icon" class="add-icon-blue" />
             <p>Add Student</p>
         </div>
-        <div *ngFor="let student of allStudents" class="card"
-            (click)="navigateToStudent(student._id)">
+        <div *ngFor="let student of allStudents" class="card" (click)="navigateToStudent(student._id)">
             <p><strong>{{ student.first_name }} <br> {{ student.last_name }}</strong></p>
             <p><strong>Year:</strong> {{ student.year }}</p>
             <p><strong>Set:</strong> {{ student.set }}</p>

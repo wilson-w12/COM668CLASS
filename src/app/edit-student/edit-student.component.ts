@@ -193,17 +193,17 @@ export class EditStudentComponent {
         this.teacherService.updateStudentClasses(this.studentId, studentClassesData).subscribe({
           next: () => {
             console.log('Student and classes updated successfully');
-            alert('Student details updated successfully!');
+            this.popupService.showSuccess('Student details updated successfully!');
           },
           error: (err) => {
             console.error('Error updating student classes:', err);
-            alert('Failed to update student classes.');
+            this.popupService.showError('Failed to update student classes.');
           }
         });
       },
       error: (err) => {
         console.error('Error updating student:', err);
-        alert('Failed to update student details.');
+        this.popupService.showError('Failed to update student details.');
       }
     });
   }
