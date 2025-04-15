@@ -30,8 +30,7 @@ export class AuthGuard implements CanActivate {
         const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
         if (requiresAdmin && !isAdmin) {
-          this.popupService.showError('Unauthorised');
-          this.router.navigate([`/home`]);
+          return this.router.createUrlTree(['/home']);
         }
 
         return true;

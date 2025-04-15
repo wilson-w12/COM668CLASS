@@ -4,12 +4,10 @@ import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { PopupNotificationService } from '../services/popup-notification.service';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
-  let popupServiceSpy: jasmine.SpyObj<PopupNotificationService>;
   let router: Router;
 
   beforeEach(() => {
@@ -20,14 +18,12 @@ describe('AuthGuard', () => {
       imports: [RouterTestingModule],
       providers: [
         AuthGuard,
-        { provide: AuthService, useValue: authSpy },
-        { provide: PopupNotificationService, useValue: popupSpy }
+        { provide: AuthService, useValue: authSpy }
       ]
     });
 
     guard = TestBed.inject(AuthGuard);
     authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
-    popupServiceSpy = TestBed.inject(PopupNotificationService) as jasmine.SpyObj<PopupNotificationService>;
     router = TestBed.inject(Router);
   });
 
@@ -66,7 +62,6 @@ describe('AuthGuard', () => {
     const route = { data: { requiresAdmin: true } } as any;
     guard.canActivate(route, {} as any).subscribe(result => {
       expect(result).toEqual(router.createUrlTree(['/home']));
-      expect(popupServiceSpy.showError).toHaveBeenCalledWith('Unauthorised');
       done();
     });
   });
@@ -78,7 +73,6 @@ describe('AuthGuard', () => {
     const route = { data: { requiresAdmin: true } } as any;
     guard.canActivate(route, {} as any).subscribe(result => {
       expect(result).toBeTrue();
-      expect(popupServiceSpy.showError).not.toHaveBeenCalled();
       done();
     });
   });
