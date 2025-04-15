@@ -8,14 +8,19 @@ import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 export class AuthService {
   // private apiUrl = 'http://localhost:5000/api'; 
   // private tokenValidationUrl = 'http://localhost:5000/api/validate-token';
-   private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
-   private tokenValidationUrl = 'https://flask-backend-no8c.onrender.com/api/validate-token'; // Render backend API URL
+  private apiUrl = 'https://flask-backend-no8c.onrender.com/api'; // Render backend API URL
+  private tokenValidationUrl = 'https://flask-backend-no8c.onrender.com/api/validate-token'; // Render backend API URL
 
   // Track authentication state
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
-  private isAdminSubject = new BehaviorSubject<boolean>(false); 
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
+    const token = localStorage.getItem('token');
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    this.isLoggedInSubject.next(!!token);
+    this.isAdminSubject.next(isAdmin);
+    
     this.validateToken();
   }
 
@@ -39,12 +44,12 @@ export class AuthService {
       map((response) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('isAdmin', response.isAdmin);
-        this.isLoggedInSubject.next(true); 
-        this.isAdminSubject.next(response.isAdmin); 
+        this.isLoggedInSubject.next(true);
+        this.isAdminSubject.next(response.isAdmin);
         return response;
       }),
       catchError((error) => {
-        this.isLoggedInSubject.next(false); 
+        this.isLoggedInSubject.next(false);
         this.isAdminSubject.next(false);
         throw error;
       })
@@ -55,17 +60,17 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('isAdmin');
-    this.isLoggedInSubject.next(false); 
+    this.isLoggedInSubject.next(false);
     this.isAdminSubject.next(false);
   }
 
   // Validate token and set login state
   validateToken(): void {
     const token = localStorage.getItem('token');
-    const isAdmin = localStorage.getItem('isAdmin') === 'true'; 
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
     if (!token) {
-      this.isLoggedInSubject.next(false); 
-      this.isAdminSubject.next(false); 
+      this.isLoggedInSubject.next(false);
+      this.isAdminSubject.next(false);
       return;
     }
 
@@ -73,7 +78,7 @@ export class AuthService {
       next: (response) => {
         this.isLoggedInSubject.next(response.valid);
         if (response.valid) {
-          this.isAdminSubject.next(isAdmin); 
+          this.isAdminSubject.next(isAdmin);
         }
       },
       error: () => {
