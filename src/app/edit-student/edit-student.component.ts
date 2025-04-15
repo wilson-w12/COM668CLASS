@@ -14,19 +14,21 @@ import { PopupNotificationService } from '../../services/popup-notification.serv
 export class EditStudentComponent {
   studentId!: string;
   studentDetails: any = null;
-  studentForm: FormGroup;
+  studentClasses: any = null;
 
-  subjects = [
-    'Art', 'Biology', 'Chemistry', 'Computer Science', 'English',
-    'Geography', 'History', 'Maths', 'Music', 'Physics'
-  ];
+  studentForm: FormGroup;
+  teacherControls: { [subject: string]: FormControl } = {};
+  targetGradeControls: { [subject: string]: FormControl } = {};
+
   genders = ['Male', 'Female', 'Other'];
   years = ['8', '9', '10', '11', '12'];
   sets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   grades = ['A*', 'A', 'B', 'C', 'F'];
+  subjects = [
+    'Art', 'Biology', 'Chemistry', 'Computer Science', 'English',
+    'Geography', 'History', 'Maths', 'Music', 'Physics'
+  ];
 
-  targetGradeControls: { [subject: string]: FormControl<string | null> } = {};
-  teacherControls: { [subject: string]: FormControl } = {};
   teachersMap: { [subject: string]: { class_id: string, name: string, year: string, set: string }[] } = {};
 
   constructor(
@@ -42,17 +44,18 @@ export class EditStudentComponent {
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       year: ['', Validators.required],
-      set: ['', Validators.required],
+      set: ['', Validators.required]
     });
 
     this.subjects.forEach(subject => {
-      this.targetGradeControls[subject] = new FormControl('', Validators.required);
       this.teacherControls[subject] = new FormControl('', Validators.required);
+      this.targetGradeControls[subject] = new FormControl('', Validators.required);
       this.teachersMap[subject] = [];
 
+      // Update student class object on change
       this.teacherControls[subject].valueChanges.subscribe(selectedClassId => {
         if (selectedClassId) {
-          this.studentForm.patchValue({ [subject]: selectedClassId });
+          this.studentForm.get(subject)?.setValue(selectedClassId);
         }
       });
     });
@@ -68,6 +71,7 @@ export class EditStudentComponent {
     this.teacherService.getStudentClasses(studentId).subscribe({
       next: (data) => {
         this.studentDetails = data.student;
+        this.studentClasses = data.classes;
 
         this.studentForm.patchValue({
           firstName: data.student.first_name,
@@ -77,7 +81,6 @@ export class EditStudentComponent {
           set: data.student.set
         });
 
-        // Populate target grades
         if (data.student.target_grades) {
           Object.entries(data.student.target_grades).forEach(([subject, grade]) => {
             if (this.targetGradeControls[subject]) {
@@ -86,8 +89,7 @@ export class EditStudentComponent {
           });
         }
 
-        // Populate teachers
-        data.classes.forEach((classData: any) => {
+        this.studentClasses.forEach((classData: any) => {
           const subject = classData.subject;
           const classId = classData._id;
           if (this.teacherControls[subject]) {
@@ -112,6 +114,7 @@ export class EditStudentComponent {
           year: classData.year,
           set: classData.set
         }));
+        this.autoSelectTeachers();
       },
       () => {
         this.popupService.showError('Unable to load classes for subject: ' + subject);
@@ -119,16 +122,48 @@ export class EditStudentComponent {
     );
   }
 
-  validateStudentForm(): boolean {
+  autoSelectTeachers(): void {
+    const selectedYear = this.studentForm.get('year')?.value;
+    const selectedSet = this.studentForm.get('set')?.value;
+
+    if (!selectedYear || !selectedSet) return;
+
+    this.subjects.forEach(subject => {
+      const matchingClass = this.teachersMap[subject].find(
+        teacher => teacher.year === selectedYear && teacher.set === selectedSet
+      );
+      if (matchingClass) {
+        this.teacherControls[subject].setValue(matchingClass.class_id);
+      }
+    });
+  }
+
+  clearIfNotValid(
+    control: FormControl,
+    validOptions: { class_id: string, name: string, year: string, set: string }[] | string[]
+  ): void {
+    if (validOptions.length === 0) return;
+    if (typeof validOptions[0] === 'string') {
+      if (!(validOptions as string[]).includes(control.value)) {
+        control.setValue('');
+      }
+    } else {
+      if (!(validOptions as { class_id: string }[]).some(option => option.class_id === control.value)) {
+        control.setValue('');
+      }
+    }
+  }
+
+  validateForm(): boolean {
     this.studentForm.markAllAsTouched();
-    const gradesValid = Object.values(this.targetGradeControls).every(c => c.valid);
-    const teachersValid = Object.values(this.teacherControls).every(c => c.valid);
+    const gradesValid = Object.values(this.targetGradeControls).every(control => control.valid);
+    const teachersValid = Object.values(this.teacherControls).every(control => control.valid);
     return this.studentForm.valid && gradesValid && teachersValid;
   }
 
   save(): void {
-    if (!this.validateStudentForm()) {
-      this.popupService.showError('Please fill in all required fields correctly.');
+    if (!this.validateForm()) {
+      this.popupService.showError("Please fill in all required fields correctly.");
       return;
     }
 
