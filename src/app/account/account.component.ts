@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeacherService } from '../../services/teacher.service';
 import { PopupNotificationService } from '../../services/popup-notification.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -28,7 +29,7 @@ export class AccountComponent implements OnInit {
   newPassword: string = '';
   confirmPassword: string = '';
 
-  constructor(private teacherService: TeacherService, private http: HttpClient, private popupService: PopupNotificationService, private router: Router,) { }
+  constructor(private teacherService: TeacherService, private authService: AuthService, private http: HttpClient, private popupService: PopupNotificationService, private router: Router,) { }
 
   ngOnInit() {
     this.fetchTeacherDetails();
@@ -141,8 +142,9 @@ export class AccountComponent implements OnInit {
 
   // Sign out user and clear token
   signOut() {
-    localStorage.removeItem('token'); 
+    this.authService.logout(); 
     this.popupService.showSuccess('You have successfully signed out!');
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 }
