@@ -15,11 +15,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { PopupNotificationService } from '../../services/popup-notification.service';
 
 describe('EditStudentComponent', () => {
   let component: EditStudentComponent;
   let fixture: ComponentFixture<EditStudentComponent>;
   let teacherServiceSpy: jasmine.SpyObj<TeacherService>;
+  let popupServiceSpy: jasmine.SpyObj<PopupNotificationService>;
 
   beforeEach(async () => {
     const teacherSpy = jasmine.createSpyObj('TeacherService', [
@@ -28,6 +30,8 @@ describe('EditStudentComponent', () => {
       'updateStudent',
       'updateStudentClasses'
     ]);
+
+    const popupSpy = jasmine.createSpyObj('PopupNotificationService', ['showSuccess', 'showError']);
 
     await TestBed.configureTestingModule({
       declarations: [EditStudentComponent],
@@ -47,6 +51,7 @@ describe('EditStudentComponent', () => {
       ],
       providers: [
         { provide: TeacherService, useValue: teacherSpy },
+        { provide: PopupNotificationService, useValue: popupSpy },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -64,6 +69,7 @@ describe('EditStudentComponent', () => {
     fixture = TestBed.createComponent(EditStudentComponent);
     component = fixture.componentInstance;
     teacherServiceSpy = TestBed.inject(TeacherService) as jasmine.SpyObj<TeacherService>;
+    popupServiceSpy = TestBed.inject(PopupNotificationService) as jasmine.SpyObj<PopupNotificationService>;
 
     teacherServiceSpy.getStudentClasses.and.returnValue(of({
       student: {
@@ -79,7 +85,7 @@ describe('EditStudentComponent', () => {
 
     teacherServiceSpy.getClasses.and.callFake(() => of({ classes: [] }));
 
-    fixture.detectChanges(); 
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -93,51 +99,11 @@ describe('EditStudentComponent', () => {
     });
   });
 
-  /*it('should fetch student classes and populate form', fakeAsync(() => {
-    const mockStudent = {
-      first_name: 'John',
-      last_name: 'Doe',
-      gender: 'Male',
-      year: '10',
-      set: 'B',
-      target_grades: { Maths: 'A', English: 'B' }
-    };
-
-    const mockClasses = [
-      { _id: 'class1', subject: 'Maths' },
-      { _id: 'class2', subject: 'English' }
-    ];
-
-    component.subjects = ['Maths', 'English'];
-    component.subjects.forEach((subject: string) => {
-      component.teacherControls[subject] = new FormControl('');
-      component.targetGradeControls[subject] = new FormControl('');
-      component.teachersMap[subject] = [];
-    });
-
-    teacherServiceSpy.getStudentClasses.and.returnValue(of({
-      student: mockStudent,
-      classes: mockClasses
-    }));
-
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-
-    expect(component.student.firstName).toBe('John');
-    expect(component.genderControl.value).toBe('Male');
-    expect(component.targetGradeControls['Maths'].value).toBe('A');
-    expect(component.teacherControls['Maths'].value).toBe('class1');
-    expect(component.studentClasses).toEqual(mockClasses);
-    expect(teacherServiceSpy.getStudentClasses).toHaveBeenCalledWith('123');
-  }));*/
-
   it('should handle errors when fetching student classes', fakeAsync(() => {
-    spyOn(console, 'error');
     teacherServiceSpy.getStudentClasses.and.returnValue(throwError(() => new Error('Failed to fetch')));
     component.ngOnInit();
     tick();
-    expect(console.error).toHaveBeenCalled();
+    expect(popupServiceSpy.showError).toHaveBeenCalledWith('Unable to load student details. Please try again.');
   }));
 
   it('should fetch teacher classes per subject and update teachersMap', fakeAsync(() => {
@@ -156,42 +122,74 @@ describe('EditStudentComponent', () => {
 
   it('should save student details and classes successfully', fakeAsync(() => {
     component.studentId = '123';
-    component.student.firstName = 'Test';
-    component.student.lastName = 'Student';
-    component.genderControl.setValue('Female');
-    component.yearControl.setValue('9');
-    component.setControl.setValue('A');
-    component.teacherControls['Maths'] = new FormControl('maths123');
-    component.targetGradeControls['Maths'] = new FormControl('A');
+    component.studentForm.patchValue({
+      firstName: 'Test',
+      lastName: 'Student',
+      gender: 'Female',
+      year: '9',
+      set: 'A'
+    });
+
+    component.subjects.forEach(subject => {
+      component.teacherControls[subject].setValue('class123');
+      component.targetGradeControls[subject].setValue('A');
+    });
 
     teacherServiceSpy.updateStudent.and.returnValue(of({}));
     teacherServiceSpy.updateStudentClasses.and.returnValue(of({}));
 
-    spyOn(window, 'alert');
     component.save();
     tick();
 
     expect(teacherServiceSpy.updateStudent).toHaveBeenCalled();
     expect(teacherServiceSpy.updateStudentClasses).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalledWith('Student details updated successfully!');
+    expect(popupServiceSpy.showSuccess).toHaveBeenCalledWith('Student details updated successfully!');
   }));
 
   it('should handle error when updating student fails', fakeAsync(() => {
     component.studentId = '123';
+    component.studentForm.patchValue({
+      firstName: 'Test',
+      lastName: 'Student',
+      gender: 'Female',
+      year: '9',
+      set: 'A'
+    });
+
+    component.subjects.forEach(subject => {
+      component.teacherControls[subject].setValue('class123');
+      component.targetGradeControls[subject].setValue('A');
+    });
+
     teacherServiceSpy.updateStudent.and.returnValue(throwError(() => new Error('Update failed')));
-    spyOn(window, 'alert');
+
     component.save();
     tick();
-    expect(window.alert).toHaveBeenCalledWith('Failed to update student details.');
+
+    expect(popupServiceSpy.showError).toHaveBeenCalledWith('Failed to update student details.');
   }));
 
   it('should handle error when updating student classes fails', fakeAsync(() => {
     component.studentId = '123';
+    component.studentForm.patchValue({
+      firstName: 'Test',
+      lastName: 'Student',
+      gender: 'Female',
+      year: '9',
+      set: 'A'
+    });
+
+    component.subjects.forEach(subject => {
+      component.teacherControls[subject].setValue('class123');
+      component.targetGradeControls[subject].setValue('A');
+    });
+
     teacherServiceSpy.updateStudent.and.returnValue(of({}));
     teacherServiceSpy.updateStudentClasses.and.returnValue(throwError(() => new Error('Class update failed')));
-    spyOn(window, 'alert');
+
     component.save();
     tick();
-    expect(window.alert).toHaveBeenCalledWith('Failed to update student classes.');
+
+    expect(popupServiceSpy.showError).toHaveBeenCalledWith('Failed to update student classes.');
   }));
 });
