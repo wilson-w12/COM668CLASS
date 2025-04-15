@@ -22,22 +22,27 @@ import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'classes', component: ClassesComponent },
-  { path: 'classes/:class_id', component: ClassComponent }, 
-  { path: 'classes/:class_id/assignments', component: ClassAssignmentsComponent },
-  { path: 'classes/:class_id/exams', component: ClassExamsComponent },
-  { path: 'classes/:class_id/assignments/add-assignment', component: AddAssignmentComponent },
-  { path: 'classes/:class_id/assignments/:assignment_id', component: ClassAssignmentDetailsComponent },
-  { path: 'exams/add-exam', component: AddExamComponent },
-  { path: 'exams/:exam_id', component: ClassExamDetailsComponent },
-  { path: 'students/add-student', component: AddStudentComponent },
-  { path: 'students', component: AllStudentsComponent },
-  { path: 'students/:student_id/edit-student', component: EditStudentComponent },
-  { path: 'students/:student_id', component: StudentComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'classes', component: ClassesComponent, canActivate: [AuthGuard] },
+  { path: 'classes/:class_id', component: ClassComponent, canActivate: [AuthGuard] },
+  { path: 'classes/:class_id/assignments', component: ClassAssignmentsComponent, canActivate: [AuthGuard] },
+  { path: 'classes/:class_id/exams', component: ClassExamsComponent, canActivate: [AuthGuard] },
+  { path: 'classes/:class_id/assignments/add-assignment', component: AddAssignmentComponent, canActivate: [AuthGuard] },
+  { path: 'classes/:class_id/assignments/:assignment_id', component: ClassAssignmentDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'exams/add-exam', component: AddExamComponent, canActivate: [AuthGuard] },
+  { path: 'exams/:exam_id', component: ClassExamDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'students/add-student', component: AddStudentComponent, canActivate: [AuthGuard] },
+  { path: 'students', component: AllStudentsComponent, canActivate: [AuthGuard] },
+  { path: 'students/:student_id/edit-student', component: EditStudentComponent, canActivate: [AuthGuard] },
+  { path: 'students/:student_id', component: StudentComponent, canActivate: [AuthGuard] },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'admin/create-teacher', component: AddTeacherComponent, canActivate: [AuthGuard], data: { requiresAdmin: true } },
+  {
+    path: 'admin/create-teacher',
+    component: AddTeacherComponent,
+    canActivate: [AuthGuard],
+    data: { requiresAdmin: true }
+  },
   { path: '**', redirectTo: '/login' }
 ];
 
