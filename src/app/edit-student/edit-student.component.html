@@ -1,116 +1,146 @@
 <div class="document-details-container">
-  <div class="top-bar">
-    <div class="row">
-      <div class="document-links">
-        <h2>Students:</h2>
+    <div class="top-bar">
+      <div class="row">
+        <div class="document-links">
+          <h2>Students:</h2>
+        </div>
+        <div class="document-links-2">
+          <h2>&nbsp;{{ studentDetails?.first_name }} {{ studentDetails?.last_name }}: Edit Student</h2>
+        </div>
       </div>
-      <div class="document-links-2">
-        <h2>&nbsp;{{ studentDetails?.first_name }} {{ studentDetails?.last_name }}: Edit Student</h2>
+      <div class="document-edit-button">
+        <button (click)="save()">Save</button>
       </div>
     </div>
-    <div class="document-edit-button">
-      <button (click)="save()">Save</button>
-    </div>
-  </div>
-
-  <div class="add-student-container" [formGroup]="studentForm">
-    <div class="add-student-content">
-      <div class="student-details-container">
-        <h2>Student Details</h2>
-
-        <div class="form-group">
-          <h3>First Name *</h3>
-          <mat-form-field appearance="outline">
-            <mat-label>First Name</mat-label>
-            <input matInput formControlName="firstName">
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <h3>Last Name *</h3>
-          <mat-form-field appearance="outline">
-            <mat-label>Last Name</mat-label>
-            <input matInput formControlName="lastName">
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <h3>Gender *</h3>
-          <mat-form-field appearance="outline">
-            <mat-label>Gender</mat-label>
-            <mat-select formControlName="gender">
-              <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <h3>Year *</h3>
-          <mat-form-field appearance="outline">
-            <mat-label>Year</mat-label>
-            <mat-select formControlName="year">
-              <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <h3>Set *</h3>
-          <mat-form-field appearance="outline">
-            <mat-label>Set</mat-label>
-            <mat-select formControlName="set">
-              <mat-option *ngFor="let set of sets" [value]="set">{{ set }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="subject-details-container">
-        <h2>Subjects:</h2>
-        <div class="subjects">
-          <div class="subject-column">
-            <div *ngFor="let subject of subjects.slice(0, 5)" class="subject-form-group">
-              <h3>{{ subject }}</h3>
-              <mat-form-field appearance="outline">
-                <mat-label>{{ subject }} Teacher</mat-label>
-                <mat-select [formControl]="teacherControls[subject]">
-                  <mat-option *ngFor="let teacher of teachersMap[subject]" [value]="teacher.class_id">
-                    {{ teacher.name }} - Year {{ teacher.year }}: Set {{ teacher.set }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>{{ subject }} Target Grade</mat-label>
-                <mat-select [formControl]="targetGradeControls[subject]">
-                  <mat-option *ngFor="let grade of grades" [value]="grade">{{ grade }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+  
+    <div class="add-student-container" [formGroup]="studentForm">
+      <div class="add-student-content">
+        <div class="student-details-container">
+          <h2>Student Details</h2>
+  
+          <div class="form-group">
+            <h3>First Name *</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName">
+            </mat-form-field>
+            <span *ngIf="studentForm.get('firstName')?.invalid && studentForm.get('firstName')?.touched" class="error">
+              First name is required.
+            </span>
           </div>
-
-          <div class="subject-column">
-            <div *ngFor="let subject of subjects.slice(5)" class="subject-form-group">
-              <h3>{{ subject }}</h3>
-              <mat-form-field appearance="outline">
-                <mat-label>{{ subject }} Teacher</mat-label>
-                <mat-select [formControl]="teacherControls[subject]">
-                  <mat-option *ngFor="let teacher of teachersMap[subject]" [value]="teacher.class_id">
-                    {{ teacher.name }} - Year {{ teacher.year }}: Set {{ teacher.set }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>{{ subject }} Target Grade</mat-label>
-                <mat-select [formControl]="targetGradeControls[subject]">
-                  <mat-option *ngFor="let grade of grades" [value]="grade">{{ grade }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+  
+          <div class="form-group">
+            <h3>Last Name *</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName">
+            </mat-form-field>
+            <span *ngIf="studentForm.get('lastName')?.invalid && studentForm.get('lastName')?.touched" class="error">
+              Last name is required.
+            </span>
+          </div>
+  
+          <div class="form-group">
+            <h3>Gender *</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="studentForm.get('gender')?.invalid && studentForm.get('gender')?.touched" class="error">
+              Gender is required.
+            </span>
+          </div>
+  
+          <div class="form-group">
+            <h3>Year *</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Year</mat-label>
+              <mat-select formControlName="year">
+                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="studentForm.get('year')?.invalid && studentForm.get('year')?.touched" class="error">
+              Year is required.
+            </span>
+          </div>
+  
+          <div class="form-group">
+            <h3>Set *</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Set</mat-label>
+              <mat-select formControlName="set">
+                <mat-option *ngFor="let set of sets" [value]="set">{{ set }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="studentForm.get('set')?.invalid && studentForm.get('set')?.touched" class="error">
+              Set is required.
+            </span>
           </div>
         </div>
+  
+        <div class="subject-details-container">
+          <h2>Subjects:</h2>
+          <div class="subjects">
+            <div class="subject-column">
+              <div *ngFor="let subject of subjects.slice(0, 5)" class="subject-form-group">
+                <h3>{{ subject }}</h3>
+  
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ subject }} Teacher</mat-label>
+                  <mat-select [formControl]="teacherControls[subject]">
+                    <mat-option *ngFor="let teacher of teachersMap[subject]" [value]="teacher.class_id">
+                      {{ teacher.name }} - Year {{ teacher.year }}: Set {{ teacher.set }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="teacherControls[subject].invalid && teacherControls[subject].touched" class="error">
+                  {{ subject }} teacher is required.
+                </span>
+  
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ subject }} Target Grade</mat-label>
+                  <mat-select [formControl]="targetGradeControls[subject]">
+                    <mat-option *ngFor="let grade of grades" [value]="grade">{{ grade }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="targetGradeControls[subject].invalid && targetGradeControls[subject].touched" class="error">
+                  {{ subject }} target grade is required.
+                </span>
+              </div>
+            </div>
+  
+            <div class="subject-column">
+              <div *ngFor="let subject of subjects.slice(5)" class="subject-form-group">
+                <h3>{{ subject }}</h3>
+  
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ subject }} Teacher</mat-label>
+                  <mat-select [formControl]="teacherControls[subject]">
+                    <mat-option *ngFor="let teacher of teachersMap[subject]" [value]="teacher.class_id">
+                      {{ teacher.name }} - Year {{ teacher.year }}: Set {{ teacher.set }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="teacherControls[subject].invalid && teacherControls[subject].touched" class="error">
+                  {{ subject }} teacher is required.
+                </span>
+  
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ subject }} Target Grade</mat-label>
+                  <mat-select [formControl]="targetGradeControls[subject]">
+                    <mat-option *ngFor="let grade of grades" [value]="grade">{{ grade }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="targetGradeControls[subject].invalid && targetGradeControls[subject].touched" class="error">
+                  {{ subject }} target grade is required.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  
