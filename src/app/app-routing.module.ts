@@ -18,6 +18,7 @@ import { AddTeacherComponent } from './add-teacher/add-teacher.component';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { AddExamComponent } from './add-exam/add-exam.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -36,7 +37,7 @@ const routes: Routes = [
   { path: 'students/:student_id', component: StudentComponent },
   { path: 'account', component: AccountComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'admin/create-teacher', component: AddTeacherComponent },
+  { path: 'admin/create-teacher', component: AddTeacherComponent, canActivate: [AuthGuard], data: { requiresAdmin: true } },
   { path: '**', redirectTo: '/login' }
 ];
 
