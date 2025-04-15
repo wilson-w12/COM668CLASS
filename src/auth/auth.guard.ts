@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
 
         if (requiresAdmin && !isAdmin) {
           this.popupService.showError('Unauthorised');
-          return this.router.createUrlTree(['/home']);
+          this.router.navigate([`/home`]);
         }
 
         return true;
