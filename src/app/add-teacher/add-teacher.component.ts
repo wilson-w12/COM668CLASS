@@ -76,6 +76,8 @@ export class AddTeacherComponent {
   // Validate form
   validateTeacherForm(): boolean {
     this.teacherForm.markAllAsTouched(); 
+    console.log("this.teacherForm.valid: ", this.teacherForm.valid)
+    console.log("this.isClassesValid(): ", this.isClassesValid())
     return this.teacherForm.valid && this.isClassesValid();
   }
 
