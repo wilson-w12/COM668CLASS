@@ -40,11 +40,8 @@ export class AddTeacherComponent {
         ]
       ],
       confirmPassword: ['', Validators.required],
-      subjects: ['', Validators.required],
+      subjects: [[], Validators.required],
       classes: this.fb.array([]),
-      subject: ['', Validators.required],
-      year: ['', Validators.required],
-      set: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });
   }
 
