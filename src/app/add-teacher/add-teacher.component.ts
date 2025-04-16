@@ -73,29 +73,7 @@ export class AddTeacherComponent {
   // Validate form
   validateTeacherForm(): boolean {
     this.teacherForm.markAllAsTouched(); 
-  
-    const invalidControls: string[] = [];
-    Object.keys(this.teacherForm.controls).forEach(key => {
-      const control = this.teacherForm.get(key);
-      if (control && control.invalid) {
-        invalidControls.push(key);
-        console.warn(`Control "${key}" is invalid. Errors:`, control.errors);
-      }
-    });
-  
-    // Log FormArray classes separately
-    this.classes.controls.forEach((classGroup, index) => {
-      ['subject', 'year', 'set'].forEach(field => {
-        const control = classGroup.get(field);
-        if (control && control.invalid) {
-          console.warn(`Class ${index} field "${field}" is invalid. Errors:`, control.errors);
-        }
-      });
-    });
-  
-    const isValid = this.teacherForm.valid && this.isClassesValid();
-    console.log("Form valid?", isValid);
-    return isValid;
+    return this.teacherForm.valid && this.isClassesValid();
   }
   
 
